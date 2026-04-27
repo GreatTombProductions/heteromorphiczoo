@@ -86,7 +86,7 @@
   flex-direction: column;
   gap: 0.25rem;
   padding: 1.25rem 1.5rem;
-  background: rgba(45, 15, 46, 0.25);
+  background: var(--bg-card-subtle);
   border: 1px solid rgba(79, 184, 196, 0.12);
   border-radius: 2px;
 }
@@ -116,7 +116,7 @@
 .quote {
   padding: 1.5rem 2rem;
   border-left: 3px solid var(--hz-cyan);
-  background: rgba(45, 15, 46, 0.2);
+  background: var(--bg-card-light);
 }
 
 .quoteText {
@@ -162,7 +162,7 @@
   font-size: var(--size-base);
   color: var(--text-primary);
   padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(74, 25, 66, 0.2);
+  border-bottom: 1px solid var(--border-card-light);
 }
 
 .lineupMember:last-child {

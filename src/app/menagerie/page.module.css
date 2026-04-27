@@ -51,8 +51,8 @@
 .census {
   margin-bottom: 4rem;
   padding: 2.5rem 2rem;
-  background: rgba(45, 15, 46, 0.35);
-  border: 1px solid rgba(74, 25, 66, 0.4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
   border-radius: 2px;
   text-align: center;
 }
@@ -115,8 +115,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
-  background: rgba(45, 15, 46, 0.5);
-  border: 1px solid rgba(74, 25, 66, 0.3);
+  background: var(--bg-card-heavy);
+  border: 1px solid var(--border-card-subtle);
   border-radius: 2px;
   border-left: 3px solid var(--text-secondary);
 }
@@ -176,7 +176,7 @@
   display: grid;
   grid-template-columns: 1fr 180px 80px;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid rgba(74, 25, 66, 0.5);
+  border-bottom: 1px solid var(--border-card-heavy);
 }
 
 .rollHeaderName,
@@ -202,14 +202,14 @@
   display: grid;
   grid-template-columns: 1fr 180px 80px;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid rgba(74, 25, 66, 0.2);
+  border-bottom: 1px solid var(--border-card-light);
   border-left: 3px solid transparent;
   transition: background 0.2s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .rollRow:hover {
-    background: rgba(45, 15, 46, 0.5);
+    background: var(--bg-card-heavy);
   }
 }
 

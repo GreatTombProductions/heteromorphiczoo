@@ -27,6 +27,19 @@
   --accent-hover:      var(--hz-glow-rose);
   --accent-gold:       var(--hz-gold);
 
+  /* Card surface tokens — derived from hz-violet (45, 15, 46) */
+  --bg-card-light:     rgba(45, 15, 46, 0.2);
+  --bg-card-subtle:    rgba(45, 15, 46, 0.25);
+  --bg-card:           rgba(45, 15, 46, 0.35);
+  --bg-card-medium:    rgba(45, 15, 46, 0.4);
+  --bg-card-heavy:     rgba(45, 15, 46, 0.5);
+
+  /* Card border tokens — derived from hz-violet at higher lightness */
+  --border-card-light: rgba(74, 25, 66, 0.2);
+  --border-card-subtle:rgba(74, 25, 66, 0.3);
+  --border-card:       rgba(74, 25, 66, 0.4);
+  --border-card-heavy: rgba(74, 25, 66, 0.5);
+
   /* Typography scale */
   --font-display: "UnifrakturCook", "MedievalSharp", serif;
   --font-body: var(--font-body-loaded, "Cormorant Garamond"), "EB Garamond", "Georgia", serif;

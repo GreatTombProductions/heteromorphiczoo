@@ -91,7 +91,7 @@
 }
 
 .subheadline {
-  font-family: var(--font-body-loaded, var(--font-body));
+  font-family: var(--font-body);
   font-size: var(--size-lg);
   font-style: italic;
   color: var(--text-secondary);
@@ -105,7 +105,7 @@
 }
 
 .body p {
-  font-family: var(--font-body-loaded, var(--font-body));
+  font-family: var(--font-body);
   font-size: var(--size-lg);
   line-height: 1.7;
   color: var(--text-primary);
@@ -124,7 +124,7 @@
   padding: 0.85rem 2.25rem;
   background: var(--accent-primary);
   color: var(--hz-bone);
-  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-family: var(--font-functional);
   font-size: var(--size-base);
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -149,7 +149,7 @@
   padding: 0.85rem 2.25rem;
   background: transparent;
   color: var(--accent-primary);
-  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-family: var(--font-functional);
   font-size: var(--size-base);
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -169,7 +169,7 @@
 
 /* --- Credits --- */
 .credits {
-  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-family: var(--font-functional);
   font-size: var(--size-sm);
   color: var(--text-secondary);
   letter-spacing: 0.01em;
@@ -187,8 +187,8 @@
   gap: 1rem;
   margin-top: 1.5rem;
   padding: 2.5rem 2rem;
-  background: rgba(45, 15, 46, 0.5);
-  border: 1px solid rgba(74, 25, 66, 0.5);
+  background: var(--bg-card-heavy);
+  border: 1px solid var(--border-card-heavy);
   border-radius: 2px;
   width: 100%;
   max-width: 480px;
@@ -217,7 +217,7 @@
   border: 1px solid var(--bg-elevated);
   border-right: none;
   border-radius: 2px 0 0 2px;
-  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-family: var(--font-functional);
   font-size: var(--size-base);
   outline: none;
   transition: border-color 0.2s ease;
@@ -242,7 +242,7 @@
   color: var(--hz-bone);
   border: 1px solid var(--accent-primary);
   border-radius: 0 2px 2px 0;
-  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-family: var(--font-functional);
   font-size: var(--size-base);
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -263,7 +263,7 @@
 }
 
 .captureSuccess {
-  font-family: var(--font-body-loaded, var(--font-body));
+  font-family: var(--font-body);
   font-size: var(--size-lg);
   color: var(--accent-gold);
   font-style: italic;
@@ -272,7 +272,7 @@
 }
 
 .captureError {
-  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-family: var(--font-functional);
   font-size: var(--size-sm);
   color: var(--hz-crimson);
   margin-top: -0.5rem;
@@ -280,7 +280,7 @@
 
 /* --- Atmospheric line --- */
 .atmospheric {
-  font-family: var(--font-body-loaded, var(--font-body));
+  font-family: var(--font-body);
   font-size: var(--size-lg);
   font-style: italic;
   color: var(--text-secondary);
@@ -295,10 +295,10 @@
   z-index: 1;
   padding: 2rem;
   text-align: center;
-  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-family: var(--font-functional);
   font-size: var(--size-sm);
   color: var(--text-secondary);
-  border-top: 1px solid rgba(74, 25, 66, 0.3);
+  border-top: 1px solid var(--border-card-subtle);
 }
 
 /* ============================================================

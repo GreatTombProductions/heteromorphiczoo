@@ -19,7 +19,7 @@
 }
 
 .line {
-  font-family: var(--font-body-loaded, var(--font-body));
+  font-family: var(--font-body);
   font-size: var(--size-lg);
   color: var(--text-secondary);
   font-style: italic;
@@ -27,7 +27,7 @@
 }
 
 .returnLink {
-  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-family: var(--font-functional);
   font-size: var(--size-base);
   color: var(--accent-primary);
   text-decoration: none;

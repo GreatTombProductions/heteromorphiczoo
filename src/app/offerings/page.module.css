@@ -51,8 +51,8 @@
 .featured {
   margin-bottom: 4rem;
   padding: 2.5rem 2rem;
-  background: rgba(45, 15, 46, 0.35);
-  border: 1px solid rgba(74, 25, 66, 0.4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
   border-radius: 2px;
   text-align: center;
 }
@@ -148,7 +148,7 @@
   font-weight: 500;
   color: var(--text-secondary);
   background: transparent;
-  border: 1px solid rgba(74, 25, 66, 0.4);
+  border: 1px solid var(--border-card);
   border-radius: 2px;
   padding: 0.4rem 0.75rem;
   cursor: pointer;
@@ -187,8 +187,8 @@
 }
 
 .card {
-  background: rgba(45, 15, 46, 0.35);
-  border: 1px solid rgba(74, 25, 66, 0.4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
   border-radius: 2px;
   overflow: hidden;
   transition: border-color 0.3s ease;
@@ -302,7 +302,7 @@
 .submitSection {
   margin-top: 5rem;
   padding-top: 3rem;
-  border-top: 1px solid rgba(74, 25, 66, 0.4);
+  border-top: 1px solid var(--border-card);
   text-align: center;
 }
 
@@ -360,8 +360,8 @@
   font-family: var(--font-functional);
   font-size: var(--size-sm);
   color: var(--text-primary);
-  background: rgba(45, 15, 46, 0.5);
-  border: 1px solid rgba(74, 25, 66, 0.5);
+  background: var(--bg-card-heavy);
+  border: 1px solid var(--border-card-heavy);
   border-radius: 2px;
   outline: none;
   transition: border-color 0.2s ease;
@@ -382,8 +382,8 @@
   font-family: var(--font-functional);
   font-size: var(--size-sm);
   color: var(--text-primary);
-  background: rgba(45, 15, 46, 0.5);
-  border: 1px solid rgba(74, 25, 66, 0.5);
+  background: var(--bg-card-heavy);
+  border: 1px solid var(--border-card-heavy);
   border-radius: 2px;
   outline: none;
   cursor: pointer;
@@ -405,8 +405,8 @@
   font-family: var(--font-functional);
   font-size: var(--size-sm);
   color: var(--text-primary);
-  background: rgba(45, 15, 46, 0.5);
-  border: 1px solid rgba(74, 25, 66, 0.5);
+  background: var(--bg-card-heavy);
+  border: 1px solid var(--border-card-heavy);
   border-radius: 2px;
   outline: none;
   resize: vertical;
