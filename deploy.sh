@@ -152,13 +152,21 @@ git remote add origin "$REMOTE_URL"
 git push -u origin main --force
 
 # Step 5: Convert to submodule
-# Remove the standalone .git (submodule will use gitdir pointer)
-rm -rf "$PROJECT_DIR/.git"
+# git submodule add needs to clone into the path, so move it aside.
+# Everything is on GitHub at this point, so the clone will have all files.
+TEMP_BACKUP="/tmp/heteromorphiczoo-backup-$$"
+mv "$PROJECT_DIR" "$TEMP_BACKUP"
 
 cd "$GREATTOMB_ROOT"
 git submodule add "$REMOTE_URL" "$REL_PATH"
 git add .gitmodules "$REL_PATH"
 git commit -m "submodule: add heteromorphiczoo ($GITHUB_ORG/$REPO_NAME)"
+
+# Restore node_modules from backup (avoid reinstall)
+if [ -d "$TEMP_BACKUP/node_modules" ]; then
+    cp -r "$TEMP_BACKUP/node_modules" "$PROJECT_DIR/"
+fi
+rm -rf "$TEMP_BACKUP"
 
 echo ""
 echo "=== First deploy complete ==="
