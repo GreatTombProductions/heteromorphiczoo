@@ -1,0 +1,190 @@
+/* ============================================================
+   Navigation — visible desktop, full-screen overlay mobile
+   Subtle, not dominant. The content is the cathedral.
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 14, 30, 0.95) 0%,
+    rgba(26, 14, 30, 0.7) 70%,
+    transparent 100%
+  );
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand:hover {
+    color: var(--accent-primary);
+  }
+}
+
+/* --- Desktop links --- */
+
+.desktopLinks {
+  display: flex;
+  gap: 2rem;
+}
+
+.link {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+  padding: 0.25rem 0;
+  position: relative;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--text-primary);
+  }
+}
+
+.link.active {
+  color: var(--accent-primary);
+}
+
+.link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--accent-primary);
+  box-shadow: 0 0 8px rgba(196, 40, 110, 0.4);
+}
+
+/* --- Mobile toggle --- */
+
+.mobileToggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  transition: all 0.3s ease;
+  position: absolute;
+  left: 8px;
+}
+
+.hamburger {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hamburger::before {
+  content: "";
+  top: -7px;
+}
+
+.hamburger::after {
+  content: "";
+  top: 7px;
+}
+
+.hamburgerOpen {
+  background: transparent;
+}
+
+.hamburgerOpen::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.hamburgerOpen::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* --- Mobile overlay --- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 14, 30, 0.97);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.overlayContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.overlayLink {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.overlayLink.active {
+  color: var(--accent-primary);
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 768px) {
+  .desktopLinks {
+    display: none;
+  }
+
+  .mobileToggle {
+    display: block;
+  }
+
+  .bar {
+    padding: 0.75rem 1.25rem;
+  }
+}

@@ -1,0 +1,81 @@
+# Heteromorphic Zoo — Reaction Video URLs
+# For seeding the Reactions Wall on heteromorphiczoo.com
+# Research date: 2026-04-26
+# Total: 3 YouTube videos + 2 TikToks + 2 social features
+#
+# NOTE: The reaction landscape is concentrated on "Ritual of Fidelity"
+# and two channels. No reaction videos found for Napalm, Your Final
+# Seconds, Avatara, Aura of Despair, or the full EP stream.
+# Ray mentioned he has "plenty of reaction videos" (council Turn 15) —
+# he likely has URLs from direct engagement that web search can't find.
+# This list should be supplemented by Ray's own collection.
+
+## YouTube Reaction Videos
+
+URL: https://www.youtube.com/watch?v=x8YZwbEW9do
+Title: HETEROMORPHIC ZOO - Ritual of Fidelity REACTION | VIOLIN BREAKDOWN?!
+Channel: Ohrion Reacts
+Song: Ritual of Fidelity
+Subscribers: ~242,000
+Date: November 25, 2024
+Type: Full reaction video
+
+URL: https://www.youtube.com/shorts/sUTIRYAtN6U
+Title: THE BEST Violin Metal Breakdown I've heard all year!
+Channel: Ohrion Reacts
+Song: Ritual of Fidelity
+Subscribers: ~242,000
+Date: ~November 2024
+Type: YouTube Short / highlight clip
+
+URL: https://www.youtube.com/watch?v=ERRrdlqNKts
+Title: Classical Death Metal?
+Channel: METALBIRB
+Song: Ritual of Fidelity
+Subscribers: ~76,600
+Date: ~Late 2024
+Type: Reaction video
+
+## TikTok Reactions (embeddable, not YouTube)
+
+URL: https://www.tiktok.com/@metalbirb/video/7434668409842879799
+Title: Classical Death Metal? Heteromorphic Zoo "Ritual Of Fidelity"
+Channel: @metalbirb
+Song: Ritual of Fidelity
+
+URL: https://www.tiktok.com/@ohrionreacts/video/7436207948579228983
+Title: This Violin Metal Breakdown gave me goosebumps! @Heteromorphic Zoo - Ritual of Fidelity
+Channel: @ohrionreacts
+Song: Ritual of Fidelity
+
+## Social Media Features (not traditional reactions, but notable)
+
+URL: https://m.facebook.com/nostalgia90smusic/videos/ritual-of-fidelity-heteromorphic-zoo/564725256388603/
+Title: Ritual of Fidelity // Heteromorphic Zoo
+Channel: Nostalgia Music Hub (Facebook)
+Song: Ritual of Fidelity
+Type: Feature/share
+
+URL: https://www.instagram.com/heavy_metal_breakdowns/reel/DDcbCACuvGG/
+Title: Breakdowns Only | @heteromorphic.zoo - Napalm
+Channel: @heavy_metal_breakdowns (Instagram)
+Song: Napalm
+Type: Breakdown clip compilation
+
+## Official Band YouTube Videos (for reference, not reactions)
+
+URL: https://youtu.be/8uQZ5Rv8yIs
+Title: Napalm (Music Video)
+Type: Official
+
+URL: https://youtu.be/nWZVq-u7Lec
+Title: Avatara (Music Video)
+Type: Official
+
+URL: https://youtu.be/nk8HDmmzojw
+Title: Ritual of Fidelity (Music Video)
+Type: Official
+
+URL: https://www.youtube.com/watch?v=Ryxpw0o8iL4
+Title: New World (Full EP Stream)
+Type: Official

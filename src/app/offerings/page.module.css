@@ -1,0 +1,510 @@
+/* ============================================================
+   Offerings Gallery — UGC Gallery + Submission
+   Featured offering gets atmospheric scale (NOT a thumbnail grid).
+   Per-category filtering. Creator name + rank on every card.
+   ============================================================ */
+
+.page {
+  min-height: 100vh;
+  padding: 8rem 2rem 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- Header --- */
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+  text-shadow:
+    0 0 40px rgba(196, 40, 110, 0.25),
+    0 0 80px rgba(196, 40, 110, 0.08);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  font-style: italic;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.loading {
+  text-align: center;
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-top: 4rem;
+}
+
+/* --- Featured Offering --- */
+
+.featured {
+  margin-bottom: 4rem;
+  padding: 2.5rem 2rem;
+  background: rgba(45, 15, 46, 0.35);
+  border: 1px solid rgba(74, 25, 66, 0.4);
+  border-radius: 2px;
+  text-align: center;
+}
+
+.featuredLabel {
+  display: inline-block;
+  font-family: var(--font-functional);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid rgba(196, 154, 60, 0.3);
+  border-radius: 2px;
+}
+
+.featuredContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.featuredImageWrap {
+  max-width: 600px;
+  width: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.featuredImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.featuredMeta {
+  max-width: 600px;
+}
+
+.featuredTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.featuredDescription {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  color: var(--text-primary);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  max-width: none;
+}
+
+.featuredCreator {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  max-width: none;
+}
+
+.creatorRank {
+  display: inline-block;
+  font-size: 0.7rem;
+  color: var(--accent-gold);
+  margin-left: 0.5rem;
+  letter-spacing: 0.04em;
+}
+
+/* --- Controls --- */
+
+.controls {
+  margin-bottom: 2.5rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.filterTab {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid rgba(74, 25, 66, 0.4);
+  border-radius: 2px;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .filterTab:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+  }
+}
+
+.filterActive {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: rgba(196, 40, 110, 0.08);
+}
+
+.filterCount {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* --- Gallery grid --- */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: rgba(45, 15, 46, 0.35);
+  border: 1px solid rgba(74, 25, 66, 0.4);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    border-color: rgba(196, 40, 110, 0.4);
+  }
+}
+
+.cardImageWrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardBody {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.featuredBadge {
+  display: inline-block;
+  font-family: var(--font-functional);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid rgba(196, 154, 60, 0.3);
+  border-radius: 2px;
+  margin-bottom: 0.5rem;
+}
+
+.categoryBadge {
+  display: inline-block;
+  font-family: var(--font-functional);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--hz-cyan);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  margin-left: 0.25rem;
+}
+
+.cardTitle {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: 0.35rem;
+}
+
+.cardDescription {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: none;
+}
+
+.cardCreator {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  max-width: none;
+}
+
+.cardLink {
+  display: inline-block;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cardLink:hover {
+    color: var(--accent-hover);
+  }
+}
+
+.emptyState {
+  text-align: center;
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-top: 4rem;
+}
+
+/* --- Submission --- */
+
+.submitSection {
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(74, 25, 66, 0.4);
+  text-align: center;
+}
+
+.submitTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+  margin-bottom: 0.75rem;
+}
+
+.submitPrompt {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 2rem;
+  max-width: none;
+}
+
+.submitToggle {
+  padding: 0.75rem 2.5rem;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--accent-primary);
+  border-radius: 2px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .submitToggle:hover {
+    background: rgba(196, 40, 110, 0.1);
+    color: var(--accent-primary);
+  }
+}
+
+.submitForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.submitInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-primary);
+  background: rgba(45, 15, 46, 0.5);
+  border: 1px solid rgba(74, 25, 66, 0.5);
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.submitInput::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.submitInput:focus {
+  border-color: var(--accent-primary);
+}
+
+.submitSelect {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-primary);
+  background: rgba(45, 15, 46, 0.5);
+  border: 1px solid rgba(74, 25, 66, 0.5);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.submitSelect:focus {
+  border-color: var(--accent-primary);
+}
+
+.submitSelect option {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+}
+
+.submitTextarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-primary);
+  background: rgba(45, 15, 46, 0.5);
+  border: 1px solid rgba(74, 25, 66, 0.5);
+  border-radius: 2px;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s ease;
+}
+
+.submitTextarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.submitTextarea:focus {
+  border-color: var(--accent-primary);
+}
+
+.submitButton {
+  padding: 0.75rem 2rem;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+  border-radius: 2px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .submitButton:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submitSuccess {
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--accent-gold);
+  max-width: none;
+}
+
+.submitError {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  color: var(--hz-crimson);
+  margin-top: 0.75rem;
+  max-width: none;
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 768px) {
+  .page {
+    padding: 6rem 1.25rem 4rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .featured {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .submitForm {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 5rem 1rem 3rem;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    gap: 0.35rem;
+  }
+
+  .filterTab {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+  }
+}

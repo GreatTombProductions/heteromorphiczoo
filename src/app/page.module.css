@@ -1,0 +1,367 @@
+/* ============================================================
+   Landing Page — The Cathedral Entrance
+   Full-viewport experience. The artwork IS the environment.
+   No above-the-fold / below-the-fold. One room.
+   ============================================================ */
+
+/* --- The outer vessel --- */
+.cathedral {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Hero background: artwork dissolved into the space --- */
+.heroBg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  background-image:
+    /* Radial vignette — magenta center bleeding to plum edges */
+    radial-gradient(
+      ellipse 80% 70% at 50% 40%,
+      rgba(196, 40, 110, 0.12) 0%,
+      rgba(45, 15, 46, 0.6) 50%,
+      rgba(26, 14, 30, 0.95) 100%
+    ),
+    /* The artwork itself — dissolved, not displayed */
+    url("/hero-bg.jpg");
+
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+
+  /* The artwork bleeds through the darkness — present but not framed */
+  opacity: 0.55;
+}
+
+/* --- The altar: centered content area --- */
+.altar {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  padding: 4rem 2rem;
+  min-height: 100vh;
+  text-align: center;
+}
+
+/* --- Band name — the architecture, not a heading --- */
+.bandName {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  text-shadow:
+    0 0 40px rgba(196, 40, 110, 0.3),
+    0 0 80px rgba(196, 40, 110, 0.1);
+  margin-bottom: 0.5rem;
+}
+
+/* --- Benediction section --- */
+.benediction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 640px;
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 0 60px rgba(196, 40, 110, 0.35),
+    0 2px 4px rgba(26, 14, 30, 0.8);
+}
+
+.subheadline {
+  font-family: var(--font-body-loaded, var(--font-body));
+  font-size: var(--size-lg);
+  font-style: italic;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.body p {
+  font-family: var(--font-body-loaded, var(--font-body));
+  font-size: var(--size-lg);
+  line-height: 1.7;
+  color: var(--text-primary);
+  max-width: 50ch;
+}
+
+/* --- Action block --- */
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.ctaPrimary {
+  display: inline-block;
+  padding: 0.85rem 2.25rem;
+  background: var(--accent-primary);
+  color: var(--hz-bone);
+  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-size: var(--size-base);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  box-shadow: 0 0 20px rgba(196, 40, 110, 0.25);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ctaPrimary:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 0 30px rgba(196, 40, 110, 0.4);
+    color: var(--hz-bone);
+  }
+}
+
+.ctaSecondary {
+  display: inline-block;
+  padding: 0.85rem 2.25rem;
+  background: transparent;
+  color: var(--accent-primary);
+  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-size: var(--size-base);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: 1px solid var(--accent-primary);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ctaSecondary:hover {
+    background: rgba(196, 40, 110, 0.1);
+    border-color: var(--accent-hover);
+  }
+}
+
+/* --- Credits --- */
+.credits {
+  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+/* --- Email capture: inscription into the ledger --- */
+.capture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 2.5rem 2rem;
+  background: rgba(45, 15, 46, 0.5);
+  border: 1px solid rgba(74, 25, 66, 0.5);
+  border-radius: 2px;
+  width: 100%;
+  max-width: 480px;
+  backdrop-filter: blur(8px);
+}
+
+.capturePrompt {
+  font-family: var(--font-display);
+  font-size: var(--size-xl);
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+}
+
+.captureForm {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  max-width: 400px;
+}
+
+.captureInput {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--bg-elevated);
+  border-right: none;
+  border-radius: 2px 0 0 2px;
+  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-size: var(--size-base);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.captureInput::placeholder {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.captureInput:focus {
+  border-color: var(--accent-primary);
+}
+
+.captureInput:disabled {
+  opacity: 0.6;
+}
+
+.captureButton {
+  padding: 0.8rem 1.5rem;
+  background: var(--accent-primary);
+  color: var(--hz-bone);
+  border: 1px solid var(--accent-primary);
+  border-radius: 0 2px 2px 0;
+  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-size: var(--size-base);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .captureButton:hover {
+    background: var(--accent-hover);
+  }
+}
+
+.captureButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.captureSuccess {
+  font-family: var(--font-body-loaded, var(--font-body));
+  font-size: var(--size-lg);
+  color: var(--accent-gold);
+  font-style: italic;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(196, 154, 60, 0.2);
+}
+
+.captureError {
+  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-size: var(--size-sm);
+  color: var(--hz-crimson);
+  margin-top: -0.5rem;
+}
+
+/* --- Atmospheric line --- */
+.atmospheric {
+  font-family: var(--font-body-loaded, var(--font-body));
+  font-size: var(--size-lg);
+  font-style: italic;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  margin-top: 2rem;
+  opacity: 0.7;
+}
+
+/* --- Footer --- */
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--font-functional-loaded, var(--font-functional));
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(74, 25, 66, 0.3);
+}
+
+/* ============================================================
+   Responsive — the cathedral adapts, it doesn't collapse
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .altar {
+    padding: 3rem 1.5rem;
+    gap: 2.5rem;
+  }
+
+  .bandName {
+    font-size: clamp(1.75rem, 8vw, 3rem);
+  }
+
+  .headline {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+
+  .capture {
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+  }
+
+  .captureForm {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .captureInput {
+    border-right: 1px solid var(--bg-elevated);
+    border-radius: 2px;
+  }
+
+  .captureButton {
+    border-radius: 2px;
+  }
+
+  .heroBg {
+    background-image:
+      radial-gradient(
+        ellipse 90% 60% at 50% 35%,
+        rgba(196, 40, 110, 0.15) 0%,
+        rgba(45, 15, 46, 0.65) 50%,
+        rgba(26, 14, 30, 0.97) 100%
+      ),
+      url("/hero-bg-mobile.jpg");
+  }
+}
+
+@media (max-width: 480px) {
+  .altar {
+    padding: 2.5rem 1rem;
+    gap: 2rem;
+  }
+
+  .body p {
+    font-size: var(--size-base);
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+}

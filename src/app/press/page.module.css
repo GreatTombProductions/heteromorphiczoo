@@ -1,0 +1,301 @@
+/* ============================================================
+   Press / EPK — The Register Break
+   Professional. Numbers-forward. More cyan, less magenta.
+   Blueprints, not cathedral. Handshake, not recruitment.
+   ============================================================ */
+
+.press {
+  min-height: 100vh;
+  padding: 8rem 2rem 6rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* --- Header: professional, not liturgical --- */
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(79, 184, 196, 0.2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.oneLiner {
+  font-family: var(--font-body);
+  font-size: var(--size-xl);
+  font-style: italic;
+  color: var(--hz-cyan);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.genre {
+  font-family: var(--font-functional);
+  font-size: var(--size-base);
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* --- Sections --- */
+
+.section {
+  margin-bottom: 3.5rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--hz-cyan);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(79, 184, 196, 0.15);
+}
+
+/* --- Bio --- */
+
+.bio {
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  line-height: 1.8;
+  color: var(--text-primary);
+  max-width: none;
+}
+
+/* --- Stats grid --- */
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(45, 15, 46, 0.25);
+  border: 1px solid rgba(79, 184, 196, 0.12);
+  border-radius: 2px;
+}
+
+.statValue {
+  font-family: var(--font-functional);
+  font-size: var(--size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.statLabel {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+}
+
+/* --- Press quotes --- */
+
+.quotes {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.quote {
+  padding: 1.5rem 2rem;
+  border-left: 3px solid var(--hz-cyan);
+  background: rgba(45, 15, 46, 0.2);
+}
+
+.quoteText {
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--text-primary);
+  max-width: none;
+}
+
+.quoteSource {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.comparisons {
+  font-family: var(--font-functional);
+  font-size: var(--size-base);
+  color: var(--text-secondary);
+}
+
+.comparisonsLabel {
+  color: var(--hz-cyan);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* --- Lineup --- */
+
+.lineup {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lineupMember {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  color: var(--text-primary);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(74, 25, 66, 0.2);
+}
+
+.lineupMember:last-child {
+  border-bottom: none;
+}
+
+/* --- External links --- */
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.externalLink {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--hz-cyan);
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border: 1px solid rgba(79, 184, 196, 0.3);
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .externalLink:hover {
+    background: rgba(79, 184, 196, 0.08);
+    border-color: var(--hz-cyan);
+    color: var(--hz-cyan);
+  }
+}
+
+/* --- Contact --- */
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+.contactLabel {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  min-width: 100px;
+}
+
+.contactValue {
+  font-family: var(--font-functional);
+  font-size: var(--size-base);
+  color: var(--hz-cyan);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contactValue:hover {
+    color: var(--text-primary);
+  }
+}
+
+/* --- EPK section --- */
+
+.epkSection {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  border-top: 1px solid rgba(79, 184, 196, 0.15);
+  margin-top: 2rem;
+}
+
+.epkText {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .press {
+    padding: 6rem 1.25rem 4rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .quote {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .links {
+    flex-direction: column;
+  }
+
+  .externalLink {
+    text-align: center;
+  }
+
+  .contact {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .contactLabel {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .press {
+    padding: 5rem 1rem 3rem;
+  }
+
+  .stat {
+    padding: 1rem;
+  }
+}

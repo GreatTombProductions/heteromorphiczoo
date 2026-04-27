@@ -1,0 +1,265 @@
+/* ============================================================
+   The Bestiary — Band Member Profiles
+   Each creature rendered with reverence and gravity.
+   ============================================================ */
+
+.bestiary {
+  min-height: 100vh;
+  padding: 8rem 2rem 6rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* --- Header --- */
+
+.header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+  text-shadow:
+    0 0 40px rgba(196, 40, 110, 0.25),
+    0 0 80px rgba(196, 40, 110, 0.08);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  font-style: italic;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* --- Members grid --- */
+
+.members {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+/* --- Individual member card --- */
+
+.member {
+  padding: 2rem 2.25rem;
+  background: rgba(45, 15, 46, 0.35);
+  border: 1px solid rgba(74, 25, 66, 0.4);
+  border-radius: 2px;
+  transition: border-color 0.3s ease;
+  position: relative;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .member:hover {
+    border-color: rgba(196, 40, 110, 0.4);
+  }
+}
+
+.memberHeader {
+  margin-bottom: 0.75rem;
+}
+
+.memberName {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.designation {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  font-style: italic;
+  color: var(--accent-gold);
+  letter-spacing: 0.02em;
+  margin-top: 0.25rem;
+}
+
+.roles {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(74, 25, 66, 0.4);
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  line-height: 1.7;
+  color: var(--text-primary);
+  max-width: none;
+}
+
+.foundingBadge {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: var(--font-functional);
+  font-size: 0.75rem;
+  color: var(--accent-gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid rgba(196, 154, 60, 0.3);
+  border-radius: 2px;
+}
+
+/* --- Section headings --- */
+
+.section {
+  margin-bottom: 4rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 0 0 30px rgba(196, 40, 110, 0.15);
+}
+
+/* --- Guest musicians --- */
+
+.guests {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.guest {
+  padding: 1.5rem;
+  background: rgba(45, 15, 46, 0.25);
+  border: 1px solid rgba(74, 25, 66, 0.3);
+  border-radius: 2px;
+  text-align: center;
+}
+
+.guestName {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.guestRole {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  font-style: italic;
+  color: var(--accent-gold);
+  margin-bottom: 0.75rem;
+}
+
+.guestNote {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: none;
+}
+
+/* --- Collaborators --- */
+
+.collaborators {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.collaborator {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(74, 25, 66, 0.25);
+}
+
+.collaborator:last-child {
+  border-bottom: none;
+}
+
+.collabName {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 180px;
+  flex-shrink: 0;
+}
+
+.collabRole {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.collabNote {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-style: italic;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .bestiary {
+    padding: 6rem 1.25rem 4rem;
+  }
+
+  .header {
+    margin-bottom: 3rem;
+  }
+
+  .members {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .guests {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .collaborator {
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .collabName {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .bestiary {
+    padding: 5rem 1rem 3rem;
+  }
+
+  .member {
+    padding: 1.5rem;
+  }
+}
