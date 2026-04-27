@@ -35,7 +35,7 @@ export const BENEDICTION = {
   bodyLine2: "Not every band says goodbye with a song.",
   ctaPrimary: "Receive the blessing",
   ctaVideo: "Witness",
-  credits: "Mixed by Chris Wiseman \u00B7 Mastered by Joel Wanasek \u00B7 Video by Scott Hansen",
+  credits: "Mixed by Ray Heberer \u00B7 Produced by Greg Thomas \u00B7 Mastered by Joel Wanasek \u00B7 Video by Scott Hansen",
 } as const;
 
 export const EMAIL_CAPTURE = {
@@ -173,15 +173,21 @@ export const MENAGERIE_ROLL = {
    Band Content Pages — Chronicle, Bestiary, Press
    ============================================================ */
 
+export interface ChronicleImage {
+  src: string;
+  alt: string;
+}
+
 export const CHRONICLE = {
   title: "The Chronicle",
   subtitle: "A history written in blood and resonance.",
   events: [
     {
-      date: "April 2011",
-      title: "The First Notation",
-      body: "A 15-year-old guitarist in Taiwan is profiled by No Clean Singing. Projects bear names like Haemic, Dreams of Winter, Bloodred Fullmoon, Reclusive Forest Council. A decade of composition and relentless musicianship precedes everything that follows.",
-      era: "prehistory" as const,
+      date: "November 2022",
+      title: "The Specimen",
+      body: "A demo called Avatara. Ray Heberer, Megan Ash, and Harry Tadayon on vocals. The specimen the band formed around. Chris linked Ray with Bryce, Harry recommended Coty. Everything that follows grows from this recording.",
+      era: "formation" as const,
+      images: [] as ChronicleImage[],
     },
     {
       date: "2023",
@@ -223,6 +229,12 @@ export const CHRONICLE = {
       era: "solo" as const,
     },
     {
+      date: "2025",
+      title: "The Crucible",
+      body: "The year the zoo went underground and leveled up. Fifteen-plus instrumental mixes with Bryce. One hundred percent real toms and cymbals, snare at ninety percent of the blended tone. Violin tone refined through covers and Hexed. Greg\u2019s production mentorship. Coty sharing vocal chain secrets. The backlog grew. The vision sharpened.",
+      era: "crucible" as const,
+    },
+    {
       date: "April 2026",
       title: "Benediction",
       body: "Ray takes the voice. Benediction \u2014 featuring Coty Garcia \u2014 is a dual-vocalist rite honoring the founding voice and ushering in the next era. Not every band announces a succession with a song where both voices coexist. Written early 2024. Mastered April 2026. The last long-cycle release. Everything after ships faster.",
@@ -237,9 +249,9 @@ export const BESTIARY = {
   members: [
     {
       name: "Ray Heberer",
-      designation: "The Overlord",
+      designation: "The First Disciple",
       roles: "Composition, arrangement, guitars, vocals, production",
-      description: "Every note in the zoo is written by this hand. The arrangements are scripture \u2014 violin, guitar, and orchestral voices interwoven from inception, not layered afterward. A decade of metal projects before the zoo existed. Now the voice as well as the architect.",
+      description: "Every note in the zoo is written by this hand. The arrangements are scripture \u2014 violin, guitar, and orchestral voices interwoven from inception, not layered afterward. A decade of metal projects before the zoo existed. The one who heard the sound first and transmits it. Now the voice as well as the architect.",
       current: true,
     },
     {
@@ -261,6 +273,13 @@ export const BESTIARY = {
       designation: "The Engine",
       roles: "Drums, drum arrangement",
       description: "The percussive foundation beneath the orchestral chaos. Drum arrangement credited alongside performance \u2014 the rhythmic architecture is as composed as the melodies above it.",
+      current: true,
+    },
+    {
+      name: "Jon Power",
+      designation: "The Foundation",
+      roles: "Bass",
+      description: "The low end that anchors the orchestral chaos. Tracked bass for Benediction. The weight beneath the architecture.",
       current: true,
     },
   ],
@@ -287,11 +306,13 @@ export const BESTIARY = {
   collaborators: {
     title: "The Circle of Production",
     entries: [
-      { name: "Chris Wiseman", role: "Producer, mixing (Benediction)", note: "Shadow of Intent, Currents" },
+      { name: "Greg Thomas", role: "Producer (Benediction)", note: "" },
+      { name: "Chris Wiseman", role: "Producer, mixing (New World EP)", note: "Shadow of Intent, Currents" },
       { name: "Christian Donaldson", role: "Mixed and mastered (New World EP)", note: "Cryptopsy" },
       { name: "Joel Wanasek", role: "Mastering (Benediction)", note: "" },
       { name: "Lordigan Pedro Sena", role: "Artwork", note: "New World EP, Avatara" },
       { name: "Scott Hansen", role: "Music video (Benediction)", note: "" },
+      { name: "Harry Tadayon", role: "Additional production — synth samples (Benediction)", note: "" },
     ],
   },
 } as const;
@@ -372,6 +393,7 @@ export const PRESS = {
   lineup: [
     "Ray Heberer \u2014 Guitar, vocals, composition, production",
     "Megan Ash \u2014 Violin",
+    "Jon Power \u2014 Bass",
     "Bryce Butler \u2014 Drums",
   ],
   links: {
@@ -381,8 +403,8 @@ export const PRESS = {
     instagram: "https://instagram.com/heteromorphic.zoo",
   },
   contact: {
-    booking: "booking@heteromorphiczoo.com",
-    press: "press@heteromorphiczoo.com",
-    general: "info@heteromorphiczoo.com",
+    booking: "hzoo@greattombproductions.com",
+    press: "hzoo@greattombproductions.com",
+    general: "hzoo@greattombproductions.com",
   },
 } as const;

@@ -22,7 +22,8 @@ from pathlib import Path
 _BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = Path(os.getenv("HZ_DB_PATH", str(_BASE_DIR / "data" / "fan_db.sqlite")))
 SNAPSHOTS_DIR = _BASE_DIR / "snapshots"
-JSON_OUTPUT_DIR = Path(os.getenv("HZ_JSON_OUTPUT_DIR", str(_BASE_DIR / "public" / "data")))
+_PROJECT_ROOT = _BASE_DIR.parent  # heteromorphiczoo/ project root (parent of gex44/)
+JSON_OUTPUT_DIR = Path(os.getenv("HZ_JSON_OUTPUT_DIR", str(_PROJECT_ROOT / "public" / "data")))
 
 # --- Auth ---
 
@@ -106,7 +107,7 @@ VALID_CATEGORIES = {"visual", "sonic", "textual", "ritual", "profane"}
 
 # --- CORS ---
 
-_default_origins = "https://heteromorphiczoo.com,https://www.heteromorphiczoo.com"
+_default_origins = "https://heteromorphiczoo.com,https://www.heteromorphiczoo.com,http://localhost:3000"
 CORS_ORIGINS = [
     o.strip()
     for o in os.getenv("HZ_CORS_ORIGINS", _default_origins).split(",")

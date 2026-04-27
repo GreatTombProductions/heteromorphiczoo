@@ -84,14 +84,15 @@ export default function RitesPage() {
 
   const { active, closed, upcoming } = useMemo(() => {
     if (!data) return { active: [], closed: [], upcoming: [] };
+    const rites = data.rites ?? [];
     return {
-      active: data.rites.filter((r) => r.status === "active"),
-      closed: data.rites.filter((r) => r.status === "closed"),
-      upcoming: data.rites.filter((r) => r.status === "upcoming"),
+      active: rites.filter((r) => r.status === "active"),
+      closed: rites.filter((r) => r.status === "closed"),
+      upcoming: rites.filter((r) => r.status === "upcoming"),
     };
   }, [data]);
 
-  const hasRites = data && data.rites.length > 0;
+  const hasRites = data && (data.rites ?? []).length > 0;
 
   return (
     <>

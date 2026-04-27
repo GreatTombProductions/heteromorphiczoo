@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import { BENEDICTION, EMAIL_CAPTURE, LANDING, SITE } from "@/lib/copy";
+import Navigation from "@/components/Navigation";
 import styles from "./page.module.css";
 
 type CaptureState = "idle" | "submitting" | "success" | "error";
+
+const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://saturna.greattombproductions.com:8081";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -22,25 +25,47 @@ export default function Home() {
 
     setCaptureState("submitting");
 
-    // TODO: Wire to GEX44 API POST /api/hz/join when data pipeline is live
-    // For now, simulate success after brief delay
     try {
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      setCaptureState("success");
-      setCaptureMessage(EMAIL_CAPTURE.success);
-      setEmail("");
+      const res = await fetch(`${API_BASE}/api/hz/join`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: "website" }),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 201) {
+        setCaptureState("success");
+        setCaptureMessage(data.founding_member
+          ? `${EMAIL_CAPTURE.success} Founding member.`
+          : EMAIL_CAPTURE.success
+        );
+        setEmail("");
+      } else if (res.status === 409) {
+        setCaptureState("success");
+        setCaptureMessage(EMAIL_CAPTURE.alreadyRegistered);
+        setEmail("");
+      } else {
+        setCaptureState("error");
+        setCaptureMessage(EMAIL_CAPTURE.errorGeneral);
+      }
     } catch {
       setCaptureState("error");
-      setCaptureMessage(EMAIL_CAPTURE.errorGeneral);
+      setCaptureMessage(EMAIL_CAPTURE.errorNetwork);
     }
   }
 
   return (
     <div className={styles.cathedral}>
+      <Navigation hideUntilScroll sentinelId="hero-sentinel" />
+
       {/* Hero background — artwork dissolved into environment */}
       <div className={styles.heroBg} aria-hidden="true" />
 
       <main className={styles.altar}>
+        {/* Sentinel for scroll-triggered nav — when this scrolls out, nav appears */}
+        <div id="hero-sentinel" aria-hidden="true" />
+
         {/* Band name */}
         <h1 className={styles.bandName}>Heteromorphic Zoo</h1>
 
@@ -57,9 +82,9 @@ export default function Home() {
           {/* Action block */}
           <div className={styles.actions}>
             <a
-              href="#"
+              href="#capture"
               className={styles.ctaPrimary}
-              aria-label="Pre-save or stream Benediction"
+              aria-label="Join the menagerie"
             >
               {BENEDICTION.ctaPrimary}
             </a>
@@ -69,7 +94,7 @@ export default function Home() {
         </section>
 
         {/* Email capture — inscription into the ledger */}
-        <section className={styles.capture}>
+        <section id="capture" className={styles.capture}>
           <p className={styles.capturePrompt}>{EMAIL_CAPTURE.prompt}</p>
 
           {captureState === "success" ? (

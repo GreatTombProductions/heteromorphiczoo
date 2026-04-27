@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV, SITE } from "@/lib/copy";
@@ -16,12 +16,43 @@ const routes = [
   { href: "/press", label: NAV.press },
 ] as const;
 
-export default function Navigation() {
+interface NavigationProps {
+  /** When true, nav is hidden until the observed sentinel scrolls out of view */
+  hideUntilScroll?: boolean;
+  /** ID of the sentinel element to observe (default: "nav-sentinel") */
+  sentinelId?: string;
+}
+
+export default function Navigation({ hideUntilScroll = false, sentinelId = "nav-sentinel" }: NavigationProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [visible, setVisible] = useState(!hideUntilScroll);
   const pathname = usePathname();
 
+  useEffect(() => {
+    if (!hideUntilScroll) return;
+
+    const sentinel = document.getElementById(sentinelId);
+    if (!sentinel) {
+      setVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Show nav when sentinel is NOT intersecting (scrolled past)
+        setVisible(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hideUntilScroll, sentinelId]);
+
   return (
-    <nav className={styles.nav}>
+    <nav
+      className={`${styles.nav} ${hideUntilScroll ? styles.scrollTriggered : ""} ${visible ? styles.navVisible : styles.navHidden}`}
+    >
       <div className={styles.bar}>
         <Link href="/" className={styles.brand}>
           {SITE.name}

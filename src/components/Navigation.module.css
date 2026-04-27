@@ -40,6 +40,24 @@
   }
 }
 
+/* --- Scroll-triggered visibility --- */
+
+.scrollTriggered {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.navVisible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.navHidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
 /* --- Desktop links --- */
 
 .desktopLinks {
