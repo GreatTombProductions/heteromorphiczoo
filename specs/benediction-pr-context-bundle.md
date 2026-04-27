@@ -18,7 +18,7 @@
 
 **The vocal transition:** Ray has taken over as vocalist. Benediction features both Ray and Coty Garcia — a dual-vocalist track. Not every band announces a lineup change with a dual vocalist song between incumbent and successor. The transition is framed as celebration and continuity, not departure.
 
-**Production credits:** Chris Wiseman (mixing), Joel Wanasek (mastering). Music video by Scott Hansen. These names carry weight in the scene and should appear in press materials.
+**Production credits:** Ray Heberer (mixing), Greg Thomas (producer), Joel Wanasek (mastering). Music video by Scott Hansen. Bass by Jon Power. Additional production (synth samples) by Harry Tadayon. Chris Wiseman has no involvement on Benediction — his credits are New World EP only.
 
 **Existing press contacts (warm from EP):** Metal-Rules, The Circle Pit, No Clean Singing, FemMetal. These outlets have already covered HZ — pitches to them reference the existing relationship, not cold outreach.
 

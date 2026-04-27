@@ -249,9 +249,9 @@ The menagerie does not extend this far.
 
 **Example entries:**
 
-**Ray Heberer — The Overlord**
+**Ray Heberer — The First Disciple**
 *Composition, arrangement, guitars, vocals, production.*
-Every note in the zoo is written by this hand. The arrangements are scripture — violin, guitar, and orchestral voices interwoven from inception, not layered afterward. Now the voice as well as the architect. All songs by Heberer.
+Every note in the zoo is written by this hand. The arrangements are scripture — violin, guitar, and orchestral voices interwoven from inception, not layered afterward. A decade of metal projects before the zoo existed. The one who heard the sound first and transmits it. Now the voice as well as the architect.
 
 **Megan Ash — The Siren**
 *Violin.*
@@ -293,7 +293,7 @@ The voice that first spoke the rites. Every track on the New World EP, both prec
 
 **First Rites — Napalm** — February 2, 2024
 
-*The first blood. "Utterly deranged vocals that sound like a fight between bull elephants, howler monkeys, and a pack of demons that just escaped Hell." The 13-year editorial thread between No Clean Singing and the Overlord continues.*
+*The first blood. "Utterly deranged vocals that sound like a fight between bull elephants, howler monkeys, and a pack of demons that just escaped Hell." The 13-year editorial thread between No Clean Singing and the First Disciple continues.*
 
 ---
 
@@ -305,7 +305,7 @@ The voice that first spoke the rites. Every track on the New World EP, both prec
 
 **The New World Arrives** — October 10, 2024
 
-*Five vignettes from a coalition of monsters conquering a new realm. Ville Hokkanen of Synestia lends his voice. Raymond Heberer III — the Overlord's father — brings the trombone. Francesco Ferrini of Fleshgod Apocalypse writes the orchestral arrangement for "Aura of Despair." Produced by Chris Wiseman. Mixed and mastered by Christian Donaldson. "An extravagant manifestation of symphonic death metal."*
+*Five vignettes from a coalition of monsters conquering a new realm. Ville Hokkanen of Synestia lends his voice. Raymond Heberer III — the First Disciple's father — brings the trombone. Francesco Ferrini of Fleshgod Apocalypse writes the orchestral arrangement for "Aura of Despair." Produced by Chris Wiseman. Mixed and mastered by Christian Donaldson. "An extravagant manifestation of symphonic death metal."*
 
 ---
 
@@ -338,7 +338,7 @@ The voice that first spoke the rites. Every track on the New World EP, both prec
 - **Short bio** (50 words, from PR context bundle)
 - **Census stats** (aggregate numbers — total menagerie, tier distribution)
 - **Press highlights** (NCS, Circle Pit, FemMetal Rocks quotes with links)
-- **Production credits** (Chris Wiseman, Joel Wanasek, Christian Donaldson, Francesco Ferrini — names that carry weight)
+- **Production credits** (EP: Chris Wiseman, Christian Donaldson; Benediction: Ray Heberer, Greg Thomas, Joel Wanasek; Guest: Francesco Ferrini — names that carry weight)
 - **High-res press photos** (download links)
 - **Booking / press contact**
 - **EPK download**
@@ -431,7 +431,7 @@ Benediction is the first rite of the new era."
 
 **Credits block (smaller text, `--hz-bone-dim`):**
 
-"Mixed by Chris Wiseman. Mastered by Joel Wanasek. Video by Scott Hansen."
+"Mixed by Ray Heberer · Produced by Greg Thomas · Mastered by Joel Wanasek · Video by Scott Hansen."
 
 **Anti-patterns for the Benediction page:**
 - Explaining the lineup change in prose. The copy implies it. The music embodies it. Don't narrate what the listener will hear

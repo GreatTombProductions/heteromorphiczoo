@@ -2,7 +2,7 @@
 
 *What the Great Tomb ecosystem can automate for a single release, what it can't, and where Ray's time actually goes.*
 
-**Status (2026-04-21):** Mastering complete (Joel Wanasek). Music video in production (Scott Hansen, days away). Production credits confirmed: Chris Wiseman (mixing), Joel Wanasek (mastering). Release date TBD — Ray confirms. The critical path dependency (mastering) is resolved.
+**Status (2026-04-21, credits corrected 2026-04-28 per council 56332f25):** Mastering complete (Joel Wanasek). Music video complete (Scott Hansen). Production credits: Ray Heberer (mixing), Greg Thomas (producer), Joel Wanasek (mastering). Bass by Jon Power. Additional production by Harry Tadayon (synth samples). Chris Wiseman has no involvement on Benediction.
 
 ---
 
@@ -214,7 +214,7 @@ Before any of this fires:
 2. **Confirm the FFO list.** Ne Obliviscaris, Shadow of Intent, etc. — do these honestly represent what someone pressing play would hear?
 3. **Confirm the release date.** Everything sequences from this.
 4. ~~**Mastering.** The automation pass + mastering turnaround is the critical path.~~ **DONE** — Joel Wanasek completed mastering 2026-04-21. Scott Hansen completing music video (days).
-5. **Update production credits in PR context bundle.** Chris Wiseman (mixing), Joel Wanasek (mastering) — validate with Ray. The "validate with Ray" notes in the PR bundle for these credits can be resolved.
+5. ~~**Update production credits in PR context bundle.**~~ **DONE** — Corrected per council 56332f25 (2026-04-27): Ray Heberer (mixing), Greg Thomas (producer), Joel Wanasek (mastering). Chris Wiseman has no involvement on Benediction.
 
 ---
 

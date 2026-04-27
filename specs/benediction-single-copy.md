@@ -65,7 +65,7 @@ You have been counted.
 ### Credits (small text, `--hz-bone-dim`, below action block)
 
 ```
-Mixed by Chris Wiseman · Mastered by Joel Wanasek · Video by Scott Hansen
+Mixed by Ray Heberer · Produced by Greg Thomas · Mastered by Joel Wanasek · Video by Scott Hansen
 ```
 
 ### Atmospheric Line (below the fold, optional)

@@ -26,12 +26,7 @@ Ray Heberer's metal history extends back over a decade. No Clean Singing reviewe
 | **Coty Garcia** | Vocals (founding) | Founding vocalist. Credited on all EP tracks and both singles. Honored as a founding member — not a current member. Benediction (feat. Coty Garcia) is the transition release. |
 | **Megan Ash** | Violin | Also known as Megan Heberer (Ray's wife). Violin is structural to the compositions — written into arrangements from the start, not added as embellishment. Solo career launched with "Hexed" single (Sept 2025). |
 | **Bryce Butler** | Drums, drum arrangement | Full name confirmed from Bandcamp credits. |
-
-### Live / Touring
-
-| Member | Role | Notes |
-|--------|------|-------|
-| **Jon Power** | Bass (live) | Listed by The Circle Pit (Oct 2024) in the live lineup. |
+| **Jon Power** | Bass | Full member. Tracked bass for Benediction. First documented by The Circle Pit (Oct 2024) in the live lineup. |
 
 *Note: The Circle Pit article (Oct 2024) lists Ray Heberer for "Guitar, live vocals" — suggesting Ray took over live vocal duties while Coty handled studio vocals for the EP.*
 
@@ -39,15 +34,15 @@ Ray Heberer's metal history extends back over a decade. No Clean Singing reviewe
 
 | Name | Role | Association |
 |------|------|-------------|
-| **Chris Wiseman** | Producer | Shadow of Intent, Currents |
+| **Chris Wiseman** | Producer (New World EP only) | Shadow of Intent, Currents. No involvement on Benediction. |
 | **Christian Donaldson** | Mixed and mastered (EP) | Cryptopsy |
-| **Greg Thomas** | Drums engineering + editing | Silver Bullet Studios |
+| **Greg Thomas** | Producer (Benediction), drums engineering + editing (New World EP) | Silver Bullet Studios. Was recording engineer for drums on New World. Production mentorship relationship with Ray during the 2025 Crucible period. |
 | **Chris Teti** | Drums engineering | Silver Bullet Studios |
 | **Justin Khan** | Drums editing | |
 | **Dennis Tuohey** | Drums editing | |
 | **Matheus Terra** | Trombone recording engineer | "Aura of Despair" only |
 
-**Benediction production (per PR context bundle):** Chris Wiseman (mixing), Joel Wanasek (mastering), Scott Hansen (music video). These names are specific to Benediction — they differ from the EP credits (Christian Donaldson mixed and mastered the EP).
+**Benediction production (corrected per council 56332f25):** Ray Heberer (mixing), Greg Thomas (producer), Joel Wanasek (mastering), Scott Hansen (music video), Jon Power (bass), Harry Tadayon (additional production — synth samples). Chris Wiseman has no involvement on Benediction — his credits are for the New World EP only.
 
 ### Guest Musicians
 
@@ -56,6 +51,7 @@ Ray Heberer's metal history extends back over a decade. No Clean Singing reviewe
 | **Raymond Heberer III** | Trombone, bass trombone, soprano trombone, alto trombone | "Aura of Despair" | Ray's father |
 | **Francesco Ferrini** | Orchestral arrangement | "Aura of Despair" | Fleshgod Apocalypse |
 | **Ville Hokkanen** | Guest vocals | "Your Final Seconds" | Synestia |
+| **Harry Tadayon** | Vocals (Avatara demo), additional production — synth samples (Benediction) | Avatara demo (Nov 2022) | Original vocalist on the demo that became the specimen. Recommended Coty Garcia. |
 
 ### Artwork
 
@@ -226,7 +222,7 @@ Megan Ash releases "Hexed," her first solo single. Covered by FemMetal Rocks.
 
 ### The Succession — Benediction (April 2026)
 
-Ray takes over as vocalist. Benediction (feat. Coty Garcia) — a dual-vocalist track honoring the founding vocalist and introducing the next era. Not every band announces a lineup change with a song where both voices coexist. Written early 2024, mastered April 2026, music video by Scott Hansen. Mixed by Chris Wiseman, mastered by Joel Wanasek. The last long-cycle release — everything after Benediction ships faster.
+Ray takes over as vocalist. Benediction (feat. Coty Garcia) — a dual-vocalist track honoring the founding vocalist and introducing the next era. Not every band announces a lineup change with a song where both voices coexist. Written early 2024, mastered April 2026, music video by Scott Hansen. Mixed by Ray Heberer, produced by Greg Thomas, mastered by Joel Wanasek. Jon Power tracked the bass. Harry Tadayon contributed additional production (synth samples). The last long-cycle release — everything after Benediction ships faster.
 
 ---
 
