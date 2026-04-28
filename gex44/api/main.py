@@ -24,6 +24,7 @@ from datetime import date, datetime, timezone
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from .config import (
     ADMIN_API_KEY,
@@ -39,6 +40,7 @@ from .config import (
     VALID_SOURCES,
     rank_for_dp,
 )
+from .admin_routes import router as admin_router
 from .db import close_app_db, get_app_db
 from .models import (
     AggregateRequest,
@@ -69,9 +71,19 @@ app.add_middleware(
     allow_origins=CORS_ORIGINS,
     allow_origin_regex=CORS_ORIGIN_REGEX,
     allow_credentials=True,
-    allow_methods=["GET", "POST"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
+
+
+# Mount admin routes (all under /api/hz/admin/* and /api/hz/chronicle)
+app.include_router(admin_router, prefix="/api/hz")
+
+# Mount static file serving for uploads
+from .config import UPLOAD_DIR
+
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
 
 @app.on_event("shutdown")

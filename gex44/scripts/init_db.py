@@ -123,6 +123,50 @@ CREATE TABLE IF NOT EXISTS rate_limits (
     PRIMARY KEY (fan_id, event_type, period_key),
     FOREIGN KEY (fan_id) REFERENCES fans(id)
 );
+
+-- Table: chronicle_events
+-- Chronicle timeline entries (migrated from copy.ts CHRONICLE.events).
+CREATE TABLE IF NOT EXISTS chronicle_events (
+    id TEXT PRIMARY KEY,
+    date_display TEXT NOT NULL,
+    title TEXT NOT NULL,
+    body TEXT NOT NULL,
+    era TEXT,
+    video_url TEXT,
+    sort_order INTEGER NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_chronicle_sort ON chronicle_events(sort_order);
+
+-- Table: chronicle_media
+-- Images attached to chronicle events (BTS photo galleries).
+CREATE TABLE IF NOT EXISTS chronicle_media (
+    id TEXT PRIMARY KEY,
+    chronicle_event_id TEXT NOT NULL,
+    media_type TEXT NOT NULL DEFAULT 'image',
+    src TEXT NOT NULL,
+    alt TEXT NOT NULL DEFAULT '',
+    caption TEXT,
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    FOREIGN KEY (chronicle_event_id) REFERENCES chronicle_events(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_chronicle_media_event ON chronicle_media(chronicle_event_id);
+
+-- Table: chronicle_tracks
+-- Tracks associated with chronicle events.
+CREATE TABLE IF NOT EXISTS chronicle_tracks (
+    id TEXT PRIMARY KEY,
+    chronicle_event_id TEXT NOT NULL,
+    name TEXT NOT NULL,
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (chronicle_event_id) REFERENCES chronicle_events(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_chronicle_tracks_event ON chronicle_tracks(chronicle_event_id);
 """
 
 
@@ -147,7 +191,7 @@ def init_db(db_path: str | None = None) -> Path:
     conn.close()
 
     table_names = [t[0] for t in tables]
-    expected = ["engagement_events", "fans", "offerings", "rate_limits", "reactions"]
+    expected = ["chronicle_events", "chronicle_media", "chronicle_tracks", "engagement_events", "fans", "offerings", "rate_limits", "reactions"]
     assert table_names == expected, f"Expected {expected}, got {table_names}"
     print(f"Tables created: {', '.join(table_names)}")
 

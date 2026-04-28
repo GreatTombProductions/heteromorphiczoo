@@ -28,6 +28,16 @@ JSON_OUTPUT_DIR = Path(os.getenv("HZ_JSON_OUTPUT_DIR", str(_PROJECT_ROOT / "publ
 # --- Auth ---
 
 ADMIN_API_KEY = os.getenv("HZ_ADMIN_API_KEY", "dev-key-change-me")
+ADMIN_EMAILS = [
+    e.strip()
+    for e in os.getenv(
+        "HZ_ADMIN_EMAILS",
+        "ray.heberer@greattombproductions.com,rayheb3@gmail.com",
+    ).split(",")
+    if e.strip()
+]
+GOOGLE_CLIENT_ID = os.getenv("HZ_GOOGLE_CLIENT_ID", "")
+UPLOAD_DIR = Path(os.getenv("HZ_UPLOAD_DIR", str(_BASE_DIR / "data" / "uploads")))
 
 # --- Benediction Founding Window ---
 # Fans who join during this window get founding_member=1 and 1.5x DP multiplier.
