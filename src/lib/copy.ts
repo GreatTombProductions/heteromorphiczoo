@@ -385,8 +385,7 @@ export const POLICY = {
         "Every note is human.",
         "Every lyric. Every melody. Every arrangement. Every vocal performance, every guitar line, every drum pattern, every violin phrase, every orchestral voice. Human hands. Human voices. Human decisions. From the first demo to the final master.",
         "This is not a negotiable position. This is not a phase. This is the line, and it does not move.",
-        "Heteromorphic Zoo\u2019s music is written by Ray Heberer. The drums are arranged and performed by Bryce Butler \u2014 real toms, real cymbals, a snare tone that is ninety percent the instrument and ten percent reinforcement. The violin is performed by Megan Ash. The vocals are performed by human beings who spent years developing their voices. The orchestral arrangements are written by human composers. The artwork is painted by human artists.",
-        "We can prove all of this. [The Chronicle](/chronicle) documents every collaboration, every production decision, every person who touched every release. That documentation is not a courtesy. It is the receipt.",
+        "Heteromorphic Zoo\u2019s music is written by Ray Heberer. The drums are written and performed by Bryce Butler \u2014 real toms, real cymbals, a snare tone that is ninety percent the instrument and ten percent reinforcement. The violin is performed by Megan Ash. The vocals are performed by human beings who spent years developing their voices. The orchestral arrangements are written by human composers. The artwork is painted by human artists.",
       ],
     },
     {
@@ -406,7 +405,7 @@ export const POLICY = {
     },
     {
       id: "the-problem-is-silence",
-      title: "The Problem Isn\u2019t AI. The Problem Is Silence.",
+      title: "The Problem Is Silence.",
       paragraphs: [
         "We do not believe AI is evil. We do not believe it should be banned from creative work. People are allowed to make art however they want.",
         "What we believe is this: you deserve to know.",

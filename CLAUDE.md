@@ -13,8 +13,8 @@ Band website for Heteromorphic Zoo. Next.js + Vercel frontend, SQLite + Python/F
 │  Vercel (frontend)                                      │
 │  heteromorphiczoo.com                                   │
 │  Next.js app, static JSON in public/data/               │
-│  Auto-deploys from git push to GreatTombProductions/    │
-│  heteromorphiczoo                                       │
+│  Auto-deploys on `git push` to GreatTombProductions/    │
+│  heteromorphiczoo (NOT from greattomb submodule commit)  │
 └────────────────────┬────────────────────────────────────┘
                      │ POST /api/hz/* (write path)
                      ▼
@@ -35,6 +35,8 @@ Band website for Heteromorphic Zoo. Next.js + Vercel frontend, SQLite + Python/F
 ---
 
 ## Deployment
+
+**`git push` inside this submodule deploys to production via Vercel.** Committing the submodule pointer in greattomb does NOT deploy — local is the staging environment. Test locally, then `deploy.sh push` (or `git push` directly) when ready to go live.
 
 ```bash
 # Full deploy: restart API, re-aggregate JSON, commit & push everything

@@ -30,7 +30,7 @@ These aren't three separate initiatives. They're one posture expressed across th
 ### DNS Swap
 - heteromorphiczoo.com must point to Vercel before the old print-on-demand site goes dark
 - Old merch disappears with the DNS swap — partner program replaces it
-- Every push to the submodule auto-deploys: no staging environment once DNS is live
+- `git push` inside the submodule (to GreatTombProductions/heteromorphiczoo) triggers Vercel auto-deploy — that's the production deploy. Committing the submodule pointer in greattomb does NOT deploy. Local is the staging environment
 
 ### Benediction Promotion Cycle
 - Coordinated with single release cadence
