@@ -133,7 +133,7 @@ VALID_CATEGORIES = {"visual", "sonic", "textual", "ritual", "profane"}
 
 # --- CORS ---
 
-_default_origins = "https://heteromorphiczoo.com,https://www.heteromorphiczoo.com,http://localhost:3000"
+_default_origins = "https://heteromorphiczoo.com,https://www.heteromorphiczoo.com,https://heteromorphiczoo.band,https://www.heteromorphiczoo.band,http://localhost:3000"
 CORS_ORIGINS = [
     o.strip()
     for o in os.getenv("HZ_CORS_ORIGINS", _default_origins).split(",")
