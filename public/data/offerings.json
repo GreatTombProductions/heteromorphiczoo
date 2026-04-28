@@ -1,5 +1,21 @@
 {
-  "offerings": [],
+  "offerings": [
+    {
+      "id": "1dc2a9b2-79d1-4dc8-8ae9-f674a2261883",
+      "category": "visual",
+      "title": "cosmic overlord",
+      "description": "",
+      "content_url": "/uploads/visual/17d5ca40-d1dd-4fe3-b709-3d02093c0a12_final.jpg",
+      "content_type": "image",
+      "thumbnail_url": null,
+      "creator_name": "The Menagerie",
+      "creator_rank": 0,
+      "creator_rank_title": "Uninitiated",
+      "inspired_by": null,
+      "featured": true,
+      "approved_at": "2026-04-28T03:46:47Z"
+    }
+  ],
   "by_category": {
     "visual": 1,
     "sonic": 0,
@@ -7,5 +23,5 @@
     "ritual": 0,
     "profane": 0
   },
-  "generated_at": "2026-04-28T03:47:26Z"
+  "generated_at": "2026-04-28T03:51:02Z"
 }
