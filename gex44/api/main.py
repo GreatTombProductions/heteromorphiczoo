@@ -190,21 +190,96 @@ async def join_menagerie(req: JoinRequest, request: Request):
 
     # Check for existing fan (case-insensitive)
     existing = db.execute(
-        "SELECT id, current_rank, lifetime_dp FROM fans WHERE LOWER(email) = ?",
+        "SELECT id, current_rank, lifetime_dp, founding_member FROM fans WHERE LOWER(email) = ?",
         (email_lower,),
     ).fetchone()
 
     if existing:
+        # --- Upsert: update name, newsletter, metadata if anything changed ---
+        import re as _re
+
+        fan_id = existing["id"]
+        now = _now_iso()
+        changes: list[str] = []
+
+        # Name: update if submitted name is non-empty and differs
+        if req.name and req.name.strip():
+            stored_name = db.execute(
+                "SELECT name FROM fans WHERE id = ?", (fan_id,)
+            ).fetchone()["name"]
+            if stored_name != req.name.strip():
+                db.execute(
+                    "UPDATE fans SET name = ?, updated_at = ? WHERE id = ?",
+                    (req.name.strip(), now, fan_id),
+                )
+                changes.append("name")
+
+        # Newsletter opt-in: update if differs
+        stored_newsletter = db.execute(
+            "SELECT opt_in_newsletter FROM fans WHERE id = ?", (fan_id,)
+        ).fetchone()["opt_in_newsletter"]
+        if int(req.opt_in_newsletter) != stored_newsletter:
+            db.execute(
+                "UPDATE fans SET opt_in_newsletter = ?, updated_at = ? WHERE id = ?",
+                (int(req.opt_in_newsletter), now, fan_id),
+            )
+            changes.append("newsletter")
+
+        # Metadata: upsert any new or changed key/value pairs
+        if req.metadata:
+            existing_meta = {
+                row["field_key"]: row["field_value"]
+                for row in db.execute(
+                    "SELECT field_key, field_value FROM fan_metadata WHERE fan_id = ?",
+                    (fan_id,),
+                ).fetchall()
+            }
+            for key, value in list(req.metadata.items())[:20]:
+                clean_key = _re.sub(r'[^a-zA-Z0-9_ -]', '', key)[:50].strip()
+                clean_value = str(value)[:500].strip()
+                if clean_key and clean_value:
+                    if existing_meta.get(clean_key) != clean_value:
+                        meta_id = str(uuid.uuid4())
+                        db.execute(
+                            """INSERT OR REPLACE INTO fan_metadata (id, fan_id, field_key, field_value, created_at, updated_at)
+                               VALUES (
+                                   COALESCE((SELECT id FROM fan_metadata WHERE fan_id = ? AND field_key = ?), ?),
+                                   ?, ?, ?, COALESCE((SELECT created_at FROM fan_metadata WHERE fan_id = ? AND field_key = ?), ?), ?
+                               )""",
+                            (fan_id, clean_key, meta_id, fan_id, clean_key, clean_value, fan_id, clean_key, now, now),
+                        )
+                        changes.append(f"metadata:{clean_key}")
+
+        if changes:
+            db.commit()
+            asyncio.create_task(_trigger_aggregation())
+
         _, rank_title = rank_for_dp(existing["lifetime_dp"])
-        return JSONResponse(
-            status_code=409,
-            content={
-                "id": existing["id"],
-                "rank_title": rank_title,
-                "founding_member": False,  # Already joined
-                "message": "You are already known to the menagerie.",
-            },
-        )
+
+        is_founding = bool(existing["founding_member"])
+
+        if changes:
+            return JSONResponse(
+                status_code=200,
+                content={
+                    "id": fan_id,
+                    "rank_title": rank_title,
+                    "founding_member": is_founding,
+                    "updated": True,
+                    "message": "The menagerie has noted your changes.",
+                },
+            )
+        else:
+            return JSONResponse(
+                status_code=409,
+                content={
+                    "id": fan_id,
+                    "rank_title": rank_title,
+                    "founding_member": is_founding,
+                    "updated": False,
+                    "message": "You are already known to the menagerie.",
+                },
+            )
 
     # New fan
     fan_id = str(uuid.uuid4())

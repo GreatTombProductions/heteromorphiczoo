@@ -50,6 +50,7 @@ export const EMAIL_CAPTURE = {
   button: "Enter",
   success: "You have been counted.",
   alreadyRegistered: "You are already among us.",
+  updated: "The menagerie has noted your changes.",
   errorInvalid: "The roll requires a valid email.",
   errorGeneral: "Something broke the ritual. Try again.",
   errorNetwork: "The connection to the menagerie was severed. The faithful persist.",

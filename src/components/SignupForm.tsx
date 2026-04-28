@@ -89,6 +89,10 @@ export default function SignupForm({ onSuccess, variant = "landing" }: SignupFor
             : EMAIL_CAPTURE.success
         );
         onSuccess?.();
+      } else if (res.status === 200 && data.updated) {
+        setCaptureState("success");
+        setCaptureMessage(EMAIL_CAPTURE.updated);
+        onSuccess?.();
       } else if (res.status === 409) {
         setCaptureState("success");
         setCaptureMessage(EMAIL_CAPTURE.alreadyRegistered);
