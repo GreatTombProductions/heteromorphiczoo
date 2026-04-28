@@ -4,6 +4,7 @@
 **Campaign:** heteromorphiczoo-3, Phase: presave-schema
 **Depends on:** Nigredo presave-intelligence, Kazuma heist 011, Aqua campaign-3-copy.md
 **Feeds:** Rubedo (build-presave), Narberal (copy-lint verification of field names)
+**LAST_PROJECTED:** 2026-04-29
 
 ---
 

@@ -1,9 +1,11 @@
 # Partner Program Spec — Heteromorphic Zoo Relics
 
 *Campaign: heteromorphiczoo-v2, Phase 9 (partner-program-spec)*
+*Revised: 2026-04-28, Council ace0e247 (Campaign 3) — economic model simplified*
 *Produced by: Demiurge (Party 83658194)*
 *Depends on: merch-partner-landscape.md (Kazuma, Phase 5), ai-policy-cultural-architecture-v2.md Section 4 (Rimuru, Phase 7)*
-*Feeds: Rubedo (Phase 10, /relics page build), Sebas (DM templates → Ray), Ray (outreach execution)*
+*Feeds: Rubedo (build-intake, /relics + /partner-apply), Sebas (DM templates → Ray), Ray (outreach execution)*
+*LAST_PROJECTED: 2026-04-29*
 
 ---
 
@@ -12,7 +14,7 @@
 Seven deliverables in one spec:
 
 1. **Program Structure** — the economic model, philosophy, and how it differs from every other band merch program
-2. **Compensation Terms** — upfront payment + revenue share, concrete numbers
+2. **Compensation Terms** — upfront payment only, no revenue share (revised Council ace0e247)
 3. **Brand Guidelines for Partners** — what aesthetic constraints apply to partner-produced work
 4. **Partner Selection Criteria** — who to approach and how to evaluate fit
 5. **Initial Prospect Categories** — the first 3-5 partnership types to pursue

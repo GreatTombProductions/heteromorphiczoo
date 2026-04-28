@@ -4,6 +4,7 @@
 **Campaign:** heteromorphiczoo-3, Phase: card-propagation
 **Depends on:** Kazuma heist 011 (SD-12 through SD-23), Aqua campaign-3-copy.md (Deliverable 3), Council transcript
 **Feeds:** Rubedo (build-card), Narberal (copy-lint of propagation surfaces)
+**LAST_PROJECTED:** 2026-04-29
 
 ---
 

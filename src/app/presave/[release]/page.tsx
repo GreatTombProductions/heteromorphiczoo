@@ -1,3 +1,5 @@
+// SPEC_SOURCE: specs/presave-schema.md, specs/campaign-3-copy.md
+// LAST_PROJECTED: 2026-04-29
 import type { Metadata } from "next";
 import { PRESAVE, SITE } from "@/lib/copy";
 import Navigation from "@/components/Navigation";

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPEC_SOURCE: specs/presave-schema.md
+# LAST_PROJECTED: 2026-04-29
 # FILE_TRAJECTORY: load-bearing
 # TRAJECTORY_NOTE: Release-day notification trigger. Manual script Ray fires
 # when he confirms the release is live across platforms. Idempotent.

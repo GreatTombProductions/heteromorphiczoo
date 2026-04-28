@@ -1,3 +1,5 @@
+// SPEC_SOURCE: specs/card-propagation-architecture.md, specs/campaign-3-copy.md
+// LAST_PROJECTED: 2026-04-29
 "use client";
 
 import { Suspense, useMemo, useState } from "react";

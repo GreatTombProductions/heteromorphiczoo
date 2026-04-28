@@ -5,6 +5,7 @@
 *Depends on: voice-spec.md (register), ai-policy-text.md (register), copy.ts (existing patterns)*
 *Informed by: Nigredo presave intelligence (2026-04-hz-presave-intelligence.md), Kazuma heist 011 (presave UX + card generator)*
 *Feeds: Narberal (copy-lint), Rubedo (build-presave, build-card, build-intake)*
+*LAST_PROJECTED: 2026-04-29*
 
 ---
 
