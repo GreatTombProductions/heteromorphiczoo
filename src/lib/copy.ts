@@ -476,7 +476,7 @@ export const RELICS = {
   subtitle: "Every piece is made by someone whose craft we believe in.",
   description: [
     "Each piece on this page was made by a specific artisan who is named, attributed, and linked. Their craft, interpreted through the world of Heteromorphic Zoo. The maker is not a vendor. The maker is the reason.",
-    "We pay our partners upfront and share revenue from every sale. No licensing fees. No extraction. The economics are inverted because the mission is not margin but propagation. Every relic carries the Zoo further than the music alone can reach.",
+    "We pay our partners upfront and share revenue from every sale. No licensing fees. No extraction. The economics are inverted because the mission is not margin but propagation. Every relic carries the Menagerie further than the music alone can reach.",
   ],
   emptyState: {
     line1: "The forge is lit. The commissions are spoken.",
