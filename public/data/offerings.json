@@ -1,1 +1,11 @@
-{"offerings":[],"featured":[],"by_category":{},"total":0,"generated_at":"pre-launch"}
+{
+  "offerings": [],
+  "by_category": {
+    "visual": 0,
+    "sonic": 0,
+    "textual": 0,
+    "ritual": 0,
+    "profane": 0
+  },
+  "generated_at": "2026-04-28T00:11:08Z"
+}

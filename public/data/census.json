@@ -1,1 +1,39 @@
-{"total_members":0,"by_rank":[],"total_offerings":0,"total_reactions":0,"founding_members":0,"generated_at":"pre-launch"}
+{
+  "total_members": 1,
+  "by_rank": [
+    {
+      "rank": 0,
+      "title": "Uninitiated",
+      "count": 1
+    },
+    {
+      "rank": 1,
+      "title": "Acolyte",
+      "count": 0
+    },
+    {
+      "rank": 2,
+      "title": "Deacon",
+      "count": 0
+    },
+    {
+      "rank": 3,
+      "title": "Elder",
+      "count": 0
+    },
+    {
+      "rank": 4,
+      "title": "High Priest/Priestess",
+      "count": 0
+    },
+    {
+      "rank": 5,
+      "title": "Archbishop",
+      "count": 0
+    }
+  ],
+  "total_offerings": 0,
+  "total_reactions": 0,
+  "founding_members": 1,
+  "generated_at": "2026-04-28T00:11:08Z"
+}

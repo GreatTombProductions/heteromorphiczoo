@@ -36,6 +36,9 @@ yarn-error.log*
 # Keep package.json tracked (overrides root gitignore global exclude)
 !package.json
 
+# runtime output
+nohup.out
+
 # vercel
 .vercel
 
