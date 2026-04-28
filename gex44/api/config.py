@@ -45,6 +45,16 @@ ADMIN_EMAILS = [
 GOOGLE_CLIENT_ID = os.getenv("HZ_GOOGLE_CLIENT_ID", "")
 UPLOAD_DIR = Path(os.getenv("HZ_UPLOAD_DIR", str(_BASE_DIR / "data" / "uploads")))
 
+# --- Public Upload Limits ---
+# Max file size for public (non-admin) uploads, in bytes. Default 10 MB.
+PUBLIC_UPLOAD_MAX_BYTES = int(os.getenv("HZ_PUBLIC_UPLOAD_MAX_BYTES", str(10 * 1024 * 1024)))
+PUBLIC_UPLOAD_ALLOWED_TYPES = {
+    "image/jpeg", "image/png", "image/gif", "image/webp",
+    "audio/mpeg", "audio/wav", "audio/ogg", "audio/webm",
+    "video/mp4", "video/webm",
+    "application/pdf",
+}
+
 # --- Benediction Founding Window ---
 # Fans who join during this window get founding_member=1 and 1.5x DP multiplier.
 

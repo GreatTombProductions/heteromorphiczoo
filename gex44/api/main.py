@@ -34,8 +34,11 @@ from .config import (
     CORS_ORIGINS,
     EVENT_TYPES,
     FOUNDING_MULTIPLIER,
+    PUBLIC_UPLOAD_ALLOWED_TYPES,
+    PUBLIC_UPLOAD_MAX_BYTES,
     RANK_TABLE,
     RATE_LIMIT_RPM,
+    UPLOAD_DIR,
     VALID_CATEGORIES,
     VALID_SOURCES,
     rank_for_dp,
@@ -81,8 +84,6 @@ app.add_middleware(
 app.include_router(admin_router, prefix="/api/hz")
 
 # Mount static file serving for uploads
-from .config import UPLOAD_DIR
-
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
@@ -478,10 +479,40 @@ async def submit_offering(
 
     # Determine content type and URL
     if file and file.filename:
-        # For launch: store file path stub. Vercel Blob integration is Phase 6.
-        content_type = "image"
-        # TODO: Phase 6 — Upload to Vercel Blob, get CDN URL
-        content_url_final = f"pending-upload://{file.filename}"
+        # Validate MIME type
+        if file.content_type not in PUBLIC_UPLOAD_ALLOWED_TYPES:
+            raise HTTPException(
+                status_code=400,
+                detail=f"File type not allowed. Accepted: images, audio, video, PDF.",
+            )
+
+        # Read file and enforce size limit
+        content_bytes = await file.read()
+        if len(content_bytes) > PUBLIC_UPLOAD_MAX_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail=f"File too large. Maximum size: {PUBLIC_UPLOAD_MAX_BYTES // (1024 * 1024)} MB.",
+            )
+
+        # Save to uploads directory (same layout as admin uploads)
+        UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+        category_dir = UPLOAD_DIR / category
+        category_dir.mkdir(parents=True, exist_ok=True)
+        filename = f"{uuid.uuid4()}_{file.filename}"
+        filepath = category_dir / filename
+        filepath.write_bytes(content_bytes)
+
+        # Detect content_type from MIME for proper gallery rendering
+        mime = file.content_type or ""
+        if mime.startswith("image/"):
+            content_type = "image"
+        elif mime.startswith("audio/"):
+            content_type = "audio_embed"
+        elif mime.startswith("video/"):
+            content_type = "video_embed"
+        else:
+            content_type = "text"  # PDF, etc. — renders as link
+        content_url_final = f"/uploads/{category}/{filename}"
     elif content_url:
         # Video/audio embed
         if "youtube.com" in content_url or "youtu.be" in content_url:

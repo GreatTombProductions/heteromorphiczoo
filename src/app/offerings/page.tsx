@@ -72,6 +72,7 @@ export default function OfferingsPage() {
   const [formUrl, setFormUrl] = useState("");
   const [formCategory, setFormCategory] = useState<Category>("visual");
   const [formInspiredBy, setFormInspiredBy] = useState("");
+  const [formFile, setFormFile] = useState<File | null>(null);
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [submitMessage, setSubmitMessage] = useState("");
 
@@ -101,6 +102,14 @@ export default function OfferingsPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Client-side file size check (10 MB)
+    if (formFile && formFile.size > 10 * 1024 * 1024) {
+      setSubmitState("error");
+      setSubmitMessage(OFFERINGS.submitFileTooLarge);
+      return;
+    }
+
     setSubmitState("submitting");
 
     const formData = new FormData();
@@ -110,6 +119,7 @@ export default function OfferingsPage() {
     if (formDescription) formData.append("description", formDescription);
     if (formUrl) formData.append("content_url", formUrl);
     if (formInspiredBy) formData.append("inspired_by", formInspiredBy);
+    if (formFile) formData.append("file", formFile);
 
     try {
       const resp = await fetch(`${API_BASE}/api/hz/offerings`, {
@@ -130,6 +140,7 @@ export default function OfferingsPage() {
       setFormDescription("");
       setFormUrl("");
       setFormInspiredBy("");
+      setFormFile(null);
     } catch {
       setSubmitState("error");
       setSubmitMessage(OFFERINGS.submitError);
@@ -320,6 +331,22 @@ export default function OfferingsPage() {
                     className={styles.submitInput}
                     disabled={submitState === "submitting"}
                   />
+                  <div className={styles.fileUploadGroup}>
+                    <label className={styles.fileUploadLabel}>
+                      {OFFERINGS.submitFileLabel}
+                      <input
+                        type="file"
+                        accept="image/*,audio/*,video/*,.pdf"
+                        onChange={(e) => setFormFile(e.target.files?.[0] ?? null)}
+                        className={styles.fileInput}
+                        disabled={submitState === "submitting"}
+                      />
+                    </label>
+                    {formFile && (
+                      <span className={styles.fileName}>{formFile.name}</span>
+                    )}
+                    <span className={styles.fileHint}>{OFFERINGS.submitFileHint}</span>
+                  </div>
                   <input
                     type="text"
                     value={formInspiredBy}

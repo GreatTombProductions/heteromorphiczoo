@@ -428,6 +428,56 @@
   border-color: var(--accent-primary);
 }
 
+/* --- File Upload --- */
+
+.fileUploadGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.fileUploadLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-card-heavy);
+  border: 1px dashed var(--border-card-heavy);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .fileUploadLabel:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+  }
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileName {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--accent-gold);
+  letter-spacing: 0.02em;
+}
+
+.fileHint {
+  font-family: var(--font-functional);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  letter-spacing: 0.02em;
+}
+
 .submitButton {
   padding: 0.75rem 2rem;
   font-family: var(--font-functional);
