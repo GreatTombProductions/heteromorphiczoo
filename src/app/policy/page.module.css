@@ -50,7 +50,6 @@
 .sectionBody {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1.25rem;
 }
 
@@ -59,10 +58,7 @@
   font-size: var(--size-base);
   line-height: var(--leading-body);
   color: var(--text-primary);
-  max-width: 65ch;
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* --- Section 1: "Every note is human." — hero line --- */
