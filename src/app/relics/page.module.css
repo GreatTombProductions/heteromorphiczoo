@@ -1,0 +1,249 @@
+/* ============================================================
+   /relics — Artisan Partner Program
+   The forge room of the cathedral. Warm, anticipatory.
+   Darker background treatment (same as /policy) — serious
+   intent behind what lives here.
+   ============================================================ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8rem 2rem 6rem;
+}
+
+/* --- Header --- */
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 720px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+  text-shadow:
+    0 0 40px rgba(196, 40, 110, 0.25),
+    0 0 80px rgba(196, 40, 110, 0.08);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  font-style: italic;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* --- Program description --- */
+
+.description {
+  max-width: 720px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 5rem;
+}
+
+.description p {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+  text-align: center;
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Divider --- */
+
+.divider {
+  width: 120px;
+  height: 1px;
+  background: var(--accent-gold);
+  margin: 0 auto 5rem;
+  opacity: 0.4;
+}
+
+/* --- Partner grid (future — architecture placeholder) --- */
+
+.partnerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 900px;
+  width: 100%;
+  margin-bottom: 5rem;
+}
+
+/* --- Partner card --- */
+
+.partnerCard {
+  padding: 2rem 2.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 2px;
+  transition: border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .partnerCard:hover {
+    border-color: rgba(196, 154, 60, 0.4);
+  }
+}
+
+.partnerName {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.partnerMedium {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  font-style: italic;
+  color: var(--accent-gold);
+  letter-spacing: 0.02em;
+}
+
+.partnerBio {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  line-height: 1.7;
+  color: var(--text-primary);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-card);
+}
+
+.partnerLink {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--accent-gold);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+  margin-top: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .partnerLink:hover {
+    color: var(--hz-bone);
+    text-shadow: 0 0 12px rgba(196, 154, 60, 0.3);
+  }
+}
+
+/* --- Empty state --- */
+
+.emptyState {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-card);
+  border-radius: 2px;
+}
+
+.emptyHeadline {
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  font-style: italic;
+  color: var(--accent-gold);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.emptyBody {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+  max-width: 50ch;
+  margin: 0 auto 2rem;
+}
+
+.emptyCoda {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-card-light);
+}
+
+/* --- Footer --- */
+
+.footer {
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-card-subtle);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .main {
+    padding: 6rem 1.25rem 4rem;
+  }
+
+  .header {
+    margin-bottom: 3rem;
+  }
+
+  .description {
+    margin-bottom: 3rem;
+  }
+
+  .divider {
+    margin-bottom: 3rem;
+  }
+
+  .partnerGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .emptyState {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 5rem 1rem 3rem;
+  }
+
+  .partnerCard {
+    padding: 1.5rem;
+  }
+
+  .emptyState {
+    padding: 2rem 1.25rem;
+  }
+}

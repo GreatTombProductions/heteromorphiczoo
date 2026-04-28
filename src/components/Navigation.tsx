@@ -13,6 +13,7 @@ const routes = [
   { href: "/offerings", label: NAV.offerings, shortLabel: "Offerings" },
   { href: "/menagerie", label: NAV.menagerieRoll, shortLabel: "Menagerie" },
   { href: "/rites", label: NAV.rites, shortLabel: "Rites" },
+  { href: "/relics", label: NAV.relics, shortLabel: "Relics" },
   { href: "/press", label: NAV.press, shortLabel: "Press" },
 ] as const;
 
