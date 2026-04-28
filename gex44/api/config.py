@@ -129,6 +129,23 @@ VALID_SOURCES = {
     "website", "presave", "show", "referral", "social", "merch_purchase", "import"
 }
 
+# --- Pre-Save ---
+
+VALID_PLATFORMS = {"spotify", "apple", "youtube", "bandcamp", "other"}
+
+RESEND_API_KEY = os.getenv("HZ_RESEND_API_KEY", "")
+RESEND_FROM_EMAIL = os.getenv("HZ_RESEND_FROM", "noreply@heteromorphiczoo.band")
+
+# Release state for presave lifecycle (presave → released URL transition)
+RELEASES = {
+    "benediction": {
+        "title": "Benediction",
+        "subtitle": "feat. Coty Garcia",
+        "status": "presave",  # "presave" | "released"
+        "links": {},  # Populated when released: {"spotify": "...", "apple": "...", ...}
+    }
+}
+
 # --- Offering Categories ---
 
 VALID_CATEGORIES = {"visual", "sonic", "textual", "ritual", "profane"}

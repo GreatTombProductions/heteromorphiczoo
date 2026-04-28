@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { RELICS, SITE } from "@/lib/copy";
+import Link from "next/link";
+import { BRIDGE, RELICS, SITE } from "@/lib/copy";
 import Navigation from "@/components/Navigation";
 import styles from "./page.module.css";
 
@@ -61,6 +62,26 @@ export default function RelicsPage() {
             ))}
           </section>
         */}
+
+        {/* Bridge link to Rites */}
+        <div className={styles.bridge}>
+          <p className={styles.bridgeText}>
+            {BRIDGE.relicsToRites.text}{" "}
+            <Link href="/rites" className={styles.bridgeLink}>
+              {BRIDGE.relicsToRites.linkText}
+            </Link>
+          </p>
+        </div>
+
+        {/* Partner intake CTA */}
+        <div className={styles.bridge}>
+          <p className={styles.bridgeText}>
+            Interested in partnering?{" "}
+            <Link href="/partner-apply" className={styles.bridgeLink}>
+              Tell us about your craft &rarr;
+            </Link>
+          </p>
+        </div>
       </main>
       <footer className={styles.footer}>
         <p>{SITE.copyright}</p>

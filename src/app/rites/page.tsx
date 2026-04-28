@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
-import { LOADING, RITES } from "@/lib/copy";
+import { BRIDGE, LOADING, RITES } from "@/lib/copy";
 import styles from "./page.module.css";
 
 interface RiteOffering {
@@ -242,6 +242,16 @@ export default function RitesPage() {
             {!hasRites && (
               <p className={styles.emptyState}>{RITES.emptyState}</p>
             )}
+
+            {/* Bridge link to Relics */}
+            <div className={styles.bridge}>
+              <p className={styles.bridgeText}>
+                {BRIDGE.ritesToRelics.text}{" "}
+                <Link href="/relics" className={styles.bridgeLink}>
+                  {BRIDGE.ritesToRelics.linkText}
+                </Link>
+              </p>
+            </div>
 
             {/* How It Works — always visible, structural explanation */}
             <section className={styles.howItWorks}>

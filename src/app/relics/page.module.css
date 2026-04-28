@@ -192,6 +192,32 @@
   border-top: 1px solid var(--border-card-light);
 }
 
+/* --- Bridge links --- */
+
+.bridge {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.bridgeText {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.bridgeLink {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.bridgeLink:hover {
+  color: var(--accent-hover);
+}
+
 /* --- Footer --- */
 
 .footer {

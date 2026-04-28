@@ -1,0 +1,261 @@
+/* ============================================================
+   Card Builder — interactive form for creating AI policy cards
+   Content-only editing. No style customization.
+   ============================================================ */
+
+.builder {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 480px;
+  width: 100%;
+}
+
+/* --- Mode Toggle --- */
+
+.modeToggle {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border-card);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.toggleButton {
+  flex: 1;
+  padding: 0.625rem;
+  border: none;
+  background: var(--bg-card-light);
+  color: var(--text-secondary);
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.toggleButton.active {
+  background: var(--bg-card-heavy);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.toggleButton:hover:not(.active) {
+  background: var(--bg-card-subtle);
+}
+
+/* --- Headline --- */
+
+.builderHeadline {
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  color: var(--text-primary);
+  font-style: italic;
+}
+
+/* --- Fields --- */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.label {
+  font-family: var(--font-functional);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-card);
+  border-radius: 4px;
+  background: var(--bg-card-light);
+  color: var(--text-primary);
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: var(--accent-primary);
+}
+
+.input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+/* --- Row Editor --- */
+
+.rowsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rowEditor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border-card-light);
+  border-radius: 6px;
+  background: var(--bg-card-light);
+}
+
+.rowHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.domainInput {
+  flex: 1;
+  padding: 0.375rem 0.5rem;
+  border: 1px solid var(--border-card-subtle);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 500;
+  outline: none;
+}
+
+.domainInput:focus {
+  border-color: var(--accent-primary);
+}
+
+.domainInput::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.removeButton {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.removeButton:hover {
+  color: var(--hz-glow-rose);
+  background: var(--bg-card-subtle);
+}
+
+/* --- Score Slider --- */
+
+.scoreRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.slider {
+  flex: 1;
+  height: 4px;
+  appearance: none;
+  background: var(--border-card);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  cursor: pointer;
+  border: 2px solid var(--bg-deep);
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  cursor: pointer;
+  border: 2px solid var(--bg-deep);
+}
+
+.scoreLabel {
+  font-family: var(--font-functional);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  min-width: 2rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.scaleMeaning {
+  display: block;
+  font-size: 0.625rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+/* --- Qualifier --- */
+
+.qualifierInput {
+  padding: 0.375rem 0.5rem;
+  border: 1px solid var(--border-card-subtle);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  outline: none;
+}
+
+.qualifierInput:focus {
+  border-color: var(--accent-primary);
+}
+
+.qualifierInput::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+  font-style: italic;
+}
+
+/* --- Row Actions --- */
+
+.rowActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.addButton,
+.resetButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-card);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.addButton:hover,
+.resetButton:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+}

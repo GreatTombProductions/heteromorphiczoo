@@ -1,0 +1,24 @@
+import type { Metadata } from "next";
+import { PARTNER_APPLY, SITE } from "@/lib/copy";
+import Navigation from "@/components/Navigation";
+import PartnerForm from "./PartnerForm";
+import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  title: `${PARTNER_APPLY.title} — ${SITE.name}`,
+  description: PARTNER_APPLY.subtitle,
+};
+
+export default function PartnerApplyPage() {
+  return (
+    <div className={styles.page}>
+      <Navigation />
+      <main className={styles.main}>
+        <PartnerForm />
+      </main>
+      <footer className={styles.footer}>
+        <p>{SITE.copyright}</p>
+      </footer>
+    </div>
+  );
+}

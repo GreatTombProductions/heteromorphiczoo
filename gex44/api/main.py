@@ -38,8 +38,12 @@ from .config import (
     PUBLIC_UPLOAD_MAX_BYTES,
     RANK_TABLE,
     RATE_LIMIT_RPM,
+    RELEASES,
+    RESEND_API_KEY,
+    RESEND_FROM_EMAIL,
     UPLOAD_DIR,
     VALID_CATEGORIES,
+    VALID_PLATFORMS,
     VALID_SOURCES,
     rank_for_dp,
 )
@@ -54,6 +58,10 @@ from .models import (
     ClaimResponse,
     JoinRequest,
     JoinResponse,
+    PartnerApplyRequest,
+    PartnerApplyResponse,
+    PresaveRequest,
+    PresaveResponse,
     RankCount,
     ReactionRequest,
     ReactionResponse,
@@ -882,6 +890,208 @@ async def submit_sanctuary(req: SanctuaryRequest, request: Request):
     return SanctuaryResponse(
         id=submission_id,
         message="Your voice has been received. The Zoo is listening.",
+    )
+
+
+# ---------------------------------------------------------------------------
+# POST /api/hz/presave
+# ---------------------------------------------------------------------------
+
+def _send_presave_confirmation(email: str, release_slug: str) -> bool:
+    """Send confirmation email (Email 1) via Resend. Returns True on success."""
+    if not RESEND_API_KEY:
+        return False
+    try:
+        import resend
+        resend.api_key = RESEND_API_KEY
+        resend.Emails.send({
+            "from": RESEND_FROM_EMAIL,
+            "to": email,
+            "subject": "You have been summoned \u2014 Benediction",
+            "text": "\n".join([
+                "You have been summoned.",
+                "",
+                "Benediction \u2014 featuring Coty Garcia \u2014 arrives soon.",
+                "A blessing spoken in two voices. The congregation appoints a new speaker.",
+                "",
+                "When the rite begins, we will reach you.",
+                "",
+                "\u2014 The Zoo",
+            ]),
+        })
+        return True
+    except Exception as e:
+        print(f"[WARN] Presave confirmation email failed for {email}: {e}")
+        return False
+
+
+@app.post("/api/hz/presave", response_model=PresaveResponse, status_code=201)
+async def presave(req: PresaveRequest, request: Request):
+    """Pre-save email capture for upcoming releases."""
+    _check_rate_limit(request)
+
+    if req.platform not in VALID_PLATFORMS:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Invalid platform. Must be one of: {', '.join(sorted(VALID_PLATFORMS))}",
+        )
+
+    db = get_app_db()
+    email_lower = req.email.strip().lower()
+    now = _now_iso()
+
+    # Find or create fan
+    existing_fan = db.execute(
+        "SELECT id, founding_member, lifetime_dp FROM fans WHERE LOWER(email) = ?",
+        (email_lower,),
+    ).fetchone()
+
+    join_dp = 0
+    if existing_fan:
+        fan_id = existing_fan["id"]
+        is_founding = bool(existing_fan["founding_member"])
+        current_lifetime_dp = existing_fan["lifetime_dp"]
+    else:
+        # Create fan record (same pattern as /join)
+        fan_id = str(uuid.uuid4())
+        is_founding = _is_founding_window()
+        source = req.source if req.source in VALID_SOURCES else "presave"
+
+        db.execute(
+            """INSERT INTO fans (id, email, name, source, acquired_at, founding_member,
+               opt_in_newsletter, created_at, updated_at)
+               VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?)""",
+            (fan_id, email_lower, req.name, source, now, int(is_founding), now, now),
+        )
+
+        # Fire join_mailing_list engagement event
+        join_base_dp = EVENT_TYPES["join_mailing_list"][1]  # 5
+        join_multiplier = FOUNDING_MULTIPLIER if is_founding else 1.0
+        join_dp = int(join_base_dp * join_multiplier)
+        join_event_id = str(uuid.uuid4())
+
+        db.execute(
+            """INSERT INTO engagement_events (id, fan_id, event_type, dp_awarded, dp_base,
+               multiplier, created_at)
+               VALUES (?, ?, 'join_mailing_list', ?, ?, ?, ?)""",
+            (join_event_id, fan_id, join_dp, join_base_dp, join_multiplier, now),
+        )
+
+        db.execute(
+            "UPDATE fans SET lifetime_dp = ?, updated_at = ? WHERE id = ?",
+            (join_dp, now, fan_id),
+        )
+        current_lifetime_dp = join_dp
+
+    # Check for duplicate presave
+    existing_presave = db.execute(
+        "SELECT id FROM presaves WHERE fan_id = ? AND release_slug = ?",
+        (fan_id, req.release_slug),
+    ).fetchone()
+
+    if existing_presave:
+        db.commit()
+        return JSONResponse(
+            status_code=409,
+            content={
+                "id": existing_presave["id"],
+                "message": "You are already among the summoned.",
+                "already_presaved": True,
+                "founding_member": is_founding,
+                "dp_awarded": 0,
+            },
+        )
+
+    # Create presave record
+    presave_id = str(uuid.uuid4())
+    db.execute(
+        """INSERT INTO presaves (id, fan_id, email, release_slug, platform, created_at)
+           VALUES (?, ?, ?, ?, ?, ?)""",
+        (presave_id, fan_id, email_lower, req.release_slug, req.platform, now),
+    )
+
+    # Fire presave engagement event (10 DP base)
+    presave_base_dp = EVENT_TYPES["presave"][1]  # 10
+    presave_multiplier = FOUNDING_MULTIPLIER if is_founding else 1.0
+    presave_dp = int(presave_base_dp * presave_multiplier)
+    presave_event_id = str(uuid.uuid4())
+
+    db.execute(
+        """INSERT INTO engagement_events (id, fan_id, event_type, dp_awarded, dp_base,
+           multiplier, release_cycle, created_at)
+           VALUES (?, ?, 'presave', ?, ?, ?, ?, ?)""",
+        (presave_event_id, fan_id, presave_dp, presave_base_dp, presave_multiplier,
+         req.release_slug, now),
+    )
+
+    # Update fan lifetime_dp and rank
+    new_lifetime = current_lifetime_dp + presave_dp
+    new_rank, _ = rank_for_dp(new_lifetime)
+    db.execute(
+        "UPDATE fans SET lifetime_dp = ?, current_rank = ?, updated_at = ? WHERE id = ?",
+        (new_lifetime, new_rank, now, fan_id),
+    )
+
+    db.commit()
+
+    # Send confirmation email (inline, best-effort)
+    confirmation_sent = _send_presave_confirmation(email_lower, req.release_slug)
+    if confirmation_sent:
+        db.execute(
+            "UPDATE presaves SET confirmation_sent = 1, confirmation_sent_at = ? WHERE id = ?",
+            (now, presave_id),
+        )
+        db.commit()
+
+    # Trigger aggregation
+    asyncio.create_task(_trigger_aggregation())
+
+    return PresaveResponse(
+        id=presave_id,
+        message="You have been summoned.",
+        already_presaved=False,
+        founding_member=is_founding,
+        dp_awarded=presave_dp,
+    )
+
+
+# ---------------------------------------------------------------------------
+# GET /api/hz/release/[slug] — release status for frontend lifecycle
+# ---------------------------------------------------------------------------
+
+@app.get("/api/hz/release/{slug}")
+async def get_release(slug: str):
+    """Get release status and links for presave page lifecycle."""
+    release = RELEASES.get(slug)
+    if not release:
+        raise HTTPException(status_code=404, detail="Release not found.")
+    return release
+
+
+# ---------------------------------------------------------------------------
+# POST /api/hz/partner-apply
+# ---------------------------------------------------------------------------
+
+@app.post("/api/hz/partner-apply", response_model=PartnerApplyResponse, status_code=201)
+async def partner_apply(req: PartnerApplyRequest, request: Request):
+    """Partner intake form for the relics program."""
+    _check_rate_limit(request)
+
+    db = get_app_db()
+    app_id = str(uuid.uuid4())
+    now = _now_iso()
+
+    db.execute(
+        """INSERT INTO partner_applications (id, name, craft, portfolio, pitch, email, submitted_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?)""",
+        (app_id, req.name.strip(), req.craft.strip(), req.portfolio.strip(),
+         req.pitch.strip(), req.email.strip().lower(), now),
+    )
+    db.commit()
+
+    return PartnerApplyResponse(
+        id=app_id,
+        message="Your craft has been noted.",
     )
 
 

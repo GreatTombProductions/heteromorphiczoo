@@ -134,3 +134,36 @@ class SanctuaryRequest(BaseModel):
 class SanctuaryResponse(BaseModel):
     id: str
     message: str
+
+
+# --- Presave ---
+
+class PresaveRequest(BaseModel):
+    email: EmailStr
+    platform: str
+    release_slug: str = "benediction"
+    name: str | None = None
+    source: str = "presave"
+
+
+class PresaveResponse(BaseModel):
+    id: str
+    message: str
+    already_presaved: bool = False
+    founding_member: bool
+    dp_awarded: int
+
+
+# --- Partner Apply ---
+
+class PartnerApplyRequest(BaseModel):
+    name: str = Field(..., min_length=1, max_length=200)
+    craft: str = Field(..., min_length=1, max_length=500)
+    portfolio: str = Field(..., min_length=1, max_length=500)
+    pitch: str = Field(..., min_length=1, max_length=2000)
+    email: EmailStr
+
+
+class PartnerApplyResponse(BaseModel):
+    id: str
+    message: str

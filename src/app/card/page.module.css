@@ -1,0 +1,182 @@
+/* ============================================================
+   /card — AI Policy Card Tool
+   Three modes: hero (first visit), view (shared card), builder.
+   ============================================================ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 5rem 1.5rem 4rem;
+  gap: 2rem;
+}
+
+/* --- Hero Mode --- */
+
+.heroHeader {
+  text-align: center;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.heroHeadline {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 30px rgba(196, 154, 60, 0.2);
+}
+
+.heroBody {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  color: var(--text-primary);
+  line-height: var(--leading-body);
+}
+
+.heroCardWrap {
+  max-width: 460px;
+  width: 100%;
+}
+
+.heroCta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ctaPrimary {
+  padding: 0.75rem 2.5rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent-primary);
+  color: var(--hz-bone);
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  letter-spacing: 0.02em;
+}
+
+.ctaPrimary:hover {
+  background: var(--accent-hover);
+}
+
+.ctaPrimary:active {
+  transform: scale(0.98);
+}
+
+.ctaSecondary {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.ctaSecondary:hover {
+  color: var(--accent-primary);
+}
+
+/* --- View Mode --- */
+
+.viewWrap {
+  max-width: 460px;
+  width: 100%;
+}
+
+/* --- Builder Mode --- */
+
+.builderLayout {
+  display: flex;
+  gap: 2.5rem;
+  max-width: 1000px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.builderPane {
+  flex: 1;
+  min-width: 0;
+}
+
+.previewPane {
+  flex: 0 0 460px;
+  position: sticky;
+  top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* --- Export Bar --- */
+
+.exportBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+}
+
+.exportPrompt {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  color: var(--text-primary);
+  font-style: italic;
+}
+
+.exportActions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.exportButton {
+  padding: 0.5rem 1.25rem;
+  border: 1px solid var(--border-card);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.exportButton:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+}
+
+.privacyNote {
+  font-family: var(--font-functional);
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  text-align: center;
+  max-width: 300px;
+}
+
+/* ============================================================
+   Responsive — mobile stacks builder above preview
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .builderLayout {
+    flex-direction: column;
+  }
+
+  .previewPane {
+    flex: none;
+    width: 100%;
+    max-width: 460px;
+    position: static;
+    align-self: center;
+  }
+}

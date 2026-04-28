@@ -223,6 +223,44 @@ CREATE TABLE IF NOT EXISTS sanctuary_submissions (
 
 CREATE INDEX IF NOT EXISTS idx_sanctuary_reviewed ON sanctuary_submissions(reviewed);
 CREATE INDEX IF NOT EXISTS idx_sanctuary_submitted ON sanctuary_submissions(submitted_at);
+
+-- Table: presaves
+-- Pre-save notification queue. Operational state for release-day email trigger.
+-- DP accounting lives in engagement_events; this table tracks notification delivery.
+CREATE TABLE IF NOT EXISTS presaves (
+    id TEXT PRIMARY KEY,
+    fan_id TEXT NOT NULL,
+    email TEXT NOT NULL,
+    release_slug TEXT NOT NULL,
+    platform TEXT NOT NULL,
+    confirmation_sent INTEGER NOT NULL DEFAULT 0,
+    confirmation_sent_at TEXT,
+    notification_sent INTEGER NOT NULL DEFAULT 0,
+    notification_sent_at TEXT,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    FOREIGN KEY (fan_id) REFERENCES fans(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_presaves_release ON presaves(release_slug);
+CREATE INDEX IF NOT EXISTS idx_presaves_fan_release ON presaves(fan_id, release_slug);
+CREATE INDEX IF NOT EXISTS idx_presaves_notification ON presaves(release_slug, notification_sent);
+
+-- Table: partner_applications
+-- Inbound partner applications for the relics program. Admin review.
+CREATE TABLE IF NOT EXISTS partner_applications (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    craft TEXT NOT NULL,
+    portfolio TEXT NOT NULL,
+    pitch TEXT NOT NULL,
+    email TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending',
+    submitted_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    reviewed_at TEXT,
+    notes TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_partner_apps_status ON partner_applications(status);
 """
 
 
@@ -247,7 +285,7 @@ def init_db(db_path: str | None = None) -> Path:
     conn.close()
 
     table_names = [t[0] for t in tables]
-    expected = ["chronicle_events", "chronicle_media", "chronicle_tracks", "engagement_events", "fan_metadata", "fans", "offerings", "rate_limits", "reaction_claims", "reactions", "sanctuary_submissions"]
+    expected = ["chronicle_events", "chronicle_media", "chronicle_tracks", "engagement_events", "fan_metadata", "fans", "offerings", "partner_applications", "presaves", "rate_limits", "reaction_claims", "reactions", "sanctuary_submissions"]
     assert table_names == expected, f"Expected {expected}, got {table_names}"
     print(f"Tables created: {', '.join(table_names)}")
 

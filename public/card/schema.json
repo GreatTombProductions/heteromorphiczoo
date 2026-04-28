@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Policy Card",
+  "description": "A structured declaration of AI usage (for artists) or AI acceptance (for listeners) across creative domains. Schema v1 — heteromorphiczoo.band",
+  "type": "object",
+  "required": ["name", "type", "rows"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Band/artist name or listener display name"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["band", "listener"],
+      "description": "Band = declares usage. Listener = declares acceptance."
+    },
+    "tagline": {
+      "type": "string",
+      "description": "Optional single-line declaration. HZ uses 'Every note is human.'"
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["domain", "score"],
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Creative domain name (e.g. 'Lyrics', 'Production & Mixing')"
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "0 = no AI, 5 = full AI. For bands: how much AI is used. For listeners: how much AI is accepted."
+          },
+          "qualifier": {
+            "type": "string",
+            "description": "Optional text explaining the score. This is where the nuance lives."
+          }
+        }
+      }
+    }
+  }
+}

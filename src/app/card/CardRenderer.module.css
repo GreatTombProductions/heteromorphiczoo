@@ -1,0 +1,132 @@
+/* ============================================================
+   Card Renderer — the visual card component
+   Used for both display and PNG export source.
+   Stained-glass aesthetic: fault line between creative & infrastructure.
+   ============================================================ */
+
+.card {
+  max-width: 460px;
+  width: 100%;
+  padding: 1.75rem;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* --- Header --- */
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-card-light);
+}
+
+.typeLabel {
+  font-family: var(--font-functional);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+}
+
+.cardName {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.tagline {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  font-style: italic;
+  color: var(--accent-gold);
+  margin-top: 0.125rem;
+}
+
+/* --- Rows --- */
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row {
+  padding: 0.625rem 0.75rem;
+  border-left: 3px solid transparent;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+}
+
+.rowMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.domain {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.score {
+  font-family: var(--font-functional);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.scoreVerb {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.qualifier {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin-top: 0.25rem;
+  opacity: 0.85;
+}
+
+/* --- Watermark --- */
+
+.watermark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-card-light);
+}
+
+.watermarkUrl {
+  font-family: var(--font-functional);
+  font-size: 0.625rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.watermarkHook {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-style: italic;
+  color: var(--accent-gold);
+  opacity: 0.7;
+}

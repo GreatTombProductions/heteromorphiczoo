@@ -1,0 +1,218 @@
+/* ============================================================
+   /partner-apply — Relic Partner Intake Form
+   Conversational-liturgical register. An invitation, not a form.
+   ============================================================ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6rem 2rem 4rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--size-xl);
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 30px rgba(196, 154, 60, 0.15);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+  max-width: 55ch;
+}
+
+/* --- How It Works --- */
+
+.howItWorks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border-card-light);
+  border-radius: 8px;
+  background: var(--bg-card-light);
+}
+
+.howItWorksHeading {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.howItWorksList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.howItWorksList li {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.howItWorksList li::before {
+  content: "\2014\00a0";
+  color: var(--text-secondary);
+}
+
+.volumeNote {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-style: italic;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--border-card-light);
+}
+
+/* --- Form --- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-card);
+  border-radius: 6px;
+  background: var(--bg-card-light);
+  color: var(--text-primary);
+  font-family: var(--font-functional);
+  font-size: var(--size-base);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: var(--accent-primary);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* --- Submit --- */
+
+.submitButton {
+  width: 100%;
+  padding: 0.875rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent-primary);
+  color: var(--hz-bone);
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  letter-spacing: 0.02em;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Success / Error --- */
+
+.successContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  animation: fadeIn 0.6s ease;
+}
+
+.successHeadline {
+  font-family: var(--font-display);
+  font-size: var(--size-xl);
+  color: var(--accent-gold);
+  letter-spacing: 0.04em;
+}
+
+.successBody {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  color: var(--text-primary);
+  line-height: var(--leading-body);
+}
+
+.error {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--hz-glow-rose);
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

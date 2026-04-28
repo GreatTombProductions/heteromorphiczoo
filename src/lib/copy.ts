@@ -249,7 +249,7 @@ export const CHRONICLE = {
     {
       date: "September 2025",
       title: "The Solo Flight: Hexed",
-      body: "Megan Ash releases \"Hexed,\" her first solo single. The violinist steps forward as vocalist and artist in her own right.",
+      body: "Megan Ash releases \"Hexed,\" her first solo single. The violinist steps forward as frontwoman and artist in her own right.",
       era: "solo" as const,
       videoUrl: "https://www.youtube.com/watch?v=wqJJC_gMDGM",
     },
@@ -484,7 +484,7 @@ export const RELICS = {
   subtitle: "Every piece is made by someone whose craft we believe in.",
   description: [
     "Each piece on this page was made by a specific artisan who is named, attributed, and linked. Their craft, interpreted through the world of Heteromorphic Zoo. The maker is not a vendor. The maker is the reason.",
-    "We pay our partners upfront and share revenue from every sale. No licensing fees. No extraction. The economics are inverted because the mission is not margin but propagation. Every relic carries the Menagerie further than the music alone can reach.",
+    "We pay our partners upfront for their design work. They handle production, pricing, and fulfillment on their own terms. Our site links to their shop. No revenue share. No extraction. The economics are simple because the mission is propagation, not margin.",
   ],
   emptyState: {
     line1: "The forge is lit. The commissions are spoken.",
@@ -553,4 +553,248 @@ export const PRESS = {
     press: "hzoo@greattombproductions.com",
     general: "hzoo@greattombproductions.com",
   },
+} as const;
+
+/* ============================================================
+   Pre-Save — /presave/[release]
+   ============================================================ */
+
+export const PRESAVE = {
+  headline: "Benediction",
+  subheadline: "feat. Coty Garcia",
+  releaseDate: "2026",
+  countdownLabel: "arrives",
+
+  atmosphericLine: "A blessing spoken in two voices. The congregation appoints a new speaker.",
+
+  platformPrompt: "Where do you listen?",
+  platforms: {
+    spotify: "Spotify",
+    apple: "Apple Music",
+    youtube: "YouTube Music",
+    bandcamp: "Bandcamp",
+    other: "Other",
+  },
+
+  emailPrompt: "Leave your name with the menagerie. We summon you on the day.",
+  emailPlaceholder: "your@email.com",
+
+  submitButton: "Be Summoned",
+
+  success: {
+    headline: "You have been summoned.",
+    body: "When the rite begins, you will know.",
+    dpNotice: "The menagerie has noted your devotion.",
+    menageriePrompt: "Not yet among us?",
+    menagerieLink: "Enter the menagerie \u2192",
+    sharePrompt: "Spread the word.",
+  },
+
+  errors: {
+    invalidEmail: "The roll requires a valid name.",
+    alreadyPresaved: "You are already among the summoned.",
+    general: "Something broke the ritual. Try again.",
+    network: "The connection was severed. The faithful persist.",
+  },
+
+  postRelease: {
+    headline: "Benediction",
+    subheadline: "feat. Coty Garcia",
+    atmosphericLine: "The rite has begun.",
+    listenPrompt: "Hear the blessing.",
+  },
+
+  countdown: {
+    daysLabel: "days",
+    dayLabel: "day",
+    hoursLabel: "hours",
+    hourLabel: "hour",
+    imminent: "The hour draws near.",
+    arrived: "The rite has begun.",
+  },
+
+  og: {
+    title: "Benediction \u2014 Heteromorphic Zoo (feat. Coty Garcia)",
+    description: "A blessing spoken in two voices. Be summoned.",
+  },
+} as const;
+
+export const PRESAVE_EMAILS = {
+  confirmation: {
+    subject: "You have been summoned \u2014 Benediction",
+    preheader: "The blessing approaches. You will know when it arrives.",
+    body: [
+      "You have been summoned.",
+      "",
+      "Benediction \u2014 featuring Coty Garcia \u2014 arrives soon.",
+      "A blessing spoken in two voices. The congregation appoints a new speaker.",
+      "",
+      "When the rite begins, we will reach you.",
+      "",
+      "\u2014 The Zoo",
+    ],
+  },
+
+  releaseDay: {
+    subject: "The rite has begun \u2014 Benediction is live",
+    preheader: "Hear the blessing. Every note is human.",
+    body: [
+      "The rite has begun.",
+      "",
+      "Benediction is live. Hear the blessing:",
+      "",
+      "",
+      "Every note is human. Every lyric. Every melody. Every arrangement.",
+      "Every voice you hear spent years becoming itself.",
+      "",
+      "If this moved you \u2014 tell someone.",
+      "",
+      "\u2014 The Zoo",
+    ],
+    listenCta: "Listen on {platform} \u2192",
+    allPlatformsLabel: "Also available on:",
+  },
+} as const;
+
+/* ============================================================
+   Bridge Links — Rites \u2194 Relics Cross-Navigation
+   ============================================================ */
+
+export const BRIDGE = {
+  ritesToRelics: {
+    text: "Your craft deserves more than a rite. If you forge things that endure, the relics program awaits.",
+    linkText: "See the Relics \u2192",
+  },
+
+  relicsToRites: {
+    text: "If you seek the act of creation over its artifacts, the rites are where the congregation gathers.",
+    linkText: "Join the Rites \u2192",
+  },
+} as const;
+
+/* ============================================================
+   Partner Intake Form — /partner-apply
+   ============================================================ */
+
+export const PARTNER_APPLY = {
+  title: "Tell Us About Your Craft",
+  subtitle: "Heteromorphic Zoo partners with artisans whose craft speaks the same language as the music. If you make things that endure \u2014 forged, carved, painted, sewn, printed \u2014 and you see something of your work in this world, we want to hear from you.",
+
+  howItWorks: {
+    heading: "How partnerships work",
+    points: [
+      "We pay upfront for your design work.",
+      "You produce, price, stock, and ship independently. Your craft, your terms.",
+      "Our site showcases your work and links to your shop.",
+      "No revenue share. No minimums. No contracts.",
+      "We trust you to fulfill orders. If you stop, we remove the listing. Simple.",
+    ],
+    volumeNote: "A note on volume: Heteromorphic Zoo is a niche extreme metal band. Order volume may be low. You should be prepared to store your designs and reactivate production when orders come. The opportunity is creative alignment and exposure to a devoted audience, not high-volume sales.",
+  },
+
+  fields: {
+    nameLabel: "Your name",
+    namePlaceholder: "Or studio name",
+    craftLabel: "What you make",
+    craftPlaceholder: "Metalwork, illustration, leather, textiles, ceramics\u2026",
+    portfolioLabel: "Where we can see your work",
+    portfolioPlaceholder: "Website, Instagram, Etsy \u2014 wherever your craft lives",
+    pitchLabel: "Why the Zoo",
+    pitchPlaceholder: "What about Heteromorphic Zoo resonates with your craft? A sentence or a story \u2014 your call.",
+    emailLabel: "How to reach you",
+    emailPlaceholder: "your@email.com",
+  },
+
+  submitButton: "Send",
+
+  success: {
+    headline: "Your craft has been noted.",
+    body: "We review submissions when the forge is open. If your work speaks the same language as ours, we will reach out. No timeline. No SLA. Patience is a craft too.",
+  },
+  errors: {
+    invalidEmail: "We need a way to reach you.",
+    missingFields: "The forge needs more material. Fill in what\u2019s marked.",
+    general: "Something broke the ritual. Try again.",
+    network: "The connection was severed. The faithful persist.",
+  },
+} as const;
+
+/* ============================================================
+   AI Policy Card — /card
+   ============================================================ */
+
+export const CARD = {
+  title: "What\u2019s Human. What Isn\u2019t.",
+  subtitle: "A creative attestation.",
+
+  builder: {
+    headline: "Declare your sound.",
+    headlineBand: "Declare your sound.",
+    headlineListener: "Declare your standard.",
+    toggleBand: "I make music",
+    toggleListener: "I listen to music",
+  },
+
+  defaultRows: [
+    { domain: "Lyrics", hzScore: 0, hzQualifier: "Every word is written by a human being." },
+    { domain: "Composition & Arrangement", hzScore: 0, hzQualifier: "Every note, every harmony, every structural choice. Human decisions." },
+    { domain: "Production & Mixing", hzScore: 1, hzQualifier: "No generative AI. Standard digital tools and modeling are craft, not generation." },
+    { domain: "Cover Art", hzScore: 0, hzQualifier: "Painted by Lordigan Pedro Sena. A human hand, a human eye." },
+    { domain: "Music Videos", hzScore: 2, hzQualifier: "No AI preferred. Industry VFX trends make a hard zero increasingly unusual." },
+    { domain: "Performance & Recording", hzScore: 1, hzQualifier: "No generative AI. No AI-mimicked performances. Real hands, real breath, real articulation." },
+    { domain: "Mastering", hzScore: 2, hzQualifier: "No generative AI. The line is blurry and we don\u2019t directly control producers\u2019 tools." },
+    { domain: "Web Development", hzScore: 5, hzQualifier: "Built with AI. Every page you\u2019re looking at." },
+    { domain: "PR & Copywriting", hzScore: 5, hzQualifier: "AI drafts. Humans decide what ships." },
+    { domain: "Social Media", hzScore: 3, hzQualifier: "AI assists in drafting. Final voice is usually human." },
+  ],
+
+  scaleLabels: {
+    0: "No AI",
+    1: "Tools only \u2014 no generative AI",
+    2: "Mostly human, AI at the edges",
+    3: "Mixed \u2014 AI assists, human decides",
+    4: "AI-led, human-reviewed",
+    5: "AI",
+  } as Record<number, string>,
+
+  visual: {
+    faultLineLabel: "",
+    bandLabel: "Artist Attestation",
+    listenerLabel: "Listener Standard",
+    bandVerb: "uses",
+    listenerVerb: "accepts",
+  },
+
+  watermark: "Made at heteromorphiczoo.band/card",
+  watermarkHook: "What\u2019s human in your music?",
+
+  export: {
+    downloadPng: "Download",
+    copyLink: "Copy link",
+    sharePrompt: "Your attestation is ready.",
+    privacyNote: "This tool stores nothing. Your card exists only in the image you download and the link you share.",
+  },
+
+  controls: {
+    addRow: "+ Add a domain",
+    removeRow: "Remove",
+    domainPlaceholder: "e.g. Merchandise design",
+    qualifierPlaceholder: "Optional \u2014 explain your stance",
+    resetToDefaults: "Reset to defaults",
+  },
+
+  firstVisit: {
+    heroHeadline: "What\u2019s Human. What Isn\u2019t.",
+    heroBody: "Every band makes choices about AI. Most don\u2019t say so. This tool lets you.",
+    ctaCreate: "Make yours",
+    ctaLearnMore: "Read our policy \u2192",
+  },
+
+  hzCard: {
+    name: "Heteromorphic Zoo",
+    type: "band" as const,
+    tagline: "Every note is human.",
+  },
+
+  schemaDescription: "AI Policy Card v1 \u2014 heteromorphiczoo.band",
 } as const;
