@@ -113,6 +113,17 @@ class RollResponse(BaseModel):
 
 # --- Sanctuary ---
 
+# --- Reaction Claims ---
+
+class ClaimRequest(BaseModel):
+    email: EmailStr
+
+
+class ClaimResponse(BaseModel):
+    id: str
+    message: str
+
+
 class SanctuaryRequest(BaseModel):
     name: str | None = None
     email: str | None = None

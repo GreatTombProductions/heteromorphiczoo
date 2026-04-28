@@ -93,11 +93,27 @@ export interface ChronicleTrack {
   sort_order: number;
 }
 
+export interface ReactionClaim {
+  id: string;
+  reaction_id: string;
+  email: string;
+  status: string;
+  submitted_at: string;
+  reaction_title: string | null;
+  channel_name: string | null;
+  youtube_url: string;
+  fan_name: string | null;
+  fan_email: string;
+  current_claimer_name: string | null;
+  current_claimer_email: string | null;
+}
+
 export interface DashboardData {
   total_fans: number;
   founding_fans: number;
   pending_offerings: number;
   pending_reactions: number;
+  pending_claims: number;
   pending_sanctuary: number;
   total_dp_awarded: number;
   by_rank: { rank: number; title: string; count: number }[];
@@ -132,5 +148,6 @@ export interface PaginatedResponse<T> {
   fans?: T[];
   offerings?: T[];
   reactions?: T[];
+  claims?: T[];
   submissions?: T[];
 }

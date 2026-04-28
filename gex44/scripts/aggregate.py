@@ -196,15 +196,17 @@ def write_offerings_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
 def write_reactions_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
     """Write reactions.json — approved reaction videos."""
     rows = conn.execute("""
-        SELECT id, youtube_url, youtube_id, title, channel_name,
-               thumbnail_url, song_tag, approved_at
-        FROM reactions
-        WHERE status = 'approved'
+        SELECT r.id, r.youtube_url, r.youtube_id, r.title, r.channel_name,
+               r.thumbnail_url, r.song_tag, r.approved_at,
+               f.name as claimed_by_name
+        FROM reactions r
+        LEFT JOIN fans f ON r.claimed_by = f.id
+        WHERE r.status = 'approved'
     """).fetchall()
 
     reactions = []
     for row in rows:
-        reactions.append({
+        entry = {
             "id": row["id"],
             "youtube_url": row["youtube_url"],
             "youtube_id": row["youtube_id"],
@@ -213,7 +215,10 @@ def write_reactions_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
             "thumbnail_url": row["thumbnail_url"],
             "song_tag": row["song_tag"],
             "approved_at": row["approved_at"],
-        })
+        }
+        if row["claimed_by_name"]:
+            entry["claimed_by_name"] = row["claimed_by_name"]
+        reactions.append(entry)
 
     # Song counts
     song_rows = conn.execute("""

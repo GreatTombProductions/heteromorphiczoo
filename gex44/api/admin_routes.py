@@ -37,6 +37,7 @@ class DashboardResponse(BaseModel):
     founding_fans: int
     pending_offerings: int
     pending_reactions: int
+    pending_claims: int
     pending_sanctuary: int
     total_dp_awarded: int
     by_rank: list[dict]
@@ -113,6 +114,14 @@ async def admin_dashboard(admin: dict = Depends(verify_admin)):
     pending_reactions = db.execute(
         "SELECT COUNT(*) FROM reactions WHERE status = 'pending'"
     ).fetchone()[0]
+    # Claims: count pending
+    try:
+        pending_claims = db.execute(
+            "SELECT COUNT(*) FROM reaction_claims WHERE status = 'pending'"
+        ).fetchone()[0]
+    except Exception:
+        pending_claims = 0
+
     # Sanctuary: count unreviewed, handle table not existing yet
     try:
         pending_sanctuary = db.execute(
@@ -158,6 +167,7 @@ async def admin_dashboard(admin: dict = Depends(verify_admin)):
         founding_fans=founding_fans,
         pending_offerings=pending_offerings,
         pending_reactions=pending_reactions,
+        pending_claims=pending_claims,
         pending_sanctuary=pending_sanctuary,
         total_dp_awarded=total_dp,
         by_rank=by_rank,
@@ -594,20 +604,25 @@ async def review_reaction(
     now = _now_iso()
 
     reaction = db.execute(
-        "SELECT id, status FROM reactions WHERE id = ?", (reaction_id,)
+        "SELECT id, status, event_id FROM reactions WHERE id = ?", (reaction_id,)
     ).fetchone()
     if not reaction:
         raise HTTPException(status_code=404, detail="Reaction not found.")
+
+    from .config import FOUNDING_MULTIPLIER
 
     if body.action in ("approve", "feature"):
         db.execute(
             "UPDATE reactions SET status = 'approved', approved_at = ? WHERE id = ?",
             (now, reaction_id),
         )
+        # Award submitter DP if they provided an email
+        _award_dp_for_event(db, reaction["event_id"], now, FOUNDING_MULTIPLIER)
     elif body.action == "reject":
         db.execute(
             "UPDATE reactions SET status = 'rejected' WHERE id = ?", (reaction_id,)
         )
+        _revoke_dp_for_event(db, reaction["event_id"], now)
     else:
         raise HTTPException(status_code=400, detail="Invalid action.")
 
@@ -618,6 +633,99 @@ async def review_reaction(
     asyncio.create_task(_trigger_aggregation())
 
     return {"status": body.action + "d" if body.action != "reject" else "rejected"}
+
+
+# ---------------------------------------------------------------------------
+# Reaction Claims
+# ---------------------------------------------------------------------------
+
+
+@router.get("/admin/claims")
+async def list_claims(
+    status: str = Query("pending"),
+    page: int = Query(1, ge=1),
+    per_page: int = Query(20, ge=1, le=100),
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+    offset = (page - 1) * per_page
+
+    where = "WHERE rc.status = ?" if status != "all" else ""
+    params: list = [status] if status != "all" else []
+
+    total = db.execute(
+        f"SELECT COUNT(*) FROM reaction_claims rc {where}", params
+    ).fetchone()[0]
+
+    claims = [
+        dict(row)
+        for row in db.execute(
+            f"""SELECT rc.id, rc.reaction_id, rc.email, rc.status, rc.submitted_at,
+                       r.title as reaction_title, r.channel_name, r.youtube_url,
+                       f.name as fan_name, f.email as fan_email,
+                       cf.name as current_claimer_name, cf.email as current_claimer_email
+                FROM reaction_claims rc
+                JOIN reactions r ON rc.reaction_id = r.id
+                JOIN fans f ON rc.fan_id = f.id
+                LEFT JOIN fans cf ON r.claimed_by = cf.id
+                {where}
+                ORDER BY rc.submitted_at DESC
+                LIMIT ? OFFSET ?""",
+            params + [per_page, offset],
+        ).fetchall()
+    ]
+
+    pages = max(1, (total + per_page - 1) // per_page)
+    return {"claims": claims, "total": total, "page": page, "pages": pages}
+
+
+@router.post("/admin/claims/{claim_id}/review")
+async def review_claim(
+    claim_id: str,
+    body: ReviewAction,
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+    now = _now_iso()
+
+    claim = db.execute(
+        "SELECT id, reaction_id, fan_id, event_id, status FROM reaction_claims WHERE id = ?",
+        (claim_id,),
+    ).fetchone()
+    if not claim:
+        raise HTTPException(status_code=404, detail="Claim not found.")
+
+    from .config import FOUNDING_MULTIPLIER
+
+    if body.action == "approve":
+        # Update claim status
+        db.execute(
+            "UPDATE reaction_claims SET status = 'accepted', reviewed_at = ? WHERE id = ?",
+            (now, claim_id),
+        )
+        # Set the reaction's claimed_by to this fan
+        db.execute(
+            "UPDATE reactions SET claimed_by = ? WHERE id = ?",
+            (claim["fan_id"], claim["reaction_id"]),
+        )
+        # Award DP
+        _award_dp_for_event(db, claim["event_id"], now, FOUNDING_MULTIPLIER)
+    elif body.action == "reject":
+        db.execute(
+            "UPDATE reaction_claims SET status = 'rejected', reviewed_at = ? WHERE id = ?",
+            (now, claim_id),
+        )
+        _revoke_dp_for_event(db, claim["event_id"], now)
+    else:
+        raise HTTPException(status_code=400, detail="Invalid action. Use 'approve' or 'reject'.")
+
+    db.commit()
+
+    import asyncio
+    from .main import _trigger_aggregation
+    asyncio.create_task(_trigger_aggregation())
+
+    return {"status": "accepted" if body.action == "approve" else "rejected"}
 
 
 # ---------------------------------------------------------------------------

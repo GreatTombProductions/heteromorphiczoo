@@ -50,6 +50,8 @@ from .models import (
     AggregateRequest,
     AggregateResponse,
     CensusResponse,
+    ClaimRequest,
+    ClaimResponse,
     JoinRequest,
     JoinResponse,
     RankCount,
@@ -377,15 +379,56 @@ async def submit_reaction(req: ReactionRequest, request: Request):
             detail="Could not fetch video metadata. Check the URL is valid and the video is public.",
         )
 
-    # Link to fan if email provided
+    # Link to fan if email provided (find or create)
     submitted_by = None
+    event_id = None
     if req.submitted_by_email:
+        email_lower = req.submitted_by_email.strip().lower()
         fan = db.execute(
             "SELECT id FROM fans WHERE LOWER(email) = ?",
-            (req.submitted_by_email.strip().lower(),),
+            (email_lower,),
         ).fetchone()
+
         if fan:
             submitted_by = fan["id"]
+        else:
+            # Auto-register: create fan record from the reaction submission
+            submitted_by = str(uuid.uuid4())
+            founding = _is_founding_window()
+            now_join = _now_iso()
+
+            db.execute(
+                """INSERT INTO fans (id, email, name, source, acquired_at, founding_member, opt_in_newsletter, created_at, updated_at)
+                   VALUES (?, ?, NULL, 'website', ?, ?, 0, ?, ?)""",
+                (submitted_by, email_lower, now_join, int(founding), now_join, now_join),
+            )
+
+            # Create join engagement event
+            join_base_dp = EVENT_TYPES["join_mailing_list"][1]
+            join_multiplier = FOUNDING_MULTIPLIER if founding else 1.0
+            join_dp = int(join_base_dp * join_multiplier)
+            join_event_id = str(uuid.uuid4())
+
+            db.execute(
+                """INSERT INTO engagement_events (id, fan_id, event_type, dp_awarded, dp_base, multiplier, created_at)
+                   VALUES (?, ?, 'join_mailing_list', ?, ?, ?, ?)""",
+                (join_event_id, submitted_by, join_dp, join_base_dp, join_multiplier, now_join),
+            )
+
+            db.execute(
+                "UPDATE fans SET lifetime_dp = ?, updated_at = ? WHERE id = ?",
+                (join_dp, now_join, submitted_by),
+            )
+
+        # Create pending engagement event for the reaction submission
+        base_dp = EVENT_TYPES["reaction_submit"][1]  # 5
+        event_id = str(uuid.uuid4())
+        db.execute(
+            """INSERT INTO engagement_events (id, fan_id, event_type, dp_awarded, dp_base,
+               multiplier, reviewed, approved, created_at)
+               VALUES (?, ?, 'reaction_submit', 0, ?, 1.0, 1, 0, ?)""",
+            (event_id, submitted_by, base_dp, _now_iso()),
+        )
 
     reaction_id = str(uuid.uuid4())
     now = _now_iso()
@@ -393,8 +436,8 @@ async def submit_reaction(req: ReactionRequest, request: Request):
 
     db.execute(
         """INSERT INTO reactions (id, youtube_url, youtube_id, title, channel_name,
-           thumbnail_url, song_tag, submitted_by, status, discovered_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?)""",
+           thumbnail_url, song_tag, submitted_by, event_id, status, discovered_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?)""",
         (
             reaction_id,
             canonical_url,
@@ -404,6 +447,7 @@ async def submit_reaction(req: ReactionRequest, request: Request):
             oembed_data["thumbnail_url"],
             req.song_tag,
             submitted_by,
+            event_id,
             now,
         ),
     )
@@ -415,6 +459,90 @@ async def submit_reaction(req: ReactionRequest, request: Request):
         channel_name=oembed_data["channel_name"],
         thumbnail_url=oembed_data["thumbnail_url"],
         status="pending",
+    )
+
+
+# ---------------------------------------------------------------------------
+# POST /api/hz/reactions/{reaction_id}/claim
+# ---------------------------------------------------------------------------
+
+@app.post("/api/hz/reactions/{reaction_id}/claim", response_model=ClaimResponse, status_code=201)
+async def claim_reaction(reaction_id: str, req: ClaimRequest, request: Request):
+    """Claim a reaction video as your own. Works even if already claimed (disputes/updates)."""
+    _check_rate_limit(request)
+
+    db = get_app_db()
+
+    # Verify reaction exists and is approved
+    reaction = db.execute(
+        "SELECT id, status FROM reactions WHERE id = ?", (reaction_id,)
+    ).fetchone()
+    if not reaction:
+        raise HTTPException(status_code=404, detail="Reaction not found.")
+    if reaction["status"] != "approved":
+        raise HTTPException(status_code=400, detail="Only approved reactions can be claimed.")
+
+    # Find or create fan
+    email_lower = req.email.strip().lower()
+    fan = db.execute(
+        "SELECT id FROM fans WHERE LOWER(email) = ?", (email_lower,)
+    ).fetchone()
+
+    if fan:
+        fan_id = fan["id"]
+    else:
+        # Auto-register
+        fan_id = str(uuid.uuid4())
+        founding = _is_founding_window()
+        now_join = _now_iso()
+
+        db.execute(
+            """INSERT INTO fans (id, email, name, source, acquired_at, founding_member, opt_in_newsletter, created_at, updated_at)
+               VALUES (?, ?, NULL, 'website', ?, ?, 0, ?, ?)""",
+            (fan_id, email_lower, now_join, int(founding), now_join, now_join),
+        )
+
+        # Create join engagement event
+        join_base_dp = EVENT_TYPES["join_mailing_list"][1]
+        join_multiplier = FOUNDING_MULTIPLIER if founding else 1.0
+        join_dp = int(join_base_dp * join_multiplier)
+        join_event_id = str(uuid.uuid4())
+
+        db.execute(
+            """INSERT INTO engagement_events (id, fan_id, event_type, dp_awarded, dp_base, multiplier, created_at)
+               VALUES (?, ?, 'join_mailing_list', ?, ?, ?, ?)""",
+            (join_event_id, fan_id, join_dp, join_base_dp, join_multiplier, now_join),
+        )
+
+        db.execute(
+            "UPDATE fans SET lifetime_dp = ?, updated_at = ? WHERE id = ?",
+            (join_dp, now_join, fan_id),
+        )
+
+    # Create pending engagement event for the claim
+    now = _now_iso()
+    base_dp = EVENT_TYPES["reaction_claim"][1]  # 50
+    event_id = str(uuid.uuid4())
+    db.execute(
+        """INSERT INTO engagement_events (id, fan_id, event_type, dp_awarded, dp_base,
+           multiplier, reviewed, approved, created_at)
+           VALUES (?, ?, 'reaction_claim', 0, ?, 1.0, 1, 0, ?)""",
+        (event_id, fan_id, base_dp, now),
+    )
+
+    # Create the claim record
+    claim_id = str(uuid.uuid4())
+    db.execute(
+        """INSERT INTO reaction_claims (id, reaction_id, fan_id, email, event_id, status, submitted_at)
+           VALUES (?, ?, ?, ?, ?, 'pending', ?)""",
+        (claim_id, reaction_id, fan_id, email_lower, event_id, now),
+    )
+
+    db.commit()
+
+    return ClaimResponse(
+        id=claim_id,
+        message="Your claim has been received. It awaits verification.",
     )
 
 

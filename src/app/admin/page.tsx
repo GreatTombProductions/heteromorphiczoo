@@ -76,6 +76,12 @@ export default function AdminDashboard() {
           </div>
         </div>
         <div className="admin-stat-card">
+          <div className="admin-stat-label">Pending Claims</div>
+          <div className={`admin-stat-value ${(data.pending_claims ?? 0) > 0 ? "alert" : ""}`}>
+            {data.pending_claims ?? 0}
+          </div>
+        </div>
+        <div className="admin-stat-card">
           <div className="admin-stat-label">Sanctuary Submissions</div>
           <div className={`admin-stat-value ${(data.pending_sanctuary ?? 0) > 0 ? "alert" : ""}`}>
             {data.pending_sanctuary ?? 0}

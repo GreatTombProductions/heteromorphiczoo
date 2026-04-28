@@ -119,6 +119,8 @@ EVENT_TYPES = {
     "join_mailing_list": ("community", 5, False),
     "referral_complete": ("community", 10, False),
     "ugc_report": ("community", 3, False),
+    "reaction_submit": ("community", 5, True),
+    "reaction_claim": ("creation", 50, True),
 }
 
 # --- Source Enum ---

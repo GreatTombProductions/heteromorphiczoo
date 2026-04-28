@@ -107,9 +107,16 @@ export const REACTIONS = {
   submitUrlPlaceholder: "YouTube URL",
   submitSongPlaceholder: "Which song?",
   submitButton: "Offer Witness",
+  submitEmailPlaceholder: "Your menagerie email (optional)",
   submitSuccess: "Your witness has been received. It awaits consecration.",
   submitError: "The altar rejected the offering. Check the URL and try again.",
   submitDuplicate: "This witness is already known to the menagerie.",
+  claimButton: "This is my reaction",
+  claimEmailPlaceholder: "Your menagerie email",
+  claimSubmit: "Claim",
+  claimSuccess: "Your claim has been received. It awaits verification.",
+  claimError: "The claim could not be processed. Try again.",
+  claimedByLabel: "by",
 } as const;
 
 export const SONG_TAGS = [

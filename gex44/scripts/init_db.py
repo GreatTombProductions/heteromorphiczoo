@@ -104,14 +104,38 @@ CREATE TABLE IF NOT EXISTS reactions (
     song_tag TEXT,
     channel_subscribers INTEGER,
     submitted_by TEXT,
+    event_id TEXT,
+    claimed_by TEXT,
     status TEXT NOT NULL DEFAULT 'pending',
     discovered_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
     approved_at TEXT,
-    FOREIGN KEY (submitted_by) REFERENCES fans(id)
+    FOREIGN KEY (submitted_by) REFERENCES fans(id),
+    FOREIGN KEY (event_id) REFERENCES engagement_events(id),
+    FOREIGN KEY (claimed_by) REFERENCES fans(id)
 );
 
 CREATE INDEX IF NOT EXISTS idx_reactions_status ON reactions(status);
 CREATE INDEX IF NOT EXISTS idx_reactions_song ON reactions(song_tag);
+
+-- Table: reaction_claims
+-- Claims on reaction videos (someone claiming they made the video).
+-- Multiple claims per reaction allowed (disputes, email updates).
+CREATE TABLE IF NOT EXISTS reaction_claims (
+    id TEXT PRIMARY KEY,
+    reaction_id TEXT NOT NULL,
+    fan_id TEXT NOT NULL,
+    email TEXT NOT NULL,
+    event_id TEXT,
+    status TEXT NOT NULL DEFAULT 'pending',
+    submitted_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    reviewed_at TEXT,
+    FOREIGN KEY (reaction_id) REFERENCES reactions(id),
+    FOREIGN KEY (fan_id) REFERENCES fans(id),
+    FOREIGN KEY (event_id) REFERENCES engagement_events(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_reaction_claims_reaction ON reaction_claims(reaction_id);
+CREATE INDEX IF NOT EXISTS idx_reaction_claims_status ON reaction_claims(status);
 
 -- Table: rate_limits
 -- Anti-gaming provisions. Per-fan caps on repeatable actions.
@@ -223,7 +247,7 @@ def init_db(db_path: str | None = None) -> Path:
     conn.close()
 
     table_names = [t[0] for t in tables]
-    expected = ["chronicle_events", "chronicle_media", "chronicle_tracks", "engagement_events", "fan_metadata", "fans", "offerings", "rate_limits", "reactions", "sanctuary_submissions"]
+    expected = ["chronicle_events", "chronicle_media", "chronicle_tracks", "engagement_events", "fan_metadata", "fans", "offerings", "rate_limits", "reaction_claims", "reactions", "sanctuary_submissions"]
     assert table_names == expected, f"Expected {expected}, got {table_names}"
     print(f"Tables created: {', '.join(table_names)}")
 

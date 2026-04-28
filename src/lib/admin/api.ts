@@ -102,6 +102,19 @@ export const reviewReaction = (token: string, id: string, action: string) =>
     token, method: "POST", body: JSON.stringify({ action }),
   });
 
+// Claims
+export const getClaims = (token: string, params?: { status?: string; page?: number }) => {
+  const query = new URLSearchParams();
+  if (params?.status) query.set("status", params.status);
+  if (params?.page) query.set("page", String(params.page));
+  return adminFetch(`/api/hz/admin/claims?${query}`, { token });
+};
+
+export const reviewClaim = (token: string, id: string, action: string) =>
+  adminFetch(`/api/hz/admin/claims/${id}/review`, {
+    token, method: "POST", body: JSON.stringify({ action }),
+  });
+
 // Chronicle
 export const getChronicle = (token: string) =>
   adminFetch("/api/hz/admin/chronicle", { token });

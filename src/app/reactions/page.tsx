@@ -16,6 +16,7 @@ interface Reaction {
   thumbnail_url: string;
   song_tag: string | null;
   approved_at: string;
+  claimed_by_name?: string;
 }
 
 interface ReactionsData {
@@ -44,8 +45,14 @@ export default function ReactionsPage() {
   // Submission form state
   const [submitUrl, setSubmitUrl] = useState("");
   const [submitSong, setSubmitSong] = useState("");
+  const [submitEmail, setSubmitEmail] = useState("");
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error" | "duplicate">("idle");
   const [submitMessage, setSubmitMessage] = useState("");
+
+  // Claim form state (keyed by reaction ID)
+  const [claimOpen, setClaimOpen] = useState<string | null>(null);
+  const [claimEmail, setClaimEmail] = useState("");
+  const [claimState, setClaimState] = useState<Record<string, "idle" | "submitting" | "success" | "error">>({});
 
   useEffect(() => {
     fetch("/data/reactions.json")
@@ -100,6 +107,7 @@ export default function ReactionsPage() {
         body: JSON.stringify({
           youtube_url: submitUrl,
           song_tag: submitSong || null,
+          submitted_by_email: submitEmail.trim() || null,
         }),
       });
 
@@ -120,9 +128,34 @@ export default function ReactionsPage() {
       setSubmitMessage(REACTIONS.submitSuccess);
       setSubmitUrl("");
       setSubmitSong("");
+      setSubmitEmail("");
     } catch {
       setSubmitState("error");
       setSubmitMessage(REACTIONS.submitError);
+    }
+  }
+
+  async function handleClaim(reactionId: string) {
+    if (!claimEmail.trim()) return;
+
+    setClaimState((s) => ({ ...s, [reactionId]: "submitting" }));
+
+    try {
+      const resp = await fetch(`${API_BASE}/api/hz/reactions/${reactionId}/claim`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: claimEmail.trim() }),
+      });
+
+      if (!resp.ok) {
+        setClaimState((s) => ({ ...s, [reactionId]: "error" }));
+        return;
+      }
+
+      setClaimState((s) => ({ ...s, [reactionId]: "success" }));
+      setClaimEmail("");
+    } catch {
+      setClaimState((s) => ({ ...s, [reactionId]: "error" }));
     }
   }
 
@@ -177,34 +210,84 @@ export default function ReactionsPage() {
             {filtered.length > 0 ? (
               <div className={styles.grid}>
                 {filtered.map((reaction) => (
-                  <a
-                    key={reaction.id}
-                    href={reaction.youtube_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.card}
-                  >
-                    <div className={styles.thumbnailWrap}>
-                      <img
-                        src={reaction.thumbnail_url}
-                        alt={reaction.title}
-                        className={styles.thumbnail}
-                        loading="lazy"
-                      />
-                      <div className={styles.playOverlay} aria-hidden="true">
-                        <svg viewBox="0 0 24 24" className={styles.playIcon}>
-                          <path d="M8 5v14l11-7z" fill="currentColor" />
-                        </svg>
+                  <div key={reaction.id} className={styles.card}>
+                    <a
+                      href={reaction.youtube_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.cardLink}
+                    >
+                      <div className={styles.thumbnailWrap}>
+                        <img
+                          src={reaction.thumbnail_url}
+                          alt={reaction.title}
+                          className={styles.thumbnail}
+                          loading="lazy"
+                        />
+                        <div className={styles.playOverlay} aria-hidden="true">
+                          <svg viewBox="0 0 24 24" className={styles.playIcon}>
+                            <path d="M8 5v14l11-7z" fill="currentColor" />
+                          </svg>
+                        </div>
                       </div>
-                    </div>
-                    <div className={styles.cardBody}>
-                      <h3 className={styles.cardTitle}>{reaction.title}</h3>
-                      <p className={styles.cardChannel}>{reaction.channel_name}</p>
-                      {reaction.song_tag && (
-                        <span className={styles.songTag}>{reaction.song_tag}</span>
+                      <div className={styles.cardBody}>
+                        <h3 className={styles.cardTitle}>{reaction.title}</h3>
+                        <p className={styles.cardChannel}>{reaction.channel_name}</p>
+                        {reaction.song_tag && (
+                          <span className={styles.songTag}>{reaction.song_tag}</span>
+                        )}
+                      </div>
+                    </a>
+
+                    {/* Claimer display + claim form */}
+                    <div className={styles.claimSection}>
+                      {reaction.claimed_by_name && (
+                        <p className={styles.claimedBy}>
+                          {REACTIONS.claimedByLabel} {reaction.claimed_by_name}
+                        </p>
+                      )}
+
+                      {claimState[reaction.id] === "success" ? (
+                        <p className={styles.claimSuccess}>{REACTIONS.claimSuccess}</p>
+                      ) : claimOpen === reaction.id ? (
+                        <form
+                          className={styles.claimForm}
+                          onSubmit={(e) => { e.preventDefault(); handleClaim(reaction.id); }}
+                        >
+                          <input
+                            type="email"
+                            value={claimEmail}
+                            onChange={(e) => setClaimEmail(e.target.value)}
+                            placeholder={REACTIONS.claimEmailPlaceholder}
+                            className={styles.claimInput}
+                            required
+                            disabled={claimState[reaction.id] === "submitting"}
+                          />
+                          <button
+                            type="submit"
+                            className={styles.claimSubmitBtn}
+                            disabled={claimState[reaction.id] === "submitting"}
+                          >
+                            {REACTIONS.claimSubmit}
+                          </button>
+                          {claimState[reaction.id] === "error" && (
+                            <p className={styles.claimError}>{REACTIONS.claimError}</p>
+                          )}
+                        </form>
+                      ) : (
+                        <button
+                          className={styles.claimToggle}
+                          onClick={() => {
+                            setClaimOpen(reaction.id);
+                            setClaimEmail("");
+                            setClaimState((s) => ({ ...s, [reaction.id]: "idle" }));
+                          }}
+                        >
+                          {REACTIONS.claimButton}
+                        </button>
                       )}
                     </div>
-                  </a>
+                  </div>
                 ))}
               </div>
             ) : (
@@ -243,6 +326,14 @@ export default function ReactionsPage() {
                       <option key={tag} value={tag}>{tag}</option>
                     ))}
                   </select>
+                  <input
+                    type="email"
+                    value={submitEmail}
+                    onChange={(e) => setSubmitEmail(e.target.value)}
+                    placeholder={REACTIONS.submitEmailPlaceholder}
+                    className={styles.submitInput}
+                    disabled={submitState === "submitting"}
+                  />
                   <button
                     type="submit"
                     className={styles.submitButton}
