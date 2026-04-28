@@ -133,3 +133,7 @@ export const deleteChronicleTrack = (token: string, trackId: string) =>
 // Upload
 export const uploadFile = (token: string, formData: FormData) =>
   adminFetch("/api/hz/admin/upload", { token, method: "POST", body: formData });
+
+// Aggregate
+export const triggerAggregate = (token: string) =>
+  adminFetch("/api/hz/admin/aggregate", { token, method: "POST", body: JSON.stringify({}) });

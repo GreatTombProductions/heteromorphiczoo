@@ -172,7 +172,7 @@ export const MENAGERIE_ROLL = {
     4: "High Priest/Priestess",
     5: "Archbishop",
   },
-  joinPrompt: "Your name is not yet written. Join the menagerie.",
+  joinPrompt: "Add your voice to our ranks. Join the menagerie.",
   joinButton: "Enter the Roll",
 } as const;
 

@@ -54,3 +54,19 @@ async def verify_admin(
         raise HTTPException(
             status_code=503, detail="Token verification service unavailable."
         )
+
+
+async def verify_admin_optional(
+    credentials: HTTPAuthorizationCredentials | None = Security(security),
+) -> dict | None:
+    """Like verify_admin, but returns None instead of raising when no credentials.
+
+    Used by endpoints that accept either OAuth or API key auth.
+    """
+    if not credentials:
+        return None
+
+    try:
+        return await verify_admin(credentials)
+    except HTTPException:
+        return None

@@ -1,6 +1,91 @@
 {
-  "reactions": [],
-  "by_song": {},
-  "total": 0,
-  "generated_at": "2026-04-28T02:58:38Z"
+  "reactions": [
+    {
+      "id": "50133d4f-65fc-4cf6-9f21-295e310fd5ca",
+      "youtube_url": "https://www.youtube.com/watch?v=DRXGXfhsVqA",
+      "youtube_id": "DRXGXfhsVqA",
+      "title": "REACTION HETEROMORPHIC ZOO - Avatara (Official Music Video)",
+      "channel_name": "LeanerDiamond More",
+      "thumbnail_url": "https://img.youtube.com/vi/DRXGXfhsVqA/hqdefault.jpg",
+      "song_tag": "Avatara",
+      "approved_at": "2026-04-28T03:10:03Z"
+    },
+    {
+      "id": "62859124-fff9-4025-8252-76c1c09bbcc6",
+      "youtube_url": "https://www.youtube.com/watch?v=sUTIRYAtN6U",
+      "youtube_id": "sUTIRYAtN6U",
+      "title": "THE BEST Violin Metal Breakdown I've heard all year!",
+      "channel_name": "Ohrion Reacts",
+      "thumbnail_url": "https://img.youtube.com/vi/sUTIRYAtN6U/hqdefault.jpg",
+      "song_tag": "Ritual of Fidelity",
+      "approved_at": "2026-04-28T03:16:07Z"
+    },
+    {
+      "id": "bbe7a91e-40b3-405e-ab3f-86b9746ea75f",
+      "youtube_url": "https://www.youtube.com/watch?v=3rBE3oYyP5E",
+      "youtube_id": "3rBE3oYyP5E",
+      "title": "First Time Reaction | Heteromorphic Zoo - Ritual of Fidelity",
+      "channel_name": "GoreCore Reacts & Reviews ",
+      "thumbnail_url": "https://img.youtube.com/vi/3rBE3oYyP5E/hqdefault.jpg",
+      "song_tag": "Ritual of Fidelity",
+      "approved_at": "2026-04-28T03:16:05Z"
+    },
+    {
+      "id": "6a27857d-8e5d-4fb7-9249-535fc486fb38",
+      "youtube_url": "https://www.youtube.com/watch?v=ABVJFYGeUbM",
+      "youtube_id": "ABVJFYGeUbM",
+      "title": "1ST LISTEN REACTION HETEROMORPHIC ZOO - Napalm (Official Music Video)",
+      "channel_name": "LeanerDiamond69",
+      "thumbnail_url": "https://img.youtube.com/vi/ABVJFYGeUbM/hqdefault.jpg",
+      "song_tag": "Napalm",
+      "approved_at": "2026-04-28T03:16:03Z"
+    },
+    {
+      "id": "07a1f5a7-d0d9-4306-aa4b-34e9db8d98be",
+      "youtube_url": "https://www.youtube.com/watch?v=x8YZwbEW9do",
+      "youtube_id": "x8YZwbEW9do",
+      "title": "HETEROMORPHIC ZOO - Ritual of Fidelity REACTION | VIOLIN BREAKDOWN?! \ud83c\udfbb\ud83d\udca5",
+      "channel_name": "Tauri Reacts",
+      "thumbnail_url": "https://img.youtube.com/vi/x8YZwbEW9do/hqdefault.jpg",
+      "song_tag": "Ritual of Fidelity",
+      "approved_at": "2026-04-28T03:16:01Z"
+    },
+    {
+      "id": "f0958290-f16d-415d-af57-450ad4935232",
+      "youtube_url": "https://www.youtube.com/watch?v=2akH0LIci4g",
+      "youtube_id": "2akH0LIci4g",
+      "title": "1ST LISTEN REACTION HETEROMORPHIC ZOO - Ritual of Fidelity (Official Music Video)",
+      "channel_name": "LeanerDiamond69",
+      "thumbnail_url": "https://img.youtube.com/vi/2akH0LIci4g/hqdefault.jpg",
+      "song_tag": "Ritual of Fidelity",
+      "approved_at": "2026-04-28T03:15:59Z"
+    },
+    {
+      "id": "82260b36-fe58-473c-a713-9a43f4edf063",
+      "youtube_url": "https://www.youtube.com/watch?v=AfFhztICXqs",
+      "youtube_id": "AfFhztICXqs",
+      "title": "Heteromorphic Zoo - Ritual of Fidelity (EP REACTION) A Real Violinist in Deathcore!?!? That's unique",
+      "channel_name": "Cryoflame Audioforge",
+      "thumbnail_url": "https://img.youtube.com/vi/AfFhztICXqs/hqdefault.jpg",
+      "song_tag": "Ritual of Fidelity",
+      "approved_at": "2026-04-28T03:15:57Z"
+    },
+    {
+      "id": "f744878f-3180-4ee8-b501-3ff9c346e4e7",
+      "youtube_url": "https://www.youtube.com/watch?v=mMNxHq3Soew",
+      "youtube_id": "mMNxHq3Soew",
+      "title": "HETEROMORPHIC ZOO - Ritual of Fidelity (Official Music Video) Patreon Shout-out Reaction",
+      "channel_name": "Tim Overman",
+      "thumbnail_url": "https://img.youtube.com/vi/mMNxHq3Soew/hqdefault.jpg",
+      "song_tag": "Ritual of Fidelity",
+      "approved_at": "2026-04-28T03:15:53Z"
+    }
+  ],
+  "by_song": {
+    "Avatara": 1,
+    "Napalm": 1,
+    "Ritual of Fidelity": 6
+  },
+  "total": 8,
+  "generated_at": "2026-04-28T03:20:59Z"
 }

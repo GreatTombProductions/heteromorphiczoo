@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getDashboard } from "@/lib/admin/api";
+import { getDashboard, triggerAggregate } from "@/lib/admin/api";
 import { useAdminToken } from "@/lib/admin/useAdminToken";
 import type { DashboardData } from "@/lib/admin/types";
 
@@ -9,6 +9,24 @@ export default function AdminDashboard() {
   const token = useAdminToken();
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [aggregating, setAggregating] = useState(false);
+  const [aggResult, setAggResult] = useState<string | null>(null);
+
+  async function handleAggregate() {
+    if (!token) return;
+    setAggregating(true);
+    setAggResult(null);
+    try {
+      const res = await triggerAggregate(token);
+      setAggResult(`Aggregated in ${res.duration_ms}ms`);
+      setTimeout(() => setAggResult(null), 5000);
+    } catch (e: unknown) {
+      setAggResult(`Error: ${e instanceof Error ? e.message : "Unknown"}`);
+      setTimeout(() => setAggResult(null), 5000);
+    } finally {
+      setAggregating(false);
+    }
+  }
 
   useEffect(() => {
     if (!token) return;
@@ -22,7 +40,19 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="admin-page-title">Dashboard</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+        <h1 className="admin-page-title" style={{ marginBottom: 0 }}>Dashboard</h1>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          {aggResult && <span style={{ fontSize: "0.85rem", opacity: 0.8 }}>{aggResult}</span>}
+          <button
+            className="admin-btn admin-btn-primary"
+            onClick={handleAggregate}
+            disabled={aggregating}
+          >
+            {aggregating ? "Aggregating..." : "Rebuild JSON"}
+          </button>
+        </div>
+      </div>
 
       <div className="admin-stats">
         <div className="admin-stat-card">

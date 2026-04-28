@@ -70,7 +70,7 @@ CREATE INDEX IF NOT EXISTS idx_events_review ON engagement_events(reviewed, appr
 -- Approved UGC submissions with their own display lifecycle.
 CREATE TABLE IF NOT EXISTS offerings (
     id TEXT PRIMARY KEY,
-    fan_id TEXT NOT NULL,
+    fan_id TEXT,
     event_id TEXT,
     category TEXT NOT NULL,
     title TEXT,

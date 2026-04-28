@@ -423,7 +423,7 @@ async def create_offering_admin(
     db.execute(
         """INSERT INTO offerings (id, fan_id, category, title, description,
                content_url, content_type, status, featured, submitted_at, approved_at)
-           VALUES (?, '', ?, ?, ?, ?, ?, 'approved', 0, ?, ?)""",
+           VALUES (?, NULL, ?, ?, ?, ?, ?, 'approved', 0, ?, ?)""",
         (offering_id, category, title, description, content_url_final,
          content_type, now, now),
     )

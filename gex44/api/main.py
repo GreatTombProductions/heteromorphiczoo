@@ -21,7 +21,7 @@ import time
 import uuid
 from datetime import date, datetime, timezone
 
-from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -41,6 +41,7 @@ from .config import (
     rank_for_dp,
 )
 from .admin_routes import router as admin_router
+from .auth import verify_admin_optional
 from .db import close_app_db, get_app_db
 from .models import (
     AggregateRequest,
@@ -688,9 +689,17 @@ async def get_census(request: Request):
 # ---------------------------------------------------------------------------
 
 @app.post("/api/hz/admin/aggregate", response_model=AggregateResponse)
-async def admin_aggregate(req: AggregateRequest):
-    """Trigger manual aggregation run."""
-    _verify_admin_key(req.api_key)
+async def admin_aggregate(
+    req: AggregateRequest | None = None,
+    admin: dict | None = Depends(verify_admin_optional),
+):
+    """Trigger manual aggregation run. Accepts API key or OAuth Bearer token."""
+    if admin:
+        pass  # OAuth-authenticated
+    elif req and req.api_key:
+        _verify_admin_key(req.api_key)
+    else:
+        raise HTTPException(status_code=401, detail="Authentication required.")
 
     start = time.time()
 
