@@ -66,7 +66,7 @@ class ReviewResponse(BaseModel):
 # --- Admin Aggregate ---
 
 class AggregateRequest(BaseModel):
-    api_key: str
+    api_key: str | None = None
 
 
 class AggregateResponse(BaseModel):

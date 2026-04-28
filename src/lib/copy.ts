@@ -232,7 +232,7 @@ export const CHRONICLE = {
     {
       date: "2025",
       title: "The Crucible",
-      body: "The year the zoo went underground and leveled up. Fifteen-plus instrumental mixes with Bryce. One hundred percent real toms and cymbals, snare at ninety percent of the blended tone. Violin tone refined through covers and Hexed. Greg\u2019s production mentorship. Coty sharing vocal chain secrets. The backlog grew. The vision sharpened.",
+      body: "The year the zoo went underground and leveled up. Ray and Bryce agonizing over fifteen-plus instrumental mixes. One hundred percent real toms and cymbals, snare at ninety percent of the blended tone. Violin tone refined through covers and Hexed. Greg\u2019s production mentorship. Coty sharing vocal chain secrets. The backlog grew. The vision sharpened.",
       era: "crucible" as const,
     },
     {
@@ -272,7 +272,7 @@ export const BESTIARY = {
       name: "Bryce Butler",
       designation: "The Chaos Engine",
       roles: "Drums, drum arrangement",
-      description: "The heart of the band, in more than one way. Distinctive drum arrangements that only a distinctively deranged mind could dream up.",
+      description: "The heart of the band, in more way than one. Distinctive drum arrangements that only a distinctively deranged mind could dream up.",
       current: true,
     },
     {
