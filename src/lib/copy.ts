@@ -83,7 +83,7 @@ export const NOT_FOUND = {
 export const OG = {
   title: "Benediction - Heteromorphic Zoo (feat. Coty Garcia)",
   description: "A blessing spoken in two voices. The first rite of the new era.",
-  image: "/og-image.jpg",
+  image: "/og-image-landscape.jpg",
 } as const;
 
 export const FOOTER = {
@@ -318,7 +318,7 @@ export const BESTIARY = {
     title: "The Circle of Production",
     entries: [
       { name: "Lordigan Pedro Sena", role: "Artwork", note: "" },
-      { name: "Greg Thomas", role: "Producer (Benediction), Recording engineer (New World EP)", note: "" },
+      { name: "Greg Thomas", role: "Producer (Benediction), Recording engineer (New World EP)", note: "END" },
       { name: "Joel Wanasek", role: "Mastering (Benediction)", note: "" },
       { name: "Scott Hansen", role: "Music video (Benediction)", note: "" },
       { name: "Harry Tadayon", role: "Additional production - synth samples (Benediction)", note: "Vile Sycophant, Worm Shepherd" },

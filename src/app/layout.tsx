@@ -18,13 +18,13 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://heteromorphiczoo.com"),
+  metadataBase: new URL("https://heteromorphiczoo.band"),
   title: OG.title,
   description: OG.description,
   openGraph: {
     title: OG.title,
     description: OG.description,
-    images: [{ url: OG.image, width: 1200, height: 1200, alt: "Benediction artwork by Lordigan" }],
+    images: [{ url: OG.image, width: 1200, height: 630, alt: "Benediction artwork by Lordigan" }],
     type: "website",
     siteName: SITE.name,
   },
