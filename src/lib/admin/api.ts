@@ -20,7 +20,8 @@ async function adminFetch(path: string, options: FetchOptions = {}) {
   }
 
   // Don't set Content-Type for FormData (browser sets it with boundary)
-  if (!(fetchOptions.body instanceof FormData)) {
+  // Don't set Content-Type when there's no body (avoids FastAPI trying to parse empty body)
+  if (fetchOptions.body && !(fetchOptions.body instanceof FormData)) {
     headers["Content-Type"] = "application/json";
   }
 
@@ -136,4 +137,4 @@ export const uploadFile = (token: string, formData: FormData) =>
 
 // Aggregate
 export const triggerAggregate = (token: string) =>
-  adminFetch("/api/hz/admin/aggregate", { token, method: "POST", body: JSON.stringify({}) });
+  adminFetch("/api/hz/admin/aggregate", { token, method: "POST" });
