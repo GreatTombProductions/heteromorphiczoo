@@ -244,6 +244,7 @@ export const CHRONICLE = {
       title: "The Solo Flight: Hexed",
       body: "Megan Ash releases \"Hexed,\" her first solo single. The violinist steps forward as vocalist and artist in her own right.",
       era: "solo" as const,
+      videoUrl: "https://www.youtube.com/watch?v=wqJJC_gMDGM",
     },
     {
       date: "April 2026",
