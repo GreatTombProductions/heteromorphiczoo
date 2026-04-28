@@ -94,6 +94,25 @@ class CensusResponse(BaseModel):
 
 # --- Sanctuary ---
 
+# --- Roll ---
+
+class RollEntry(BaseModel):
+    name: str
+    rank: int
+    rank_title: str
+    lifetime_dp: int
+    founding_member: bool
+    joined: str | None = None
+
+
+class RollResponse(BaseModel):
+    roll: list[RollEntry]
+    total: int
+    generated_at: str
+
+
+# --- Sanctuary ---
+
 class SanctuaryRequest(BaseModel):
     name: str | None = None
     email: str | None = None

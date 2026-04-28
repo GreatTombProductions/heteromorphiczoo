@@ -57,6 +57,8 @@ from .models import (
     ReactionResponse,
     ReviewRequest,
     ReviewResponse,
+    RollEntry,
+    RollResponse,
     SanctuaryRequest,
     SanctuaryResponse,
 )
@@ -752,6 +754,47 @@ async def submit_sanctuary(req: SanctuaryRequest, request: Request):
     return SanctuaryResponse(
         id=submission_id,
         message="Your voice has been received. The Zoo is listening.",
+    )
+
+
+# ---------------------------------------------------------------------------
+# GET /api/hz/roll — live menagerie leaderboard
+# ---------------------------------------------------------------------------
+
+@app.get("/api/hz/roll", response_model=RollResponse)
+async def get_roll(request: Request):
+    """Public menagerie roll — live leaderboard of named fans."""
+    _check_rate_limit(request)
+
+    db = get_app_db()
+
+    # Rank title lookup
+    rank_titles = {r[1]: r[2] for r in RANK_TABLE}
+
+    rows = db.execute("""
+        SELECT name, current_rank, lifetime_dp, founding_member, acquired_at
+        FROM fans
+        WHERE name IS NOT NULL AND name != ''
+        ORDER BY current_rank DESC, lifetime_dp DESC
+    """).fetchall()
+
+    roll = []
+    for row in rows:
+        roll.append(RollEntry(
+            name=row["name"],
+            rank=row["current_rank"],
+            rank_title=rank_titles.get(row["current_rank"], "Uninitiated"),
+            lifetime_dp=row["lifetime_dp"],
+            founding_member=bool(row["founding_member"]),
+            joined=row["acquired_at"][:10] if row["acquired_at"] else None,
+        ))
+
+    total = db.execute("SELECT COUNT(*) FROM fans").fetchone()[0]
+
+    return RollResponse(
+        roll=roll,
+        total=total,
+        generated_at=_now_iso(),
     )
 
 

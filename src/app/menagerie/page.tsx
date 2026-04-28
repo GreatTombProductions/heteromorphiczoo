@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import SignupForm from "@/components/SignupForm";
 import { LOADING, MENAGERIE_ROLL } from "@/lib/copy";
 import styles from "./page.module.css";
+
+const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://hz-api.greattombproductions.com";
 
 interface RollEntry {
   name: string;
@@ -17,6 +19,7 @@ interface RollEntry {
 
 interface RollData {
   roll: RollEntry[];
+  total: number;
   generated_at: string;
 }
 
@@ -32,7 +35,7 @@ interface CensusData {
   total_offerings: number;
   total_reactions: number;
   founding_members: number;
-  generated_at: string;
+  last_updated: string;
 }
 
 /** Map rank index to a CSS class for color differentiation */
@@ -54,10 +57,10 @@ export default function MenageriePage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     Promise.all([
-      fetch("/data/menagerie-roll.json").then((r) => r.json()),
-      fetch("/data/census.json").then((r) => r.json()),
+      fetch(`${API_BASE}/api/hz/roll`).then((r) => r.json()),
+      fetch(`${API_BASE}/api/hz/census`).then((r) => r.json()),
     ])
       .then(([rollData, censusData]) => {
         setRoll(rollData);
@@ -66,6 +69,16 @@ export default function MenageriePage() {
       })
       .catch(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  function handleSignupSuccess() {
+    setShowForm(false);
+    // Re-fetch live data so the new member sees themselves immediately
+    fetchData();
+  }
 
   return (
     <>
@@ -152,7 +165,7 @@ export default function MenageriePage() {
               {showForm ? (
                 <SignupForm
                   variant="inline"
-                  onSuccess={() => setShowForm(false)}
+                  onSuccess={handleSignupSuccess}
                 />
               ) : (
                 <>
