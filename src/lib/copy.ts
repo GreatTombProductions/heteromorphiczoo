@@ -35,7 +35,7 @@ export const BENEDICTION = {
   bodyLine2: "The congregation appoints a new speaker.",
   ctaPrimary: "Heed now the summons",
   ctaVideo: "Witness",
-  credits: "Mixed by Ray Heberer \u00B7 Produced by Greg Thomas \u00B7 Mastered by Joel Wanasek \u00B7 Video by Scott Hansen",
+  credits: "Mixed by Ray Heberer \u00B7 Produced by Greg Thomas \u00B7 Mastered by Joel Wanasek \u00B7 Art by Lordigan Pedro Sena \u00B7 Video by Scott Hansen",
 } as const;
 
 export const EMAIL_CAPTURE = {
