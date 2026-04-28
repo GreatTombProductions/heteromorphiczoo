@@ -80,6 +80,7 @@
   color: var(--text-secondary);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .section p {
@@ -87,7 +88,8 @@
   font-size: var(--size-base);
   line-height: var(--leading-body);
   color: var(--text-primary);
-  max-width: 65ch;
+  max-width: none;
+  text-align: center;
 }
 
 /* --- Hero line (smaller in footer context) --- */
@@ -118,6 +120,7 @@
   font-style: italic;
   line-height: 1.4 !important;
   max-width: none !important;
+  text-align: center;
 }
 
 /* --- Links --- */
