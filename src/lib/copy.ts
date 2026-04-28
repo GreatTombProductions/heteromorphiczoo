@@ -317,13 +317,13 @@ export const BESTIARY = {
   collaborators: {
     title: "The Circle of Production",
     entries: [
-      { name: "Greg Thomas", role: "Producer (Benediction)", note: "" },
-      { name: "Chris Wiseman", role: "Producer, mixing (New World EP)", note: "Shadow of Intent, Currents" },
-      { name: "Christian Donaldson", role: "Mixed and mastered (New World EP)", note: "Cryptopsy" },
+      { name: "Lordigan Pedro Sena", role: "Artwork", note: "" },
+      { name: "Greg Thomas", role: "Producer (Benediction), Recording engineer (New World EP)", note: "" },
       { name: "Joel Wanasek", role: "Mastering (Benediction)", note: "" },
-      { name: "Lordigan Pedro Sena", role: "Artwork", note: "New World EP, Avatara" },
       { name: "Scott Hansen", role: "Music video (Benediction)", note: "" },
-      { name: "Harry Tadayon", role: "Additional production - synth samples (Benediction)", note: "" },
+      { name: "Harry Tadayon", role: "Additional production - synth samples (Benediction)", note: "Vile Sycophant, Worm Shepherd" },
+      { name: "Chris Wiseman", role: "Producer (New World EP)", note: "Shadow of Intent, Currents" },
+      { name: "Christian Donaldson", role: "Mixed and mastered (New World EP)", note: "Cryptopsy" },
     ],
   },
 } as const;
