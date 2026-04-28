@@ -5,6 +5,8 @@ import Navigation from "@/components/Navigation";
 import { LOADING, REACTIONS, SONG_TAGS } from "@/lib/copy";
 import styles from "./page.module.css";
 
+const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://saturna.greattombproductions.com:8081";
+
 interface Reaction {
   id: string;
   youtube_url: string;
@@ -92,7 +94,7 @@ export default function ReactionsPage() {
     setSubmitState("submitting");
 
     try {
-      const resp = await fetch("/api/hz/reactions", {
+      const resp = await fetch(`${API_BASE}/api/hz/reactions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

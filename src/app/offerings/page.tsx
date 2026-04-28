@@ -5,6 +5,8 @@ import Navigation from "@/components/Navigation";
 import { LOADING, OFFERINGS } from "@/lib/copy";
 import styles from "./page.module.css";
 
+const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://saturna.greattombproductions.com:8081";
+
 type Category = "visual" | "sonic" | "textual" | "ritual" | "profane";
 
 interface Offering {
@@ -110,7 +112,7 @@ export default function OfferingsPage() {
     if (formInspiredBy) formData.append("inspired_by", formInspiredBy);
 
     try {
-      const resp = await fetch("/api/hz/offerings", {
+      const resp = await fetch(`${API_BASE}/api/hz/offerings`, {
         method: "POST",
         body: formData,
       });
