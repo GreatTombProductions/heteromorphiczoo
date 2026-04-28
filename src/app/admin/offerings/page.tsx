@@ -139,16 +139,30 @@ export default function OfferingsPage() {
                 </td>
                 <td>{new Date(o.submitted_at).toLocaleDateString()}</td>
                 <td>
-                  {o.status === "pending" && (
-                    <div className="admin-actions">
-                      <button className="admin-btn admin-btn-approve" onClick={() => handleReview(o.id, "approve")}>Approve</button>
-                      <button className="admin-btn admin-btn-feature" onClick={() => handleReview(o.id, "feature")}>Feature</button>
-                      <button className="admin-btn admin-btn-reject" onClick={() => handleReview(o.id, "reject")}>Reject</button>
-                    </div>
-                  )}
-                  {o.status === "approved" && (
-                    <button className="admin-btn admin-btn-feature" onClick={() => handleReview(o.id, "feature")}>Feature</button>
-                  )}
+                  <div className="admin-actions">
+                    {o.status === "pending" && (
+                      <>
+                        <button className="admin-btn admin-btn-approve" onClick={() => handleReview(o.id, "approve")}>Approve</button>
+                        <button className="admin-btn admin-btn-feature" onClick={() => handleReview(o.id, "feature")}>Feature</button>
+                        <button className="admin-btn admin-btn-reject" onClick={() => handleReview(o.id, "reject")}>Reject</button>
+                      </>
+                    )}
+                    {o.status === "approved" && (
+                      <>
+                        <button className="admin-btn admin-btn-feature" onClick={() => handleReview(o.id, "feature")}>Feature</button>
+                        <button className="admin-btn" onClick={() => handleReview(o.id, "pending")}>Pending</button>
+                      </>
+                    )}
+                    {o.status === "featured" && (
+                      <>
+                        <button className="admin-btn" onClick={() => handleReview(o.id, "unfeature")}>Unfeature</button>
+                        <button className="admin-btn" onClick={() => handleReview(o.id, "pending")}>Pending</button>
+                      </>
+                    )}
+                    {o.status === "rejected" && (
+                      <button className="admin-btn" onClick={() => handleReview(o.id, "pending")}>Pending</button>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}

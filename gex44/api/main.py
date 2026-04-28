@@ -439,17 +439,42 @@ async def submit_offering(
 
     db = get_app_db()
 
-    # Fan must exist
+    # Find or create fan
+    email_lower = email.strip().lower()
     fan = db.execute(
-        "SELECT id FROM fans WHERE LOWER(email) = ?", (email.strip().lower(),)
+        "SELECT id FROM fans WHERE LOWER(email) = ?", (email_lower,)
     ).fetchone()
-    if not fan:
-        raise HTTPException(
-            status_code=404,
-            detail="Fan not found. Join the menagerie first at /api/hz/join.",
+
+    if fan:
+        fan_id = fan["id"]
+    else:
+        # Auto-register: create fan record from the offering submission
+        fan_id = str(uuid.uuid4())
+        founding = _is_founding_window()
+        now_join = _now_iso()
+
+        db.execute(
+            """INSERT INTO fans (id, email, name, source, acquired_at, founding_member, opt_in_newsletter, created_at, updated_at)
+               VALUES (?, ?, NULL, 'website', ?, ?, 0, ?, ?)""",
+            (fan_id, email_lower, now_join, int(founding), now_join, now_join),
         )
 
-    fan_id = fan["id"]
+        # Create join engagement event
+        join_base_dp = EVENT_TYPES["join_mailing_list"][1]
+        join_multiplier = FOUNDING_MULTIPLIER if founding else 1.0
+        join_dp = int(join_base_dp * join_multiplier)
+        join_event_id = str(uuid.uuid4())
+
+        db.execute(
+            """INSERT INTO engagement_events (id, fan_id, event_type, dp_awarded, dp_base, multiplier, created_at)
+               VALUES (?, ?, 'join_mailing_list', ?, ?, ?, ?)""",
+            (join_event_id, fan_id, join_dp, join_base_dp, join_multiplier, now_join),
+        )
+
+        db.execute(
+            "UPDATE fans SET lifetime_dp = ?, updated_at = ? WHERE id = ?",
+            (join_dp, now_join, fan_id),
+        )
 
     # Determine content type and URL
     if file and file.filename:

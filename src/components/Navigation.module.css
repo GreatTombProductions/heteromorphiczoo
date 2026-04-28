@@ -1,7 +1,10 @@
 /* ============================================================
-   Navigation — visible desktop, full-screen overlay mobile
-   Subtle, not dominant. The content is the cathedral.
+   Navigation
+   Desktop: fixed top bar, fades in via timer or scroll
+   Mobile: fixed bottom tab bar, always visible
    ============================================================ */
+
+/* === Desktop top nav === */
 
 .nav {
   position: fixed;
@@ -40,10 +43,10 @@
   }
 }
 
-/* --- Scroll-triggered visibility --- */
+/* --- Scroll-triggered visibility (desktop only) --- */
 
 .scrollTriggered {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .navVisible {
@@ -99,110 +102,76 @@
   box-shadow: 0 0 8px rgba(196, 40, 110, 0.4);
 }
 
-/* --- Mobile toggle --- */
+/* === Mobile bottom tab bar === */
 
-.mobileToggle {
+.mobileNav {
   display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  width: 40px;
-  height: 40px;
-  position: relative;
 }
-
-.hamburger,
-.hamburger::before,
-.hamburger::after {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--text-primary);
-  transition: all 0.3s ease;
-  position: absolute;
-  left: 8px;
-}
-
-.hamburger {
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.hamburger::before {
-  content: "";
-  top: -7px;
-}
-
-.hamburger::after {
-  content: "";
-  top: 7px;
-}
-
-.hamburgerOpen {
-  background: transparent;
-}
-
-.hamburgerOpen::before {
-  top: 0;
-  transform: rotate(45deg);
-}
-
-.hamburgerOpen::after {
-  top: 0;
-  transform: rotate(-45deg);
-}
-
-/* --- Mobile overlay --- */
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(26, 14, 30, 0.97);
-  z-index: 99;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.overlayContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
-}
-
-.overlayLink {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  color: var(--text-primary);
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  transition: color 0.2s ease;
-}
-
-.overlayLink.active {
-  color: var(--accent-primary);
-}
-
-/* --- Responsive --- */
 
 @media (max-width: 768px) {
-  .desktopLinks {
+  /* Hide desktop nav entirely on mobile */
+  .nav {
     display: none;
   }
 
-  .mobileToggle {
-    display: block;
+  /* Show bottom tab bar */
+  .mobileNav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(26, 14, 30, 0.97);
+    border-top: 1px solid rgba(196, 40, 110, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.35rem 0.25rem;
+    padding-bottom: max(0.35rem, env(safe-area-inset-bottom));
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 0;
   }
 
-  .bar {
-    padding: 0.75rem 1.25rem;
+  .mobileNav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobileTab {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    padding: 0.4rem 0.35rem;
+    min-width: 0;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobileTabActive {
+    color: var(--accent-primary);
+  }
+
+  .mobileTabIcon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .mobileTabLabel {
+    font-family: var(--font-functional);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.1;
   }
 }

@@ -152,6 +152,13 @@ a {
   outline-offset: 2px;
 }
 
+/* --- Mobile bottom nav clearance --- */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 4rem;
+  }
+}
+
 /* --- Utility classes --- */
 .visually-hidden {
   position: absolute;

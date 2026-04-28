@@ -501,10 +501,22 @@ async def review_offering(
             (now, now, offering_id),
         )
         _award_dp_for_event(db, offering["event_id"], now, FOUNDING_MULTIPLIER)
+    elif body.action == "unfeature":
+        db.execute(
+            "UPDATE offerings SET status = 'approved', featured = 0 WHERE id = ?",
+            (offering_id,),
+        )
+    elif body.action == "pending":
+        db.execute(
+            "UPDATE offerings SET status = 'pending', featured = 0, approved_at = NULL, featured_at = NULL WHERE id = ?",
+            (offering_id,),
+        )
+        _revoke_dp_for_event(db, offering["event_id"], now)
     elif body.action == "reject":
         db.execute(
             "UPDATE offerings SET status = 'rejected' WHERE id = ?", (offering_id,)
         )
+        _revoke_dp_for_event(db, offering["event_id"], now)
     else:
         raise HTTPException(status_code=400, detail="Invalid action.")
 
@@ -891,6 +903,28 @@ async def upload_file(
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+
+def _revoke_dp_for_event(db, event_id: str | None, now: str):
+    """Revoke DP for an engagement event if previously awarded."""
+    if not event_id:
+        return
+
+    event = db.execute(
+        "SELECT dp_awarded, approved, fan_id FROM engagement_events WHERE id = ?",
+        (event_id,),
+    ).fetchone()
+    if not event or not event["approved"]:
+        return  # Nothing to revoke
+
+    db.execute(
+        "UPDATE engagement_events SET approved = 0, dp_awarded = 0 WHERE id = ?",
+        (event_id,),
+    )
+    db.execute(
+        "UPDATE fans SET lifetime_dp = MAX(0, lifetime_dp - ?), updated_at = ? WHERE id = ?",
+        (event["dp_awarded"], now, event["fan_id"]),
+    )
 
 
 def _award_dp_for_event(db, event_id: str | None, now: str, founding_multiplier: float):

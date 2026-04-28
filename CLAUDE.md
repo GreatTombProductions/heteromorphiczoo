@@ -37,14 +37,14 @@ Band website for Heteromorphic Zoo. Next.js + Vercel frontend, SQLite + Python/F
 ## Deployment
 
 ```bash
-# Backend: restart API server (picks up code changes already on disk)
-python3 gex44/scripts/deploy.py backend
+# Full deploy: restart API, re-aggregate JSON, commit & push everything
+./gex44/scripts/deploy.sh
 
-# Frontend: commit + push aggregated JSON to trigger Vercel deploy
-python3 gex44/scripts/deploy.py frontend
-
-# Both
-python3 gex44/scripts/deploy.py all
+# Individual steps
+./gex44/scripts/deploy.sh backend      # Just restart uvicorn
+./gex44/scripts/deploy.sh aggregate    # Just rebuild JSON
+./gex44/scripts/deploy.sh push         # Just commit & push to Vercel
+./gex44/scripts/deploy.sh --dry-run    # Show what would be pushed
 ```
 
 The backend runs as: `uvicorn gex44.api.main:app --host 0.0.0.0 --port 8081`

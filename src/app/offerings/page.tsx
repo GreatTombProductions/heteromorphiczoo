@@ -117,12 +117,6 @@ export default function OfferingsPage() {
         body: formData,
       });
 
-      if (resp.status === 404) {
-        setSubmitState("error");
-        setSubmitMessage(OFFERINGS.submitNotMember);
-        return;
-      }
-
       if (!resp.ok) {
         setSubmitState("error");
         setSubmitMessage(OFFERINGS.submitError);
