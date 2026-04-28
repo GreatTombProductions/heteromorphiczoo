@@ -1,11 +1,11 @@
 {
   "offerings": [],
   "by_category": {
-    "visual": 0,
+    "visual": 1,
     "sonic": 0,
     "textual": 0,
     "ritual": 0,
     "profane": 0
   },
-  "generated_at": "2026-04-28T03:20:59Z"
+  "generated_at": "2026-04-28T03:47:26Z"
 }

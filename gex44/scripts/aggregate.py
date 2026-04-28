@@ -141,7 +141,7 @@ def write_offerings_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
                o.content_type, o.thumbnail_url, o.inspired_by, o.featured,
                o.approved_at, f.name as creator_name, f.current_rank as creator_rank
         FROM offerings o
-        JOIN fans f ON o.fan_id = f.id
+        LEFT JOIN fans f ON o.fan_id = f.id
         WHERE o.status IN ('approved', 'featured')
         ORDER BY o.approved_at DESC
     """).fetchall()
@@ -158,9 +158,9 @@ def write_offerings_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
             "content_url": row["content_url"],
             "content_type": row["content_type"],
             "thumbnail_url": row["thumbnail_url"],
-            "creator_name": row["creator_name"],
-            "creator_rank": row["creator_rank"],
-            "creator_rank_title": rank_titles.get(row["creator_rank"], "Uninitiated"),
+            "creator_name": row["creator_name"] or "The Menagerie",
+            "creator_rank": row["creator_rank"] or 0,
+            "creator_rank_title": rank_titles.get(row["creator_rank"] or 0, "Uninitiated"),
             "inspired_by": row["inspired_by"],
             "featured": bool(row["featured"]),
             "approved_at": row["approved_at"],
@@ -239,7 +239,7 @@ def write_altar_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
                o.content_type, o.thumbnail_url, o.featured_at,
                f.name as creator_name, f.current_rank as creator_rank
         FROM offerings o
-        JOIN fans f ON o.fan_id = f.id
+        LEFT JOIN fans f ON o.fan_id = f.id
         WHERE o.featured = 1
         ORDER BY o.featured_at DESC
         LIMIT 1
@@ -255,8 +255,8 @@ def write_altar_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
             "content_url": current["content_url"],
             "content_type": current["content_type"],
             "thumbnail_url": current["thumbnail_url"],
-            "creator_name": current["creator_name"],
-            "creator_rank_title": rank_titles.get(current["creator_rank"], "Uninitiated"),
+            "creator_name": current["creator_name"] or "The Menagerie",
+            "creator_rank_title": rank_titles.get(current["creator_rank"] or 0, "Uninitiated"),
             "featured_at": current["featured_at"],
         }
 
@@ -265,7 +265,7 @@ def write_altar_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
         SELECT o.id, o.category, o.title, o.content_type, o.thumbnail_url,
                o.featured_at, f.name as creator_name
         FROM offerings o
-        JOIN fans f ON o.fan_id = f.id
+        LEFT JOIN fans f ON o.fan_id = f.id
         WHERE o.featured = 1
         ORDER BY o.featured_at DESC
         LIMIT 6 OFFSET 1
@@ -279,7 +279,7 @@ def write_altar_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
             "title": row["title"],
             "content_type": row["content_type"],
             "thumbnail_url": row["thumbnail_url"],
-            "creator_name": row["creator_name"],
+            "creator_name": row["creator_name"] or "The Menagerie",
             "featured_at": row["featured_at"],
         })
 

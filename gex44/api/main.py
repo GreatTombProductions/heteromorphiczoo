@@ -21,7 +21,7 @@ import time
 import uuid
 from datetime import date, datetime, timezone
 
-from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi import Body, Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -690,7 +690,7 @@ async def get_census(request: Request):
 
 @app.post("/api/hz/admin/aggregate", response_model=AggregateResponse)
 async def admin_aggregate(
-    req: AggregateRequest | None = None,
+    req: AggregateRequest | None = Body(default=None),
     admin: dict | None = Depends(verify_admin_optional),
 ):
     """Trigger manual aggregation run. Accepts API key or OAuth Bearer token."""
