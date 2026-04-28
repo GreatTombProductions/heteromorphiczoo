@@ -5,7 +5,7 @@ import Navigation from "@/components/Navigation";
 import { LOADING, OFFERINGS } from "@/lib/copy";
 import styles from "./page.module.css";
 
-const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://saturna.greattombproductions.com:8081";
+const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://hz-api.greattombproductions.com";
 
 type Category = "visual" | "sonic" | "textual" | "ritual" | "profane";
 
@@ -160,10 +160,10 @@ export default function OfferingsPage() {
               <section className={styles.featured}>
                 <span className={styles.featuredLabel}>{OFFERINGS.featuredLabel}</span>
                 <div className={styles.featuredContent}>
-                  {altar.current.thumbnail_url && (
+                  {(altar.current.thumbnail_url || (altar.current.content_type === "image" && altar.current.content_url)) && (
                     <div className={styles.featuredImageWrap}>
                       <img
-                        src={altar.current.thumbnail_url}
+                        src={altar.current.thumbnail_url || altar.current.content_url!}
                         alt={altar.current.title ?? "Featured offering"}
                         className={styles.featuredImage}
                       />
@@ -213,12 +213,16 @@ export default function OfferingsPage() {
             {/* Gallery grid */}
             {filtered.length > 0 ? (
               <div className={styles.gallery}>
-                {filtered.map((offering) => (
+                {filtered.map((offering) => {
+                  const isImage = offering.content_type === "image";
+                  const imageUrl = offering.thumbnail_url || (isImage ? offering.content_url : null);
+
+                  return (
                   <article key={offering.id} className={styles.card}>
-                    {offering.thumbnail_url && (
+                    {imageUrl && (
                       <div className={styles.cardImageWrap}>
                         <img
-                          src={offering.thumbnail_url}
+                          src={imageUrl}
                           alt={offering.title ?? "Offering"}
                           className={styles.cardImage}
                           loading="lazy"
@@ -242,7 +246,7 @@ export default function OfferingsPage() {
                           <span className={styles.creatorRank}>{offering.creator_rank_title}</span>
                         </p>
                       )}
-                      {offering.content_url && !offering.content_url.startsWith("pending-upload") && (
+                      {offering.content_url && !isImage && !offering.content_url.startsWith("pending-upload") && (
                         <a
                           href={offering.content_url}
                           target="_blank"
@@ -254,7 +258,8 @@ export default function OfferingsPage() {
                       )}
                     </div>
                   </article>
-                ))}
+                  );
+                })}
               </div>
             ) : (
               <p className={styles.emptyState}>{OFFERINGS.emptyState}</p>

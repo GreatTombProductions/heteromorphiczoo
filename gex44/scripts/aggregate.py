@@ -24,11 +24,18 @@ from pathlib import Path
 
 # Allow running from gex44/ root or scripts/ directory
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from api.config import DB_PATH, JSON_OUTPUT_DIR, RANK_TABLE, SNAPSHOTS_DIR
+from api.config import API_PUBLIC_URL, DB_PATH, JSON_OUTPUT_DIR, RANK_TABLE, SNAPSHOTS_DIR
 
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _resolve_url(url: str | None) -> str | None:
+    """Make relative /uploads/ paths absolute so the Vercel frontend can reach GEX44."""
+    if url and url.startswith("/uploads/"):
+        return f"{API_PUBLIC_URL}{url}"
+    return url
 
 
 def _connect(db_path: Path) -> sqlite3.Connection:
@@ -155,9 +162,9 @@ def write_offerings_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
             "category": row["category"],
             "title": row["title"],
             "description": row["description"],
-            "content_url": row["content_url"],
+            "content_url": _resolve_url(row["content_url"]),
             "content_type": row["content_type"],
-            "thumbnail_url": row["thumbnail_url"],
+            "thumbnail_url": _resolve_url(row["thumbnail_url"]),
             "creator_name": row["creator_name"] or "The Menagerie",
             "creator_rank": row["creator_rank"] or 0,
             "creator_rank_title": rank_titles.get(row["creator_rank"] or 0, "Uninitiated"),
@@ -252,9 +259,9 @@ def write_altar_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
             "category": current["category"],
             "title": current["title"],
             "description": current["description"],
-            "content_url": current["content_url"],
+            "content_url": _resolve_url(current["content_url"]),
             "content_type": current["content_type"],
-            "thumbnail_url": current["thumbnail_url"],
+            "thumbnail_url": _resolve_url(current["thumbnail_url"]),
             "creator_name": current["creator_name"] or "The Menagerie",
             "creator_rank_title": rank_titles.get(current["creator_rank"] or 0, "Uninitiated"),
             "featured_at": current["featured_at"],
@@ -278,7 +285,7 @@ def write_altar_json(conn: sqlite3.Connection, output_dir: Path) -> dict:
             "category": row["category"],
             "title": row["title"],
             "content_type": row["content_type"],
-            "thumbnail_url": row["thumbnail_url"],
+            "thumbnail_url": _resolve_url(row["thumbnail_url"]),
             "creator_name": row["creator_name"] or "The Menagerie",
             "featured_at": row["featured_at"],
         })

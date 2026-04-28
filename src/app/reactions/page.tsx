@@ -5,7 +5,7 @@ import Navigation from "@/components/Navigation";
 import { LOADING, REACTIONS, SONG_TAGS } from "@/lib/copy";
 import styles from "./page.module.css";
 
-const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://saturna.greattombproductions.com:8081";
+const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://hz-api.greattombproductions.com";
 
 interface Reaction {
   id: string;

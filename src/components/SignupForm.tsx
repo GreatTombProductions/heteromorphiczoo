@@ -5,7 +5,7 @@ import { EMAIL_CAPTURE } from "@/lib/copy";
 import { generateAlias } from "@/lib/usernameGenerator";
 import styles from "./SignupForm.module.css";
 
-const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://saturna.greattombproductions.com:8081";
+const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://hz-api.greattombproductions.com";
 
 type CaptureState = "idle" | "submitting" | "success" | "error";
 

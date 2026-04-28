@@ -105,6 +105,6 @@ Features: dashboard (stats + "Rebuild JSON" button), fan management, offerings r
 ## Key conventions
 
 - **Copy strings:** All user-facing text lives in `src/lib/copy.ts`. Edit there, not in components.
-- **API base URL:** Frontend components that call GEX44 must use `process.env.NEXT_PUBLIC_GEX44_API_URL || "https://saturna.greattombproductions.com:8081"`. Never use relative paths for API calls — they'd hit Vercel, not GEX44.
+- **API base URL:** Frontend components that call GEX44 must use `process.env.NEXT_PUBLIC_GEX44_API_URL || "https://hz-api.greattombproductions.com"`. Never use relative paths for API calls — they'd hit Vercel, not GEX44.
 - **Schema changes:** SQLite doesn't support ALTER COLUMN. Write a `migrate_*.py` script that rebuilds the table. Update `init_db.py` for fresh databases.
 - **Foreign keys:** Enforced (`PRAGMA foreign_keys=ON`). Design for nullable FKs when records can exist without a fan (e.g., admin-seeded offerings).

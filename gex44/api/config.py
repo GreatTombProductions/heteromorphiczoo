@@ -17,6 +17,12 @@ import os
 from datetime import date
 from pathlib import Path
 
+# --- Public API URL (used by aggregation to make upload paths absolute) ---
+
+API_PUBLIC_URL = os.getenv(
+    "HZ_API_PUBLIC_URL", "https://hz-api.greattombproductions.com"
+)
+
 # --- Paths ---
 
 _BASE_DIR = Path(__file__).resolve().parent.parent

@@ -44,6 +44,8 @@
   color: var(--text-secondary);
   letter-spacing: 0.02em;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* --- Sections --- */

@@ -30,9 +30,9 @@ export const LANDING = {
 export const BENEDICTION = {
   headline: "Benediction",
   subheadline: "feat. Coty Garcia",
-  body: "A blessing spoken in two voices. The founding voice and the new.\n\nNot every band says goodbye with a song.",
-  bodyLine1: "A blessing spoken in two voices. The founding voice and the new.",
-  bodyLine2: "Not every band says goodbye with a song.",
+  body: "A blessing spoken in two voices.\nThe founding voice and the new.",
+  bodyLine1: "A blessing spoken in two voices.",
+  bodyLine2: "The founding voice and the new.",
   ctaPrimary: "Receive the blessing",
   ctaVideo: "Witness",
   credits: "Mixed by Ray Heberer \u00B7 Produced by Greg Thomas \u00B7 Mastered by Joel Wanasek \u00B7 Video by Scott Hansen",
