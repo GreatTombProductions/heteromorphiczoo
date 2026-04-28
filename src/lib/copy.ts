@@ -202,7 +202,7 @@ export const CHRONICLE = {
     },
     {
       date: "2023",
-      title: "The Zoo Awakens",
+      title: "The Tomb Awakens",
       body: "Heteromorphic Zoo coalesces in British Columbia. Ray Heberer - guitar, composition, production. Coty Garcia - the founding voice. Megan Ash - violin, written into the architecture, never decoration. Bryce Butler - drums. The tagline crystallizes: worship music for monsters.",
       era: "formation" as const,
     },
