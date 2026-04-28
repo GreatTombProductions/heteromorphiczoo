@@ -59,6 +59,7 @@
   line-height: var(--leading-body);
   color: var(--text-primary);
   text-align: center;
+  max-width: none;
 }
 
 /* --- Section 1: "Every note is human." — hero line --- */
