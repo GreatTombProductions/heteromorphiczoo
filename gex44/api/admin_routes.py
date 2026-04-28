@@ -509,6 +509,11 @@ async def review_offering(
         raise HTTPException(status_code=400, detail="Invalid action.")
 
     db.commit()
+
+    import asyncio
+    from .main import _trigger_aggregation
+    asyncio.create_task(_trigger_aggregation())
+
     return {"status": body.action + "d" if body.action != "reject" else "rejected"}
 
 
@@ -581,6 +586,11 @@ async def review_reaction(
         raise HTTPException(status_code=400, detail="Invalid action.")
 
     db.commit()
+
+    import asyncio
+    from .main import _trigger_aggregation
+    asyncio.create_task(_trigger_aggregation())
+
     return {"status": body.action + "d" if body.action != "reject" else "rejected"}
 
 
