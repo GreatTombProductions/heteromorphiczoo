@@ -55,44 +55,38 @@ Not "merch." Not "shop." Not "store." Relics — objects with provenance, artifa
 
 ## Section 2: Compensation Terms
 
+*Revised 2026-04-28 per Council ace0e247 — Ray's updated economic model. Previous version assumed HZ-side fulfillment + 20% revenue share. New model is radically simpler.*
+
 ### The Model
 
-**Two components, both flowing from HZ to the maker:**
-
-**1. Upfront Payment (per collection/batch)**
+**One component: upfront payment for design work, flowing from HZ to the maker.**
 
 | Item Complexity | Suggested Range | What It Covers |
 |----------------|----------------|----------------|
-| Simple (patches, pins, stickers) | $150–$300 | Materials + time + design premium |
-| Moderate (apparel, prints, leather goods) | $300–$700 | Materials + time + craft premium |
-| Complex (metalwork, ceramics, multi-piece) | $500–$1,000 | Materials + time + craft premium + tooling |
+| Simple (patches, pins, stickers) | $150–$300 | Design work + initial prototype |
+| Moderate (apparel, prints, leather goods) | $300–$700 | Design work + craft premium |
+| Complex (metalwork, ceramics, multi-piece) | $500–$1,000 | Design work + craft premium + tooling |
 
-The upfront payment covers the maker's materials and time with a premium. The maker never risks their own capital on this partnership. The ranges are starting points — actual amounts are negotiated per partnership based on production costs and batch size.
+The upfront payment covers the maker's design work — the creative collaboration that produces an HZ-themed piece in their medium. After that, the maker owns the entire production and fulfillment chain.
 
-**2. Revenue Share (ongoing, per sale)**
+**No revenue share. No ongoing per-sale payments.** This bounds HZ's exposure completely — a piece that goes viral costs HZ nothing additional. The upfront payment is the total financial commitment per partnership.
 
-- **20% of retail sale price** to the maker
-- Calculated on retail, not net profit — simpler, more transparent, no games with deductions
-- Revenue share is ongoing for as long as the item sells
-- Paid monthly or quarterly (whichever the maker prefers)
+### Post-Design: Partner Handles Everything
 
-**Why 20%:** High enough to be meaningful and signal genuine partnership. Low enough that combined with upfront payment, production costs, and shipping, HZ lands at the target negative margin. The maker's total compensation (upfront + ongoing share) exceeds what they'd receive in a standard licensing arrangement where they pay the brand for the privilege.
+Once the design collaboration is complete:
+- **Production** is the partner's decision (batch size, materials, timing)
+- **Pricing** is the partner's decision (they know their margins)
+- **Stock levels** are the partner's decision (they know their capacity)
+- **Shipping and fulfillment** are the partner's responsibility
+- **Payment infrastructure** is the partner's (their Etsy, Shopify, Square, whatever they already use)
 
-### The Math (Per Unit)
+HZ's website is a **thin wrapper** on however they do business. Each partner card on `/relics` links to the partner's own storefront. We are a showcase, not a storefront.
 
-Using a $35 premium t-shirt as the reference case:
+**Why this works:** The partner already knows how to sell their products. They have their own shop, their own shipping workflow, their own pricing model. Adding HZ's logistics on top of that creates friction for both sides. The thin-wrapper model means: we pay for the design, we showcase the result, we link to where people can buy it. Zero ongoing operational burden on either side.
 
-| Line Item | Amount |
-|-----------|--------|
-| Production cost (premium quality, small batch) | $15 |
-| Upfront maker payment (amortized across batch of ~50) | $8 |
-| Revenue share to maker (20% of $35) | $7 |
-| Shipping materials + platform fees | $5 |
-| **Total cost per unit** | **$35** |
-| **Retail price** | **$35** |
-| **Net per unit** | **$0 to -$5** |
+**Volume transparency:** As a niche extreme metal band, order volume may be low. Partners should be prepared to produce the design, then hold it in their back pockets for months before an order comes in. The partnership is long-term positioning, not immediate revenue.
 
-At batch sizes under 50, the amortized upfront cost per unit increases, pushing deeper negative. At batch sizes over 50, the amortized cost decreases, approaching break-even. The target is approximately net-zero to net-negative-$5 per unit. This is the strategy, not a problem to solve.
+**Trust model:** Tit-for-tat. We trust partners will fulfill orders when they come. Partners who fail to ship lose their showcase spot. No contracts, no lawyers, no SLAs.
 
 ### Structural Terms
 
@@ -106,16 +100,17 @@ At batch sizes under 50, the amortized upfront cost per unit increases, pushing 
 | **IP — collaborative pieces** | Jointly owned. Either party can display in portfolio. |
 | **Quality approval** | Collaborative. HZ provides creative direction (see Brand Guidelines, Section 3). Maker brings expertise. Not top-down approval — a conversation. |
 | **Attribution** | Full. Maker's name, process description, and portfolio link on /relics page and all marketing. |
-| **Payment timing** | Upfront payment before production begins. Revenue share monthly or quarterly. |
+| **Payment timing** | Upfront payment before design work begins. No ongoing payments. |
 
 ### What This Is Not
 
 - Not a licensing agreement (the maker never pays HZ)
-- Not a wholesale purchase (the relationship is ongoing, not transactional)
-- Not a commission (the maker brings their craft, not just their hands)
+- Not a wholesale purchase (we don't buy inventory)
+- Not a fulfillment partnership (we don't handle shipping, stock, or payment processing)
+- Not a commission with ongoing obligations (upfront payment is the total commitment)
 - Not employment (no exclusivity, no control over their other work)
 
-The closest existing framework is a brand partnership with inverted economics. The legal structure borrows from licensing agreements (quality control, IP protection, termination clauses) but the money flows in the opposite direction.
+The closest framework is a **sponsored showcase** — HZ pays for the creative collaboration and provides marketing reach. The partner handles everything commercial. The economic model is sustainable because HZ's exposure is bounded (upfront payment only) and the propagation value (audience cross-pollination) is the return on investment.
 
 ---
 
@@ -281,23 +276,25 @@ The first 3-5 partnerships should demonstrate the program's range and establish 
 
 | Standard Model | Relics Model |
 |---------------|-------------|
-| Maker pays the band (licensing fee/royalty) | Band pays the maker (upfront + revenue share) |
+| Maker pays the band (licensing fee/royalty) | Band pays the maker (upfront for design) |
 | Brand provides design, maker executes | Maker brings their craft, band provides creative direction |
 | Maker is invisible (production partner footnote) | Maker is the feature (hero of the product page) |
+| Band handles fulfillment | Partner handles their own fulfillment |
 | Goal: maximize margin per unit | Goal: maximize cultural reach per unit |
-| Negative margins = failure | Negative margins = the strategy |
+| Our site is a storefront | Our site is a showcase with links to partner shops |
 
 **The terms:**
-- Upfront payment before production (covers your materials + time + premium)
-- 20% of retail sale price as ongoing revenue share
-- Full attribution on our website — your name, your process, your story, your shop link
+- We pay you upfront for your design work
+- You handle production, pricing, fulfillment — your shop, your rules
+- We showcase your work on our /relics page — your name, your process, your story, your shop link
+- Our fans click through to buy directly from you
 - No exclusivity — your other work is your business
 - You retain full rights to your original designs
 - Either of us can end the partnership with 30 days' notice
 
-**Why this works for us:** Our income comes from consulting, not from merch sales. Every shirt, every pendant, every piece costs us money. That's by design. We're building a network of artisans whose work our audience should encounter — not a revenue line.
+**Why this works for us:** Our income comes from consulting, not from merch sales. We're building a network of artisans whose work our audience should encounter — not a revenue line. We pay for the creative collaboration and provide the marketing reach. You handle the business side through your existing channels.
 
-**What we're asking:** A limited collaboration. A small batch of [specific items] interpreting our visual world through your medium. We'll handle photography, listing, promotion, and fulfillment. You make the thing you're already great at making, shaped by a creative conversation with us.
+**What we're asking:** A creative collaboration. Design something that interprets our visual world through your medium. We pay for the design work. After that, you produce and sell however you normally do — we just add our showcase and our audience to the equation.
 
 **Who we are beyond the music:** heteromorphiczoo.com — look at the site. Read the AI policy. Read the Chronicle. The level of care we put into the website is the level of care we bring to every partnership.
 
@@ -329,9 +326,10 @@ The first 3-5 partnerships should demonstrate the program's range and establish 
 **Element 4: The Terms — Quick and Clean**
 *(Bullet list — same for every outreach.)*
 
-> - Upfront payment for the batch
-> - 20% revenue share on every sale
-> - Full attribution on our /relics page — your name, your process, your story
+> - We pay you upfront for the design work
+> - You handle production, pricing, and fulfillment through your own channels
+> - We showcase your work on our /relics page — your name, your process, your story, your shop link
+> - Our fans buy directly from you
 > - No exclusivity — your other work is your business
 > - You retain full rights to your designs
 
@@ -348,15 +346,15 @@ The first 3-5 partnerships should demonstrate the program's range and establish 
 
 **Template A: Cold Outreach (No Prior Relationship)**
 
-> Hey [Name] — I'm Ray from Heteromorphic Zoo (melodic deathcore). Your [specific work/piece] caught my eye. We're building a merch program that's different from the usual — we pay artisan partners upfront, share revenue, and feature the maker as the reason to buy. No print-on-demand, no licensing fees from you. Would love to chat about a small collaboration if you're open to it. Our site is heteromorphiczoo.com — the /relics page is where partner work lives. Happy to send more details.
+> Hey [Name] — I'm Ray from Heteromorphic Zoo (melodic deathcore). Your [specific work/piece] caught my eye. We're building a merch program that's different from the usual — we pay artisan partners upfront for design work, showcase their craft on our site, and link fans directly to the maker's shop. No print-on-demand, no licensing fees from you, no fulfillment headaches. Would love to chat about a collaboration if you're open to it. Our site is heteromorphiczoo.band — the /relics page is where partner work lives. Happy to send more details.
 
 **Template B: Warm Outreach (Mutual Follow or Prior Interaction)**
 
-> Hey [Name] — been following your work for a while, especially [specific piece/series]. We're putting together something at HZ that I think you'd find interesting — a merch program where we pay the makers, not the other way around. Upfront comp + revenue share, full attribution, no exclusivity. Your [medium] would be an incredible fit for what we're building. Mind if I send you a one-pager with the details?
+> Hey [Name] — been following your work for a while, especially [specific piece/series]. We're putting together something at HZ that I think you'd find interesting — a merch program where we pay the makers for design work, showcase their craft on our site, and link fans directly to their shop. No fulfillment headaches, full attribution, no exclusivity. Your [medium] would be an incredible fit for what we're building. Mind if I send you a one-pager with the details?
 
 **Template C: Referral Outreach (Introduced by Someone)**
 
-> Hey [Name] — [Mutual contact] pointed me your way. I'm Ray from Heteromorphic Zoo. We run our merch program differently — we pay artisan partners upfront and share revenue, instead of the usual extraction model. Looking at your [specific work], I think there's a natural fit. Would you be open to hearing more? I can send a quick one-pager that explains how it works.
+> Hey [Name] — [Mutual contact] pointed me your way. I'm Ray from Heteromorphic Zoo. We run our merch program differently — we pay artisan partners upfront for design work and showcase their craft on our site, linking fans directly to their shop. No extraction, no licensing fees, no fulfillment from your end. Looking at your [specific work], I think there's a natural fit. Would you be open to hearing more? I can send a quick one-pager that explains how it works.
 
 **DM Guidelines for Ray:**
 - Keep it under 100 words. The DM opens the door; the one-pager closes it.
@@ -388,10 +386,11 @@ Each piece on this page was made by a specific artisan — named, attributed,
 linked. Their craft, interpreted through the world of Heteromorphic Zoo.
 The maker is not a vendor. The maker is the reason.
 
-We pay our partners upfront and share revenue from every sale. No licensing
-fees. No extraction. The economics are inverted because the mission is not
-margin — it is propagation. Every relic carries the Zoo further than the
-music alone can reach.
+We pay our partners for their design work. They handle the rest — production,
+pricing, shipping — through their own channels. No licensing fees. No
+extraction. The economics are simple because the mission is not margin — it
+is propagation. Every relic carries the Zoo further than the music alone
+can reach.
 ```
 
 ### Partner Card Copy Template
@@ -439,34 +438,29 @@ the process that shaped it, and a link to their craft.
 The Zoo does not sell merchandise. The Zoo commissions relics.
 ```
 
-### Purchase Flow Copy
+### Partner Card Copy Template (Outbound Link Model)
 
-*When items are available for purchase:*
-
-```
-[Item Name]
-by [Maker Name]
-
-[Item description — materials, process, dimensions]
-[Edition size — e.g., "Edition of 30"]
-
-$[price]
-
-[Purchase button: "Claim"]
-```
-
-**Button text:** "Claim" — not "Buy," not "Add to Cart," not "Purchase." Claiming a relic is an act of the menagerie, not a transaction. The engagement system already uses consecration verbs (enter, receive, be counted). The commerce verb follows.
-
-**Post-purchase confirmation:**
+*Each partner card showcases the maker and links to their shop. No purchase flow on our side.*
 
 ```
-The relic is yours.
-[Maker Name] made this. Remember their name.
+[MAKER NAME]
+[MEDIUM]
+
+[2-3 sentences about their craft and process]
+
+[Product images]
+
+Purchase from [Maker Name] →
+[outbound link to partner's shop]
 ```
+
+**Button text:** "Purchase from [Maker Name]" — not "Buy" or "Shop Now." The link goes to their shop. The button should feel like a recommendation, not a redirect. We are pointing our audience toward someone whose craft we believe in.
 
 ---
 
 ## Section 8: Implementation Notes for Rubedo
+
+*Revised 2026-04-28 per Council ace0e247. Previous version assumed HZ-side e-commerce (Stripe, inventory, order management). New model: showcase with outbound links to partner shops.*
 
 ### /relics Page Architecture
 
@@ -476,14 +470,13 @@ The relic is yours.
 **Page structure:**
 1. Page header (RELICS + program description)
 2. Partner grid — one card per partner, featuring the maker
-3. Within each partner card: their pieces (if multiple)
-4. Each piece is its own card within the partner section
+3. Each partner card links outbound to the partner's own shop
 
-**The partner is the organizing unit, not the product.** The page is organized by maker, with their pieces grouped under their attribution card. This is the structural expression of "the maker is the feature."
+**The partner is the organizing unit.** The page is a curated gallery of makers, not a storefront. Each card features the artisan — their craft, their process, their story — with a prominent outbound link: "Purchase from [Partner Name] →"
 
 **Card treatment:** Same pattern as offerings/bestiary (CZ's consistency directive from Phase 3):
 - Surface: `--hz-violet-deep` background with texture
-- Border: 1px `--hz-violet`, with `--hz-gold` accent on featured/new pieces
+- Border: 1px `--hz-violet`, with `--hz-gold` accent on featured/new partners
 - Sharp corners (2-4px max border-radius)
 - Maker's name in display type, medium in functional sans-serif
 - Process description in body serif
@@ -493,77 +486,57 @@ The relic is yours.
 - Maker portrait or studio shot (if available and consented)
 - No rounded corners on images (stained-glass panel metaphor — sharp geometric edges)
 
-**Purchase integration:** This is a future implementation detail. The initial /relics page can exist as a showcase without e-commerce. When purchase capability is added:
-- Stripe or equivalent for payment processing
-- Inventory tracking (limited editions with remaining count displayed)
-- Order notifications to Ray (and/or to maker for fulfillment coordination)
+**No e-commerce on our side.** No Stripe. No inventory tracking. No order management. No cart. No checkout. Each partner card has an outbound link to the partner's own shop where they handle everything commercial. This is the maintenance-minimization design — our site is a showcase, not a marketplace.
 
-**For initial launch:** The /relics page launches with the empty state copy (Section 7) or with partner cards + piece descriptions but no purchase flow. The page establishes the program's existence and aesthetic before commerce is added. The founding cohort sees the vision; purchase capability arrives when the first partners are confirmed.
+**For initial launch:** The /relics page launches with the empty state copy (Section 7) or with partner cards once confirmed. When a partner is confirmed, their card goes live with: name, medium, bio, process description, product photos, and a link to their shop.
 
-### Data Model (When Commerce Is Added)
+### Intake Form Architecture
+
+**Route:** `/partner-apply`
+
+A form page for inbound partner interest. Fields:
+- Name
+- Craft medium
+- Portfolio/shop link
+- Brief pitch (free text)
+- Contact info (email)
+
+Stored in SQLite via GEX44. No SLA — form states: "We review applications periodically. If your craft fits, we'll reach out."
+
+The form register is conversational: "Tell us about your craft" — not "Application for Relic Partnership." See Section 7 for copy register guidance.
+
+### Data Model
 
 ```
--- New tables in gex44/data/fan_db.sqlite
+-- In gex44/data/fan_db.sqlite
 
 CREATE TABLE partners (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     medium TEXT NOT NULL,           -- "Blacksmith", "Leather Artisan", etc.
     bio TEXT NOT NULL,              -- 2-3 sentence craft description
-    shop_url TEXT,                  -- Link to their own shop/portfolio
+    shop_url TEXT NOT NULL,         -- Link to their own shop (THE purchase destination)
     portrait_url TEXT,              -- Studio/maker photo (nullable)
     active INTEGER DEFAULT 1,
     created_at TEXT NOT NULL
 );
 
-CREATE TABLE relics (
+CREATE TABLE partner_applications (
     id TEXT PRIMARY KEY,
-    partner_id TEXT NOT NULL REFERENCES partners(id),
     name TEXT NOT NULL,
-    description TEXT NOT NULL,
-    materials TEXT,                 -- Materials and process description
-    edition_size INTEGER,          -- NULL for unlimited (unlikely but possible)
-    edition_remaining INTEGER,     -- Decremented on purchase
-    price_cents INTEGER NOT NULL,
-    image_url TEXT,
-    active INTEGER DEFAULT 1,
-    created_at TEXT NOT NULL
-);
-
-CREATE TABLE relic_orders (
-    id TEXT PRIMARY KEY,
-    relic_id TEXT NOT NULL REFERENCES relics(id),
-    fan_id TEXT REFERENCES fans(id),  -- Nullable (non-menagerie purchase)
+    medium TEXT NOT NULL,
+    portfolio_url TEXT,
+    pitch TEXT NOT NULL,
     email TEXT NOT NULL,
-    name TEXT NOT NULL,
-    shipping_address TEXT NOT NULL,
-    status TEXT DEFAULT 'pending',    -- pending, confirmed, shipped, delivered
-    stripe_session_id TEXT,
-    created_at TEXT NOT NULL,
-    updated_at TEXT
+    status TEXT DEFAULT 'pending',  -- pending, reviewed, accepted, declined
+    reviewed_at TEXT,
+    created_at TEXT NOT NULL
 );
 ```
 
-**Aggregation:** Partner and relic data aggregates to `public/data/relics.json` for the static read path. Order data does NOT aggregate to public JSON — it's admin-only, same pattern as sanctuary submissions.
+**Aggregation:** Partner data aggregates to `public/data/relics.json` for the static read path (same pattern as offerings). Applications are admin-only — not public, same pattern as sanctuary submissions.
 
-**Admin panel:** Add a "Relics" tab to the admin dashboard. Partner management (add/edit/deactivate). Relic management (add/edit, track editions). Order management (status updates, fulfillment tracking).
-
----
-
-## Section 9: Revenue Share Tracking
-
-### For Ray (Operational)
-
-A simple tracking document or spreadsheet per partner:
-
-| Month | Units Sold | Retail Revenue | Partner Share (20%) | Running Total |
-|-------|-----------|---------------|--------------------|-|
-| Jul 2026 | 12 | $420 | $84 | $84 |
-| Aug 2026 | 8 | $280 | $56 | $140 |
-
-**Payment schedule:** Monthly if revenue share exceeds $50 in a month. Quarterly if under $50/month. PayPal, bank transfer, or maker's preference.
-
-**Record-keeping:** Each partnership gets a simple ledger. Not complex — the volume is small enough that a spreadsheet per partner works indefinitely. If volume ever grows enough to require automation, that's a good problem.
+**No admin panel commerce features.** The only admin interaction with relics is managing partner cards (add/edit/deactivate) and reviewing applications. No orders, no inventory, no fulfillment tracking — those live in the partner's own systems.
 
 ---
 
@@ -573,12 +546,13 @@ A simple tracking document or spreadsheet per partner:
 
 | Dimension | Industry Standard | Relics Program |
 |-----------|------------------|----------------|
-| Who pays whom | Maker pays band | Band pays maker |
-| Revenue direction | Consumer → Maker → Royalty to band | Consumer → HZ → Share to maker |
+| Who pays whom | Maker pays band (licensing fee) | Band pays maker (upfront for design) |
+| Fulfillment | Band or label handles | Partner handles through own channels |
 | Design ownership | Band provides design, maker executes | Maker brings craft, HZ provides direction |
 | Maker visibility | Footnote | Hero |
-| Goal | Maximize margin | Maximize propagation |
-| Loss tolerance | Zero | Negative margins by design |
+| Where fans buy | Band's storefront | Partner's own shop (via outbound link) |
+| Goal | Maximize margin per unit | Maximize cultural reach per partnership |
+| HZ's ongoing cost | Zero (maker pays for the privilege) | Bounded (upfront payment only) |
 | Customer relationship | Brand owns, maker invisible | Cross-pollination — both audiences |
 | Scale | Volume, lower unit cost | Small batch, high craft value |
 | Partner selection | Who produces cheaply? | Whose aesthetic extends our territory? |
@@ -599,6 +573,6 @@ A simple tracking document or spreadsheet per partner:
 
 ---
 
-*The partner program is the economic proof of the AI policy's stance. "Every note is human" is a claim about music. The Relics program extends that claim into physical objects: every piece is made by someone whose craft we believe in, and we put our money where our words are. The negative margin is the receipt.*
+*The partner program is the economic proof of the AI policy's stance. "Every note is human" is a claim about music. The Relics program extends that claim into physical objects: every piece is made by someone whose craft we believe in, and we put our money where our words are. The upfront payment for design work is the receipt.*
 
-*Phase 9 complete. Rubedo: build /relics from Section 7-8. Sebas: surface Sections 5-6 to Ray for outreach. The forge is lit.*
+*Originally Phase 9 of Campaign 2 (heteromorphiczoo-v2). Revised 2026-04-28 per Council ace0e247 (heteromorphiczoo Campaign 3) to reflect simplified economic model: upfront payment only, partner handles fulfillment, our site is a showcase with outbound links.*
