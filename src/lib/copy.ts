@@ -501,7 +501,7 @@ export const PRESS = {
   title: "Press",
   subtitle: "Heteromorphic Zoo: melodic death metal / deathcore / progressive-symphonic from British Columbia, Canada.",
   oneLiner: "Worship music for monsters.",
-  bio: "Heteromorphic Zoo is a Canadian extreme metal project led by guitarist and composer Ray Heberer. Drawing strength from all corners of the genre - melodic death metal, deathcore, progressive-symphonic - the band integrates structural violin, orchestral arrangements, and relentless composition into a sound built for pariahs, outcasts, and dark souls. Self-released under Great Tomb Productions.",
+  bio: "Heteromorphic Zoo is a Canadian extreme metal project led by guitarist and composer Ray Heberer. Drawing strength from all corners of the genre - melodic death metal, deathcore, progressive-symphonic - the band integrates violin, orchestral arrangements, and relentless composition into a sound built for pariahs, outcasts, and dark souls. Self-released under Great Tomb Productions.",
   stats: {
     title: "By the Numbers",
     spotifyListeners: "~2,800 monthly listeners",
@@ -536,7 +536,7 @@ export const PRESS = {
   ],
   links: {
     bandcamp: "https://heteromorphiczoo.bandcamp.com",
-    spotify: "https://open.spotify.com/album/63jGbRDpMbYBvyklH2WIUT",
+    spotify: "https://open.spotify.com/artist/6yPAqoIMCfvAVMsDsWyNbp",
     youtube: "https://youtube.com/@heteromorphiczoo",
     instagram: "https://instagram.com/heteromorphic.zoo",
   },
