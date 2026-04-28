@@ -475,15 +475,14 @@ export const RELICS = {
   title: "Relics",
   subtitle: "Every piece is made by someone whose craft we believe in.",
   description: [
-    "The Zoo does not sell merchandise. The Zoo commissions relics.",
-    "Each piece on this page was made by a specific artisan \u2014 named, attributed, linked. Their craft, interpreted through the world of Heteromorphic Zoo. The maker is not a vendor. The maker is the reason.",
-    "We pay our partners upfront and share revenue from every sale. No licensing fees. No extraction. The economics are inverted because the mission is not margin \u2014 it is propagation. Every relic carries the Zoo further than the music alone can reach.",
+    "Each piece on this page was made by a specific artisan who is named, attributed, and linked. Their craft, interpreted through the world of Heteromorphic Zoo. The maker is not a vendor. The maker is the reason.",
+    "We pay our partners upfront and share revenue from every sale. No licensing fees. No extraction. The economics are inverted because the mission is not margin but propagation. Every relic carries the Zoo further than the music alone can reach.",
   ],
   emptyState: {
     line1: "The forge is lit. The commissions are spoken.",
     line2: "The first relics are being made.",
     line3: "When they arrive, each will carry the name of the artisan who made it, the process that shaped it, and a link to their craft.",
-    coda: "The Zoo does not sell merchandise. The Zoo commissions relics.",
+    coda: "Prepare to arm yourself.",
   },
   partnerCard: {
     shopLinkLabel: "Visit their craft",
