@@ -57,6 +57,8 @@ from .models import (
     ReactionResponse,
     ReviewRequest,
     ReviewResponse,
+    SanctuaryRequest,
+    SanctuaryResponse,
 )
 from .oembed import extract_video_id, fetch_oembed
 
@@ -696,6 +698,61 @@ async def admin_review(req: ReviewRequest):
     asyncio.create_task(_trigger_aggregation())
 
     return ReviewResponse(status=new_status, dp_awarded=dp_awarded)
+
+
+# ---------------------------------------------------------------------------
+# POST /api/hz/sanctuary — AI impact contact form
+# ---------------------------------------------------------------------------
+
+VALID_SANCTUARY_CATEGORIES = {
+    "My voice or likeness was used without my consent",
+    "AI-generated content has replaced work I would have been hired for",
+    "Content I created was used to train AI systems without my permission",
+    "AI-generated work has been falsely attributed to me",
+    "Other \u2014 I\u2019ll explain below",
+}
+
+
+@app.post("/api/hz/sanctuary", response_model=SanctuaryResponse, status_code=201)
+async def submit_sanctuary(req: SanctuaryRequest, request: Request):
+    """AI impact contact form submission. Confidential intake — never public."""
+    _check_rate_limit(request)
+
+    if req.category not in VALID_SANCTUARY_CATEGORIES:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid category.",
+        )
+
+    if len(req.story.strip()) < 20:
+        raise HTTPException(
+            status_code=400,
+            detail="Story must be at least 20 characters.",
+        )
+
+    db = get_app_db()
+    submission_id = str(uuid.uuid4())
+    now = _now_iso()
+
+    db.execute(
+        """INSERT INTO sanctuary_submissions (id, name, email, category, story, submitted_at)
+           VALUES (?, ?, ?, ?, ?, ?)""",
+        (
+            submission_id,
+            req.name.strip() if req.name else None,
+            req.email.strip().lower() if req.email else None,
+            req.category,
+            req.story.strip(),
+            now,
+        ),
+    )
+    db.commit()
+
+    # No aggregation — sanctuary submissions are never public
+    return SanctuaryResponse(
+        id=submission_id,
+        message="Your voice has been received. The Zoo is listening.",
+    )
 
 
 # ---------------------------------------------------------------------------

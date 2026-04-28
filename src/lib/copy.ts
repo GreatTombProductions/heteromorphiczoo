@@ -261,7 +261,7 @@ export const BESTIARY = {
     {
       name: "Ray Heberer",
       designation: "The First Disciple",
-      roles: "Composition, arrangement, guitars, vocals, production",
+      roles: "Composition, guitars, vocals, production",
       description: "Every note in the zoo is written by this hand. The arrangements are scripture. Violin, guitar, and orchestral voices interwoven from inception rather than layered naively. A decade of metal projects before the zoo existed. The one who heard the sound first and transmits it. Now the voice as well as the architect.",
       current: true,
     },
@@ -367,6 +367,104 @@ export const RITES = {
     description: "The founding rite. Fourteen days. Every medium welcome: paint it, play it, write it, move to it. The theme constrains concept, not format. A painter and a guitarist interpreting the same bridge section discover each other through the gallery.",
     dpNote: "Standard offering DP. Founding Menagerie 1.5\u00D7 multiplier applies.",
     announcement: "The First Blessing has been called. For fourteen days, the altar receives your translation. What does Benediction sound like in your medium? The menagerie awaits.",
+  },
+} as const;
+
+/* ============================================================
+   Generative AI Policy
+   ============================================================ */
+
+export const POLICY = {
+  title: "Generative AI Policy",
+  footerTrigger: "Generative AI Policy",
+  sections: [
+    {
+      id: "every-note-is-human",
+      title: "Every Note Is Human",
+      paragraphs: [
+        "Every note is human.",
+        "Every lyric. Every melody. Every arrangement. Every vocal performance, every guitar line, every drum pattern, every violin phrase, every orchestral voice. Human hands. Human voices. Human decisions. From the first demo to the final master.",
+        "This is not a negotiable position. This is not a phase. This is the line, and it does not move.",
+        "Heteromorphic Zoo\u2019s music is written by Ray Heberer. The drums are arranged and performed by Bryce Butler \u2014 real toms, real cymbals, a snare tone that is ninety percent the instrument and ten percent reinforcement. The violin is performed by Megan Ash. The vocals are performed by human beings who spent years developing their voices. The orchestral arrangements are written by human composers. The artwork is painted by human artists.",
+        "We can prove all of this. [The Chronicle](/chronicle) documents every collaboration, every production decision, every person who touched every release. That documentation is not a courtesy. It is the receipt.",
+      ],
+    },
+    {
+      id: "what-we-use-ai-for",
+      title: "AI Handles What Artists Shouldn\u2019t Have To",
+      paragraphs: [
+        "You are looking at a website built with artificial intelligence. You probably noticed.",
+        "Good.",
+        "This website, our operations infrastructure, our data systems, our logistics \u2014 generative AI handles the work that artists have always hated doing but that careers die without. The website you\u2019re navigating right now. The fan engagement systems running underneath it. The intake pipelines, the aggregation scripts, the deployment infrastructure. Every artist knows this territory: the work that isn\u2019t the art but that the art can\u2019t reach anyone without.",
+      ],
+      pullQuote: "There was a promise. \u201CAI will handle the boring parts so humans can focus on what matters.\u201D We took that promise seriously.",
+      paragraphsAfterPullQuote: [
+        "We are one of the only artists in the world who can say: we used AI exactly how it was supposed to be used. The infrastructure is automated. The art is untouched.",
+        "A note on tools, because precision matters here. We distinguish between generative AI \u2014 systems that produce novel creative content: text, images, audio, music \u2014 and modeling tools \u2014 systems that digitally simulate the behavior of physical equipment. Amp modeling, effects simulation, cabinet impulse responses. The former creates something that didn\u2019t exist. The latter replicates something that does. The former replaces the player. The latter is a tool in the hand of the player.",
+        "Every guitarist in modern metal uses modeling and simulation tools. This is not AI in the generative sense. It is digital craftsmanship \u2014 the same relationship a woodworker has to a power tool versus a 3D printer.",
+      ],
+    },
+    {
+      id: "the-problem-is-silence",
+      title: "The Problem Isn\u2019t AI. The Problem Is Silence.",
+      paragraphs: [
+        "We do not believe AI is evil. We do not believe it should be banned from creative work. People are allowed to make art however they want.",
+        "What we believe is this: you deserve to know.",
+        "When you listen to a song that moves you, you are entering a relationship with the person who made it. You are investing something \u2014 attention, emotion, money, identity. That investment is made on the assumption that a human being poured themselves into what you\u2019re hearing. When that assumption is wrong and nobody told you, the relationship is a fraud. Not because AI music is bad. Because silence about it is dishonest.",
+        "The music industry is not having this conversation loudly enough. Labels are quietly licensing AI-generated content. Artists are quietly using generative tools and not disclosing it. Platforms are adding optional disclosure tags that almost nobody uses. The infrastructure for transparency exists. The will to use it does not.",
+        "We are not waiting for the industry to figure this out.",
+      ],
+      declaration: "Every artist who uses generative AI in their creative output should say so, clearly, permanently, and without being asked.",
+      paragraphsAfterDeclaration: [
+        "Not buried in metadata. Not in response to accusations. Proactively. Proudly, if they believe in what they\u2019re doing. The audience will decide what they value. The audience cannot decide if they don\u2019t know.",
+      ],
+      sanctuaryPrompt: "If your life or livelihood has been affected by AI \u2014 your voice cloned without consent, your work replaced by generated content, your income displaced by tools trained on your art \u2014",
+      sanctuaryLinkText: "we want to hear from you \u2192",
+      sanctuaryCoda: "We are not lawyers. We cannot represent you. But we can listen, we can amplify patterns we see, and we can connect you with organizations that can help. The Zoo\u2019s reach is small. The principle is not.",
+    },
+  ],
+} as const;
+
+/* ============================================================
+   /sanctuary — AI Impact Contact Form
+   ============================================================ */
+
+export const SANCTUARY = {
+  title: "The Sanctuary",
+  intro: "If your life or livelihood has been affected by generative AI \u2014 your voice cloned without consent, your work replaced by generated content, your income displaced by tools trained on your art \u2014 the Zoo is listening.",
+  categories: [
+    "My voice or likeness was used without my consent",
+    "AI-generated content has replaced work I would have been hired for",
+    "Content I created was used to train AI systems without my permission",
+    "AI-generated work has been falsely attributed to me",
+    "Other \u2014 I\u2019ll explain below",
+  ],
+  nameLabel: "Name",
+  namePlaceholder: "Anonymous submissions welcome",
+  emailLabel: "Email",
+  emailPlaceholder: "Only if you\u2019d like us to follow up",
+  categoryLabel: "What happened",
+  storyLabel: "Your story",
+  storyPlaceholder: "Tell us what happened\u2026",
+  storyMinLength: 20,
+  submitButton: "Submit",
+  submitSuccess: "Your voice has been received. The Zoo is listening.",
+  submitError: "Something went wrong. Please try again.",
+  submitRateLimited: "Please wait before submitting again.",
+  whatHappensNext: {
+    heading: "What happens next",
+    lines: [
+      "We read every submission. We are not lawyers and we cannot represent you. What we can do:",
+      "\u2014 Listen. Every submission is read by a human being.",
+      "\u2014 Amplify. Anonymized, aggregated patterns inform our public advocacy and statements.",
+      "\u2014 Connect. We can point you toward organizations equipped to help.",
+    ],
+    resources: [
+      { name: "SAG-AFTRA AI Advisory", url: "https://www.sagaftra.org/ai" },
+      { name: "Authors Guild", url: "https://authorsguild.org" },
+      { name: "Human Artistry Campaign", url: "https://www.humanartistrycampaign.com" },
+    ],
+    privacyNote: "We will never share your name or details without your explicit permission.",
   },
 } as const;
 

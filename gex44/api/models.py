@@ -90,3 +90,17 @@ class CensusResponse(BaseModel):
     total_reactions: int
     founding_members: int
     last_updated: str
+
+
+# --- Sanctuary ---
+
+class SanctuaryRequest(BaseModel):
+    name: str | None = None
+    email: str | None = None
+    category: str
+    story: str = Field(..., min_length=20)
+
+
+class SanctuaryResponse(BaseModel):
+    id: str
+    message: str

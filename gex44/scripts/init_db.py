@@ -182,6 +182,23 @@ CREATE TABLE IF NOT EXISTS fan_metadata (
 
 CREATE INDEX IF NOT EXISTS idx_fan_metadata_fan ON fan_metadata(fan_id);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_fan_metadata_fan_key ON fan_metadata(fan_id, field_key);
+
+-- Table: sanctuary_submissions
+-- AI impact contact form submissions. Confidential intake — never public.
+CREATE TABLE IF NOT EXISTS sanctuary_submissions (
+    id TEXT PRIMARY KEY,
+    name TEXT,
+    email TEXT,
+    category TEXT NOT NULL,
+    story TEXT NOT NULL,
+    submitted_at TEXT NOT NULL,
+    reviewed INTEGER NOT NULL DEFAULT 0,
+    reviewed_at TEXT,
+    notes TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_sanctuary_reviewed ON sanctuary_submissions(reviewed);
+CREATE INDEX IF NOT EXISTS idx_sanctuary_submitted ON sanctuary_submissions(submitted_at);
 """
 
 
@@ -206,7 +223,7 @@ def init_db(db_path: str | None = None) -> Path:
     conn.close()
 
     table_names = [t[0] for t in tables]
-    expected = ["chronicle_events", "chronicle_media", "chronicle_tracks", "engagement_events", "fan_metadata", "fans", "offerings", "rate_limits", "reactions"]
+    expected = ["chronicle_events", "chronicle_media", "chronicle_tracks", "engagement_events", "fan_metadata", "fans", "offerings", "rate_limits", "reactions", "sanctuary_submissions"]
     assert table_names == expected, f"Expected {expected}, got {table_names}"
     print(f"Tables created: {', '.join(table_names)}")
 

@@ -98,6 +98,7 @@ export interface DashboardData {
   founding_fans: number;
   pending_offerings: number;
   pending_reactions: number;
+  pending_sanctuary: number;
   total_dp_awarded: number;
   by_rank: { rank: number; title: string; count: number }[];
   by_source: { source: string; count: number }[];
@@ -112,6 +113,18 @@ export interface DashboardData {
   }[];
 }
 
+export interface SanctuarySubmission {
+  id: string;
+  name: string | null;
+  email: string | null;
+  category: string;
+  story: string;
+  submitted_at: string;
+  reviewed: number;
+  reviewed_at: string | null;
+  notes: string | null;
+}
+
 export interface PaginatedResponse<T> {
   total: number;
   page: number;
@@ -119,4 +132,5 @@ export interface PaginatedResponse<T> {
   fans?: T[];
   offerings?: T[];
   reactions?: T[];
+  submissions?: T[];
 }

@@ -1,16 +1,5 @@
 {
-  "current": {
-    "id": "1dc2a9b2-79d1-4dc8-8ae9-f674a2261883",
-    "category": "visual",
-    "title": "cosmic overlord",
-    "description": "",
-    "content_url": "https://hz-api.greattombproductions.com/uploads/visual/17d5ca40-d1dd-4fe3-b709-3d02093c0a12_final.jpg",
-    "content_type": "image",
-    "thumbnail_url": null,
-    "creator_name": "The Menagerie",
-    "creator_rank_title": "Uninitiated",
-    "featured_at": "2026-04-28T03:47:17Z"
-  },
+  "current": null,
   "recent": [],
-  "generated_at": "2026-04-28T04:32:06Z"
+  "generated_at": "2026-04-28T04:59:09Z"
 }

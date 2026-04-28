@@ -12,7 +12,7 @@
       "creator_rank": 0,
       "creator_rank_title": "Uninitiated",
       "inspired_by": null,
-      "featured": true,
+      "featured": false,
       "approved_at": "2026-04-28T03:46:47Z"
     }
   ],
@@ -23,5 +23,5 @@
     "ritual": 0,
     "profane": 0
   },
-  "generated_at": "2026-04-28T04:32:06Z"
+  "generated_at": "2026-04-28T04:59:09Z"
 }

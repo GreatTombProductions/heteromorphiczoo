@@ -1,0 +1,187 @@
+/* ============================================================
+   /policy — Generative AI Policy
+   A different room in the cathedral. Darker. Serious material.
+   ============================================================ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6rem 2rem 4rem;
+  background: var(--bg-card-heavy);
+}
+
+/* --- Policy article --- */
+
+.policy {
+  max-width: 720px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+/* --- Section blocks --- */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  scroll-margin-top: 5rem;
+}
+
+.sectionHeader {
+  font-family: var(--font-functional);
+  font-size: var(--size-lg);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionBody p {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+  max-width: 65ch;
+}
+
+/* --- Section 1: "Every note is human." — hero line --- */
+
+.heroLine {
+  font-family: var(--font-display) !important;
+  font-size: var(--size-2xl) !important;
+  font-weight: 700;
+  line-height: var(--leading-tight) !important;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  text-shadow:
+    0 0 40px rgba(196, 40, 110, 0.2),
+    0 0 80px rgba(196, 40, 110, 0.08);
+  margin-bottom: 0.5rem;
+}
+
+/* --- Section 2: Pull quote — designed for extraction --- */
+
+.pullQuote {
+  margin: 1rem 0;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--accent-gold);
+  border-bottom: 1px solid var(--accent-gold);
+  background: rgba(196, 154, 60, 0.04);
+}
+
+.pullQuote p {
+  font-family: var(--font-body) !important;
+  font-size: var(--size-xl) !important;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.4 !important;
+  color: var(--text-primary);
+  max-width: none !important;
+}
+
+/* --- Section 3: Declaration --- */
+
+.declaration {
+  margin: 0.5rem 0;
+}
+
+.declaration strong {
+  color: var(--text-primary);
+}
+
+/* --- Section 3: Sanctuary link --- */
+
+.sanctuaryBlock {
+  margin: 0.5rem 0;
+}
+
+.sanctuaryLink {
+  color: var(--accent-gold) !important;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sanctuaryLink:hover {
+    color: var(--hz-bone) !important;
+    text-shadow: 0 0 12px rgba(196, 154, 60, 0.3);
+  }
+}
+
+/* --- Inline link (Chronicle) --- */
+
+.inlineLink {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .inlineLink:hover {
+    color: var(--accent-hover);
+  }
+}
+
+/* --- Footer --- */
+
+.footer {
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-card-subtle);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .main {
+    padding: 5rem 1.5rem 3rem;
+  }
+
+  .heroLine {
+    font-size: clamp(1.75rem, 7vw, 2.5rem) !important;
+  }
+
+  .pullQuote {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .pullQuote p {
+    font-size: var(--size-lg) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 4.5rem 1rem 2rem;
+  }
+
+  .policy {
+    gap: 2.5rem;
+  }
+
+  .pullQuote {
+    padding: 1rem;
+  }
+}

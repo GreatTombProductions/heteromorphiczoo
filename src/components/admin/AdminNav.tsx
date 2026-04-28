@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: "\u25A3" },
   { href: "/admin/offerings", label: "Offerings", icon: "\u2726" },
   { href: "/admin/reactions", label: "Reactions", icon: "\u25B6" },
+  { href: "/admin/sanctuary", label: "Sanctuary", icon: "\u2767" },
   { href: "/admin/chronicle", label: "Chronicle", icon: "\u270E" },
   { href: "/admin/fans", label: "Fans", icon: "\u2606" },
 ];

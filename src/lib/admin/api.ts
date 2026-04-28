@@ -131,6 +131,22 @@ export const addChronicleTrack = (token: string, eventId: string, name: string) 
 export const deleteChronicleTrack = (token: string, trackId: string) =>
   adminFetch(`/api/hz/admin/chronicle/tracks/${trackId}`, { token, method: "DELETE" });
 
+// Sanctuary
+export const getSanctuary = (token: string, params?: { reviewed?: string; page?: number }) => {
+  const query = new URLSearchParams();
+  if (params?.reviewed) query.set("reviewed", params.reviewed);
+  if (params?.page) query.set("page", String(params.page));
+  return adminFetch(`/api/hz/admin/sanctuary?${query}`, { token });
+};
+
+export const reviewSanctuary = (token: string, id: string, notes?: string) =>
+  adminFetch(`/api/hz/admin/sanctuary/${id}/review`, {
+    token, method: "POST", body: JSON.stringify({ notes: notes || null }),
+  });
+
+export const deleteSanctuary = (token: string, id: string) =>
+  adminFetch(`/api/hz/admin/sanctuary/${id}`, { token, method: "DELETE" });
+
 // Upload
 export const uploadFile = (token: string, formData: FormData) =>
   adminFetch("/api/hz/admin/upload", { token, method: "POST", body: formData });

@@ -1,0 +1,263 @@
+/* ============================================================
+   /sanctuary — AI Impact Contact Form
+   The innermost room. Gold accent. Visual quiet IS the design.
+   ============================================================ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6rem 2rem 4rem;
+  background: var(--bg-card-heavy);
+}
+
+/* --- Container --- */
+
+.container {
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* --- Title --- */
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--size-xl);
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 30px rgba(196, 154, 60, 0.15);
+}
+
+/* --- Intro text --- */
+
+.intro {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+  max-width: 55ch;
+}
+
+/* --- Form --- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+}
+
+.required {
+  color: var(--accent-gold);
+}
+
+.input,
+.select,
+.textarea {
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-card);
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  outline: none;
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--accent-gold);
+}
+
+.select {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a89888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.select option {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.hint {
+  font-family: var(--font-functional);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* --- Submit button (gold accent, not magenta) --- */
+
+.submitButton {
+  padding: 0.85rem 2rem;
+  background: var(--accent-gold);
+  color: var(--hz-plum);
+  font-family: var(--font-functional);
+  font-size: var(--size-base);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  align-self: flex-start;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .submitButton:hover {
+    background: var(--hz-bone);
+    box-shadow: 0 0 20px rgba(196, 154, 60, 0.25);
+  }
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Messages --- */
+
+.successMessage {
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  color: var(--accent-gold);
+  font-style: italic;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(196, 154, 60, 0.15);
+  margin-top: 1rem;
+}
+
+.errorMessage {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--hz-crimson);
+}
+
+/* --- What happens next --- */
+
+.whatNext {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-card-light);
+}
+
+.whatNextHeading {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.whatNext p {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+  max-width: 55ch;
+}
+
+.resources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.resourceLink {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--accent-gold) !important;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .resourceLink:hover {
+    color: var(--hz-bone) !important;
+  }
+}
+
+.privacyNote {
+  font-style: italic;
+}
+
+/* --- Footer --- */
+
+.footer {
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-card-subtle);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .main {
+    padding: 5rem 1.5rem 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 4.5rem 1rem 2rem;
+  }
+
+  .submitButton {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -37,6 +37,7 @@ class DashboardResponse(BaseModel):
     founding_fans: int
     pending_offerings: int
     pending_reactions: int
+    pending_sanctuary: int
     total_dp_awarded: int
     by_rank: list[dict]
     by_source: list[dict]
@@ -89,6 +90,10 @@ class OfferingUpdate(BaseModel):
     featured: bool | None = None
 
 
+class SanctuaryReviewAction(BaseModel):
+    notes: str | None = None
+
+
 # ---------------------------------------------------------------------------
 # Dashboard
 # ---------------------------------------------------------------------------
@@ -108,6 +113,14 @@ async def admin_dashboard(admin: dict = Depends(verify_admin)):
     pending_reactions = db.execute(
         "SELECT COUNT(*) FROM reactions WHERE status = 'pending'"
     ).fetchone()[0]
+    # Sanctuary: count unreviewed, handle table not existing yet
+    try:
+        pending_sanctuary = db.execute(
+            "SELECT COUNT(*) FROM sanctuary_submissions WHERE reviewed = 0"
+        ).fetchone()[0]
+    except Exception:
+        pending_sanctuary = 0
+
     total_dp = db.execute(
         "SELECT COALESCE(SUM(lifetime_dp), 0) FROM fans"
     ).fetchone()[0]
@@ -145,6 +158,7 @@ async def admin_dashboard(admin: dict = Depends(verify_admin)):
         founding_fans=founding_fans,
         pending_offerings=pending_offerings,
         pending_reactions=pending_reactions,
+        pending_sanctuary=pending_sanctuary,
         total_dp_awarded=total_dp,
         by_rank=by_rank,
         by_source=by_source,
@@ -875,6 +889,95 @@ async def public_chronicle():
         events.append(event)
 
     return {"events": events}
+
+
+# ---------------------------------------------------------------------------
+# Sanctuary submissions (AI impact contact form — confidential intake)
+# ---------------------------------------------------------------------------
+
+
+@router.get("/admin/sanctuary")
+async def list_sanctuary(
+    reviewed: str = Query("unreviewed", description="unreviewed | reviewed | all"),
+    page: int = Query(1, ge=1),
+    per_page: int = Query(20, ge=1, le=100),
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+    offset = (page - 1) * per_page
+
+    if reviewed == "unreviewed":
+        where = "WHERE reviewed = 0"
+    elif reviewed == "reviewed":
+        where = "WHERE reviewed = 1"
+    else:
+        where = ""
+
+    try:
+        total = db.execute(
+            f"SELECT COUNT(*) FROM sanctuary_submissions {where}"
+        ).fetchone()[0]
+
+        submissions = [
+            dict(row)
+            for row in db.execute(
+                f"""SELECT id, name, email, category, story, submitted_at,
+                           reviewed, reviewed_at, notes
+                    FROM sanctuary_submissions {where}
+                    ORDER BY submitted_at DESC
+                    LIMIT ? OFFSET ?""",
+                [per_page, offset],
+            ).fetchall()
+        ]
+    except Exception:
+        # Table may not exist yet on older DBs before migration
+        return {"submissions": [], "total": 0, "page": 1, "pages": 1}
+
+    pages = max(1, (total + per_page - 1) // per_page)
+    return {"submissions": submissions, "total": total, "page": page, "pages": pages}
+
+
+@router.post("/admin/sanctuary/{submission_id}/review")
+async def review_sanctuary(
+    submission_id: str,
+    body: SanctuaryReviewAction,
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+
+    existing = db.execute(
+        "SELECT id FROM sanctuary_submissions WHERE id = ?", (submission_id,)
+    ).fetchone()
+    if not existing:
+        raise HTTPException(status_code=404, detail="Submission not found.")
+
+    now = _now_iso()
+    db.execute(
+        "UPDATE sanctuary_submissions SET reviewed = 1, reviewed_at = ?, notes = ? WHERE id = ?",
+        (now, body.notes, submission_id),
+    )
+    db.commit()
+
+    return {"status": "reviewed"}
+
+
+@router.delete("/admin/sanctuary/{submission_id}")
+async def delete_sanctuary(
+    submission_id: str,
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+
+    existing = db.execute(
+        "SELECT id FROM sanctuary_submissions WHERE id = ?", (submission_id,)
+    ).fetchone()
+    if not existing:
+        raise HTTPException(status_code=404, detail="Submission not found.")
+
+    db.execute("DELETE FROM sanctuary_submissions WHERE id = ?", (submission_id,))
+    db.commit()
+
+    return {"status": "deleted"}
 
 
 # ---------------------------------------------------------------------------
