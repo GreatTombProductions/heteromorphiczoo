@@ -275,7 +275,21 @@
   max-width: none;
 }
 
+/* --- Join section (persistent CTA below roll) --- */
+
+.joinSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  text-align: center;
+}
+
 .joinPrompt {
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--text-secondary);
   font-size: var(--size-base);
 }
 

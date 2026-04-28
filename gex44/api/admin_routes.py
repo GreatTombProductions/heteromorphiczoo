@@ -65,6 +65,17 @@ class TrackCreate(BaseModel):
     name: str
 
 
+class FanUpdate(BaseModel):
+    name: str | None = None
+    email: str | None = None
+    opt_in_newsletter: bool | None = None
+    opt_in_email: bool | None = None
+
+
+class FanMetadataUpdate(BaseModel):
+    value: str
+
+
 class ReviewAction(BaseModel):
     action: str  # "approve" | "reject" | "feature"
 
@@ -217,8 +228,125 @@ async def get_fan(fan_id: str, admin: dict = Depends(verify_admin)):
         ).fetchall()
     ]
 
+    metadata = [
+        {"field_key": row["field_key"], "field_value": row["field_value"]}
+        for row in db.execute(
+            "SELECT field_key, field_value FROM fan_metadata WHERE fan_id = ? ORDER BY created_at",
+            (fan_id,),
+        ).fetchall()
+    ]
+
     fan_dict["events"] = events
+    fan_dict["metadata"] = metadata
     return fan_dict
+
+
+@router.put("/admin/fans/{fan_id}")
+async def update_fan(
+    fan_id: str,
+    body: FanUpdate,
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+
+    existing = db.execute("SELECT id FROM fans WHERE id = ?", (fan_id,)).fetchone()
+    if not existing:
+        raise HTTPException(status_code=404, detail="Fan not found.")
+
+    updates = []
+    params = []
+    for field, value in body.model_dump(exclude_none=True).items():
+        if field in ("opt_in_newsletter", "opt_in_email"):
+            updates.append(f"{field} = ?")
+            params.append(int(value))
+        elif field == "email":
+            updates.append("email = ?")
+            params.append(value.strip().lower())
+        else:
+            updates.append(f"{field} = ?")
+            params.append(value)
+
+    if not updates:
+        return {"status": "no changes"}
+
+    updates.append("updated_at = ?")
+    params.append(_now_iso())
+    params.append(fan_id)
+
+    db.execute(f"UPDATE fans SET {', '.join(updates)} WHERE id = ?", params)
+    db.commit()
+    return {"status": "updated"}
+
+
+@router.put("/admin/fans/{fan_id}/metadata/{field_key}")
+async def update_fan_metadata(
+    fan_id: str,
+    field_key: str,
+    body: FanMetadataUpdate,
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+
+    fan = db.execute("SELECT id FROM fans WHERE id = ?", (fan_id,)).fetchone()
+    if not fan:
+        raise HTTPException(status_code=404, detail="Fan not found.")
+
+    now = _now_iso()
+    existing = db.execute(
+        "SELECT id FROM fan_metadata WHERE fan_id = ? AND field_key = ?",
+        (fan_id, field_key),
+    ).fetchone()
+
+    if existing:
+        db.execute(
+            "UPDATE fan_metadata SET field_value = ?, updated_at = ? WHERE id = ?",
+            (body.value[:500], now, existing["id"]),
+        )
+    else:
+        meta_id = str(uuid.uuid4())
+        db.execute(
+            "INSERT INTO fan_metadata (id, fan_id, field_key, field_value, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
+            (meta_id, fan_id, field_key[:50], body.value[:500], now, now),
+        )
+
+    db.commit()
+    return {"status": "updated"}
+
+
+@router.delete("/admin/fans/{fan_id}/metadata/{field_key}")
+async def delete_fan_metadata(
+    fan_id: str,
+    field_key: str,
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+
+    existing = db.execute(
+        "SELECT id FROM fan_metadata WHERE fan_id = ? AND field_key = ?",
+        (fan_id, field_key),
+    ).fetchone()
+    if not existing:
+        raise HTTPException(status_code=404, detail="Metadata field not found.")
+
+    db.execute("DELETE FROM fan_metadata WHERE id = ?", (existing["id"],))
+    db.commit()
+    return {"status": "deleted"}
+
+
+@router.delete("/admin/fans/{fan_id}")
+async def delete_fan(fan_id: str, admin: dict = Depends(verify_admin)):
+    db = get_app_db()
+
+    existing = db.execute("SELECT id FROM fans WHERE id = ?", (fan_id,)).fetchone()
+    if not existing:
+        raise HTTPException(status_code=404, detail="Fan not found.")
+
+    # Cascade: metadata, engagement events, offerings linkage
+    db.execute("DELETE FROM fan_metadata WHERE fan_id = ?", (fan_id,))
+    db.execute("DELETE FROM engagement_events WHERE fan_id = ?", (fan_id,))
+    db.execute("DELETE FROM fans WHERE id = ?", (fan_id,))
+    db.commit()
+    return {"status": "deleted"}
 
 
 # ---------------------------------------------------------------------------

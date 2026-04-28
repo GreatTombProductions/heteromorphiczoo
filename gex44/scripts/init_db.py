@@ -167,6 +167,21 @@ CREATE TABLE IF NOT EXISTS chronicle_tracks (
 );
 
 CREATE INDEX IF NOT EXISTS idx_chronicle_tracks_event ON chronicle_tracks(chronicle_event_id);
+
+-- Table: fan_metadata
+-- Arbitrary key/value pairs per fan (city, phone, favorite song, etc.)
+CREATE TABLE IF NOT EXISTS fan_metadata (
+    id TEXT PRIMARY KEY,
+    fan_id TEXT NOT NULL,
+    field_key TEXT NOT NULL,
+    field_value TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    FOREIGN KEY (fan_id) REFERENCES fans(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_fan_metadata_fan ON fan_metadata(fan_id);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_fan_metadata_fan_key ON fan_metadata(fan_id, field_key);
 """
 
 
@@ -191,7 +206,7 @@ def init_db(db_path: str | None = None) -> Path:
     conn.close()
 
     table_names = [t[0] for t in tables]
-    expected = ["chronicle_events", "chronicle_media", "chronicle_tracks", "engagement_events", "fans", "offerings", "rate_limits", "reactions"]
+    expected = ["chronicle_events", "chronicle_media", "chronicle_tracks", "engagement_events", "fan_metadata", "fans", "offerings", "rate_limits", "reactions"]
     assert table_names == expected, f"Expected {expected}, got {table_names}"
     print(f"Tables created: {', '.join(table_names)}")
 

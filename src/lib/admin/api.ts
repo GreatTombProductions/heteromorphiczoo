@@ -53,6 +53,22 @@ export const getFans = (token: string, params?: { search?: string; page?: number
 export const getFan = (token: string, fanId: string) =>
   adminFetch(`/api/hz/admin/fans/${fanId}`, { token });
 
+export const updateFan = (token: string, fanId: string, data: Record<string, unknown>) =>
+  adminFetch(`/api/hz/admin/fans/${fanId}`, { token, method: "PUT", body: JSON.stringify(data) });
+
+export const deleteFan = (token: string, fanId: string) =>
+  adminFetch(`/api/hz/admin/fans/${fanId}`, { token, method: "DELETE" });
+
+export const updateFanMetadata = (token: string, fanId: string, key: string, value: string) =>
+  adminFetch(`/api/hz/admin/fans/${fanId}/metadata/${encodeURIComponent(key)}`, {
+    token, method: "PUT", body: JSON.stringify({ value }),
+  });
+
+export const deleteFanMetadata = (token: string, fanId: string, key: string) =>
+  adminFetch(`/api/hz/admin/fans/${fanId}/metadata/${encodeURIComponent(key)}`, {
+    token, method: "DELETE",
+  });
+
 // Offerings
 export const getOfferings = (token: string, params?: { status?: string; page?: number }) => {
   const query = new URLSearchParams();

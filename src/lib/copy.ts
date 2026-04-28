@@ -40,11 +40,17 @@ export const BENEDICTION = {
 
 export const EMAIL_CAPTURE = {
   prompt: "Join the menagerie.",
-  placeholder: "Your name for the roll",
+  namePlaceholder: "Name / alias for the roll",
+  emailPlaceholder: "your@email.com",
+  newsletterLabel: "Subscribe to the newsletter",
+  newsletterFrequency: "expected frequency: once per season",
+  addFieldButton: "+ Add a detail",
+  fieldKeyPlaceholder: "e.g. city, favorite song",
+  fieldValuePlaceholder: "value",
   button: "Enter",
   success: "You have been counted.",
   alreadyRegistered: "You are already among us.",
-  errorInvalid: "The roll requires a true name.",
+  errorInvalid: "The roll requires a valid email.",
   errorGeneral: "Something broke the ritual. Try again.",
   errorNetwork: "The connection to the menagerie was severed. The faithful persist.",
 } as const;

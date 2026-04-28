@@ -14,6 +14,8 @@ class JoinRequest(BaseModel):
     email: EmailStr
     name: str | None = None
     source: str = "website"
+    opt_in_newsletter: bool = False
+    metadata: dict[str, str] | None = None
 
 
 class JoinResponse(BaseModel):

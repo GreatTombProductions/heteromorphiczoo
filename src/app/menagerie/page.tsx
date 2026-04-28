@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import Navigation from "@/components/Navigation";
+import SignupForm from "@/components/SignupForm";
 import { LOADING, MENAGERIE_ROLL } from "@/lib/copy";
 import styles from "./page.module.css";
 
@@ -52,6 +52,7 @@ export default function MenageriePage() {
   const [roll, setRoll] = useState<RollData | null>(null);
   const [census, setCensus] = useState<CensusData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -143,12 +144,28 @@ export default function MenageriePage() {
             ) : (
               <div className={styles.emptyState}>
                 <p>{MENAGERIE_ROLL.emptyState}</p>
-                <p className={styles.joinPrompt}>{MENAGERIE_ROLL.joinPrompt}</p>
-                <Link href="/" className={styles.joinButton}>
-                  {MENAGERIE_ROLL.joinButton}
-                </Link>
               </div>
             )}
+
+            {/* Join CTA — always present, expands to form inline */}
+            <div className={styles.joinSection}>
+              {showForm ? (
+                <SignupForm
+                  variant="inline"
+                  onSuccess={() => setShowForm(false)}
+                />
+              ) : (
+                <>
+                  <p className={styles.joinPrompt}>{MENAGERIE_ROLL.joinPrompt}</p>
+                  <button
+                    onClick={() => setShowForm(true)}
+                    className={styles.joinButton}
+                  >
+                    {MENAGERIE_ROLL.joinButton}
+                  </button>
+                </>
+              )}
+            </div>
           </>
         )}
       </div>

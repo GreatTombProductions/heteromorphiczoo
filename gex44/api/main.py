@@ -213,10 +213,24 @@ async def join_menagerie(req: JoinRequest, request: Request):
     now = _now_iso()
 
     db.execute(
-        """INSERT INTO fans (id, email, name, source, acquired_at, founding_member, created_at, updated_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-        (fan_id, email_lower, req.name, source, now, int(founding), now, now),
+        """INSERT INTO fans (id, email, name, source, acquired_at, founding_member, opt_in_newsletter, created_at, updated_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        (fan_id, email_lower, req.name, source, now, int(founding), int(req.opt_in_newsletter), now, now),
     )
+
+    # Store arbitrary metadata key/value pairs
+    if req.metadata:
+        import re
+        for key, value in list(req.metadata.items())[:20]:  # Cap at 20 fields
+            clean_key = re.sub(r'[^a-zA-Z0-9_ -]', '', key)[:50].strip()
+            clean_value = str(value)[:500].strip()
+            if clean_key and clean_value:
+                meta_id = str(uuid.uuid4())
+                db.execute(
+                    """INSERT OR REPLACE INTO fan_metadata (id, fan_id, field_key, field_value, created_at, updated_at)
+                       VALUES (?, ?, ?, ?, ?, ?)""",
+                    (meta_id, fan_id, clean_key, clean_value, now, now),
+                )
 
     # Create join_mailing_list engagement event
     base_dp = EVENT_TYPES["join_mailing_list"][1]  # 5

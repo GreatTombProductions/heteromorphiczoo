@@ -1,60 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { BENEDICTION, EMAIL_CAPTURE, LANDING, SITE } from "@/lib/copy";
+import { BENEDICTION, LANDING, SITE } from "@/lib/copy";
 import Navigation from "@/components/Navigation";
+import SignupForm from "@/components/SignupForm";
 import styles from "./page.module.css";
 
-type CaptureState = "idle" | "submitting" | "success" | "error";
-
-const API_BASE = process.env.NEXT_PUBLIC_GEX44_API_URL || "https://saturna.greattombproductions.com:8081";
-
 export default function Home() {
-  const [email, setEmail] = useState("");
-  const [captureState, setCaptureState] = useState<CaptureState>("idle");
-  const [captureMessage, setCaptureMessage] = useState("");
-
-  async function handleEmailSubmit(e: React.FormEvent) {
-    e.preventDefault();
-
-    if (!email || !email.includes("@") || !email.includes(".")) {
-      setCaptureState("error");
-      setCaptureMessage(EMAIL_CAPTURE.errorInvalid);
-      return;
-    }
-
-    setCaptureState("submitting");
-
-    try {
-      const res = await fetch(`${API_BASE}/api/hz/join`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: "website" }),
-      });
-
-      const data = await res.json();
-
-      if (res.status === 201) {
-        setCaptureState("success");
-        setCaptureMessage(data.founding_member
-          ? `${EMAIL_CAPTURE.success} Founding member.`
-          : EMAIL_CAPTURE.success
-        );
-        setEmail("");
-      } else if (res.status === 409) {
-        setCaptureState("success");
-        setCaptureMessage(EMAIL_CAPTURE.alreadyRegistered);
-        setEmail("");
-      } else {
-        setCaptureState("error");
-        setCaptureMessage(EMAIL_CAPTURE.errorGeneral);
-      }
-    } catch {
-      setCaptureState("error");
-      setCaptureMessage(EMAIL_CAPTURE.errorNetwork);
-    }
-  }
-
   return (
     <div className={styles.cathedral}>
       <Navigation hideUntilScroll sentinelId="hero-sentinel" />
@@ -94,38 +45,8 @@ export default function Home() {
         </section>
 
         {/* Email capture — inscription into the ledger */}
-        <section id="capture" className={styles.capture}>
-          <p className={styles.capturePrompt}>{EMAIL_CAPTURE.prompt}</p>
-
-          {captureState === "success" ? (
-            <p className={styles.captureSuccess}>{captureMessage}</p>
-          ) : (
-            <form onSubmit={handleEmailSubmit} className={styles.captureForm}>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (captureState === "error") setCaptureState("idle");
-                }}
-                placeholder={EMAIL_CAPTURE.placeholder}
-                className={styles.captureInput}
-                aria-label="Email address"
-                disabled={captureState === "submitting"}
-              />
-              <button
-                type="submit"
-                className={styles.captureButton}
-                disabled={captureState === "submitting"}
-              >
-                {EMAIL_CAPTURE.button}
-              </button>
-            </form>
-          )}
-
-          {captureState === "error" && (
-            <p className={styles.captureError}>{captureMessage}</p>
-          )}
+        <section id="capture">
+          <SignupForm variant="landing" />
         </section>
 
         {/* Atmospheric line */}

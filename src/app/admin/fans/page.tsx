@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { getFan, getFans } from "@/lib/admin/api";
+import { getFan, getFans, updateFan, deleteFan, updateFanMetadata, deleteFanMetadata } from "@/lib/admin/api";
 import { useAdminToken } from "@/lib/admin/useAdminToken";
 import type { Fan, FanDetail } from "@/lib/admin/types";
 
@@ -14,6 +14,12 @@ export default function FansPage() {
   const [search, setSearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [selectedFan, setSelectedFan] = useState<FanDetail | null>(null);
+
+  // Inline editing state
+  const [editingField, setEditingField] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState("");
+  const [editingMetaKey, setEditingMetaKey] = useState<string | null>(null);
+  const [editMetaValue, setEditMetaValue] = useState("");
 
   const loadFans = useCallback(() => {
     if (!token) return;
@@ -30,12 +36,95 @@ export default function FansPage() {
     if (!token) return;
     const detail = await getFan(token, fanId);
     setSelectedFan(detail);
+    setEditingField(null);
+    setEditingMetaKey(null);
+  }
+
+  async function refreshFan() {
+    if (!token || !selectedFan) return;
+    const detail = await getFan(token, selectedFan.id);
+    setSelectedFan(detail);
   }
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     setSearch(searchInput);
     setPage(1);
+  }
+
+  function startEdit(field: string, currentValue: string) {
+    setEditingField(field);
+    setEditValue(currentValue);
+  }
+
+  async function saveEdit(field: string) {
+    if (!token || !selectedFan) return;
+    const data: Record<string, unknown> = {};
+    if (field === "opt_in_newsletter" || field === "opt_in_email") {
+      data[field] = editValue === "true" || editValue === "1";
+    } else {
+      data[field] = editValue;
+    }
+    await updateFan(token, selectedFan.id, data);
+    setEditingField(null);
+    await refreshFan();
+    loadFans();
+  }
+
+  function startMetaEdit(key: string, currentValue: string) {
+    setEditingMetaKey(key);
+    setEditMetaValue(currentValue);
+  }
+
+  async function saveMetaEdit(key: string) {
+    if (!token || !selectedFan) return;
+    await updateFanMetadata(token, selectedFan.id, key, editMetaValue);
+    setEditingMetaKey(null);
+    await refreshFan();
+  }
+
+  async function handleDeleteMeta(key: string) {
+    if (!token || !selectedFan) return;
+    if (!confirm(`Delete field "${key}"?`)) return;
+    await deleteFanMetadata(token, selectedFan.id, key);
+    await refreshFan();
+  }
+
+  async function handleDeleteFan() {
+    if (!token || !selectedFan) return;
+    if (!confirm(`Permanently delete ${selectedFan.email}? This cannot be undone.`)) return;
+    await deleteFan(token, selectedFan.id);
+    setSelectedFan(null);
+    loadFans();
+  }
+
+  function EditableField({ field, label, value }: { field: string; label: string; value: string }) {
+    if (editingField === field) {
+      return (
+        <span style={{ display: "inline-flex", gap: "0.25rem", alignItems: "center" }}>
+          <strong>{label}:</strong>
+          <input
+            value={editValue}
+            onChange={(e) => setEditValue(e.target.value)}
+            className="admin-search"
+            style={{ width: "auto", minWidth: 120, padding: "0.2rem 0.4rem", fontSize: "0.85rem" }}
+            onKeyDown={(e) => { if (e.key === "Enter") saveEdit(field); if (e.key === "Escape") setEditingField(null); }}
+            autoFocus
+          />
+          <button className="admin-btn" style={{ padding: "0.15rem 0.4rem", fontSize: "0.75rem" }} onClick={() => saveEdit(field)}>Save</button>
+          <button className="admin-btn" style={{ padding: "0.15rem 0.4rem", fontSize: "0.75rem" }} onClick={() => setEditingField(null)}>Cancel</button>
+        </span>
+      );
+    }
+    return (
+      <span
+        style={{ cursor: "pointer", borderBottom: "1px dashed #444" }}
+        title="Click to edit"
+        onClick={() => startEdit(field, value)}
+      >
+        <strong>{label}:</strong> {value || "\u2014"}
+      </span>
+    );
   }
 
   return (
@@ -64,20 +153,79 @@ export default function FansPage() {
       {selectedFan && (
         <div className="admin-section" style={{ background: "#1a1a1a", border: "1px solid #222", borderRadius: 8, padding: "1.5rem", marginBottom: "1.5rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-            <div>
-              <h2 style={{ fontSize: "1.1rem", color: "#fff", margin: 0 }}>
-                {selectedFan.name || selectedFan.email}
-              </h2>
-              <div style={{ fontSize: "0.85rem", color: "#888", marginTop: "0.25rem" }}>
-                {selectedFan.email} | {selectedFan.rank_title} | {selectedFan.lifetime_dp} DP
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+              <EditableField field="name" label="Name" value={selectedFan.name || ""} />
+              <EditableField field="email" label="Email" value={selectedFan.email} />
+              <div style={{ fontSize: "0.85rem", color: "#888" }}>
+                {selectedFan.rank_title} | {selectedFan.lifetime_dp} DP
                 {selectedFan.founding_member ? " | Founding Member" : ""}
               </div>
-              <div style={{ fontSize: "0.8rem", color: "#555", marginTop: "0.25rem" }}>
+              <div style={{ fontSize: "0.8rem", color: "#555" }}>
                 Source: {selectedFan.source} | Joined: {new Date(selectedFan.acquired_at).toLocaleDateString()}
+                {" | "}Newsletter: {selectedFan.opt_in_newsletter ? "Yes" : "No"}
+                {" | "}Email opt-in: {selectedFan.opt_in_email ? "Yes" : "No"}
               </div>
             </div>
             <button className="admin-btn" onClick={() => setSelectedFan(null)}>Close</button>
           </div>
+
+          {/* Metadata fields */}
+          {(selectedFan.metadata && selectedFan.metadata.length > 0) && (
+            <>
+              <h3 className="admin-section-title" style={{ marginTop: "1rem" }}>Details ({selectedFan.metadata.length})</h3>
+              <div className="admin-table-wrap">
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Field</th>
+                      <th>Value</th>
+                      <th style={{ width: 100 }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedFan.metadata.map((m) => (
+                      <tr key={m.field_key}>
+                        <td>{m.field_key}</td>
+                        <td>
+                          {editingMetaKey === m.field_key ? (
+                            <span style={{ display: "inline-flex", gap: "0.25rem", alignItems: "center" }}>
+                              <input
+                                value={editMetaValue}
+                                onChange={(e) => setEditMetaValue(e.target.value)}
+                                className="admin-search"
+                                style={{ width: "auto", minWidth: 120, padding: "0.2rem 0.4rem", fontSize: "0.85rem" }}
+                                onKeyDown={(e) => { if (e.key === "Enter") saveMetaEdit(m.field_key); if (e.key === "Escape") setEditingMetaKey(null); }}
+                                autoFocus
+                              />
+                              <button className="admin-btn" style={{ padding: "0.15rem 0.4rem", fontSize: "0.75rem" }} onClick={() => saveMetaEdit(m.field_key)}>Save</button>
+                              <button className="admin-btn" style={{ padding: "0.15rem 0.4rem", fontSize: "0.75rem" }} onClick={() => setEditingMetaKey(null)}>Cancel</button>
+                            </span>
+                          ) : (
+                            <span
+                              style={{ cursor: "pointer", borderBottom: "1px dashed #444" }}
+                              onClick={() => startMetaEdit(m.field_key, m.field_value)}
+                              title="Click to edit"
+                            >
+                              {m.field_value}
+                            </span>
+                          )}
+                        </td>
+                        <td>
+                          <button
+                            className="admin-btn"
+                            style={{ padding: "0.15rem 0.4rem", fontSize: "0.75rem", color: "#c44" }}
+                            onClick={() => handleDeleteMeta(m.field_key)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
 
           <h3 className="admin-section-title" style={{ marginTop: "1rem" }}>Engagement History ({selectedFan.events.length})</h3>
           <div className="admin-table-wrap">
@@ -108,6 +256,17 @@ export default function FansPage() {
                 )}
               </tbody>
             </table>
+          </div>
+
+          {/* Delete fan */}
+          <div style={{ marginTop: "1.5rem", paddingTop: "1rem", borderTop: "1px solid #333" }}>
+            <button
+              className="admin-btn"
+              style={{ color: "#c44", borderColor: "#c44" }}
+              onClick={handleDeleteFan}
+            >
+              Delete Fan
+            </button>
           </div>
         </div>
       )}

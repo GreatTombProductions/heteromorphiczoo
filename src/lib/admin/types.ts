@@ -12,8 +12,16 @@ export interface Fan {
   engagement_count: number;
 }
 
+export interface FanMetadata {
+  field_key: string;
+  field_value: string;
+}
+
 export interface FanDetail extends Fan {
+  opt_in_newsletter: number;
+  opt_in_email: number;
   events: EngagementEvent[];
+  metadata: FanMetadata[];
 }
 
 export interface EngagementEvent {
