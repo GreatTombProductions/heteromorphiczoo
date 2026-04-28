@@ -79,13 +79,23 @@
       "thumbnail_url": "https://img.youtube.com/vi/mMNxHq3Soew/hqdefault.jpg",
       "song_tag": "Ritual of Fidelity",
       "approved_at": "2026-04-28T03:15:53Z"
+    },
+    {
+      "id": "ac99ec6b-4b9b-4431-a126-36bf2fd29c07",
+      "youtube_url": "https://www.youtube.com/watch?v=DtmbtLkJlsk",
+      "youtube_id": "DtmbtLkJlsk",
+      "title": "Heteromorphic Zoo - Avatara #relisten (EP REACTION) A contrast of mixing beauty with destruction!",
+      "channel_name": "Cryoflame Audioforge",
+      "thumbnail_url": "https://img.youtube.com/vi/DtmbtLkJlsk/hqdefault.jpg",
+      "song_tag": "Avatara",
+      "approved_at": "2026-04-28T15:48:10Z"
     }
   ],
   "by_song": {
-    "Avatara": 1,
+    "Avatara": 2,
     "Napalm": 1,
     "Ritual of Fidelity": 6
   },
-  "total": 8,
-  "generated_at": "2026-04-28T04:59:09Z"
+  "total": 9,
+  "generated_at": "2026-04-28T15:49:51Z"
 }

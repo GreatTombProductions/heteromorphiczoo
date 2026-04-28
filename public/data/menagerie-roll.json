@@ -1,6 +1,30 @@
 {
   "roll": [
     {
+      "name": "Troller",
+      "rank": 0,
+      "rank_title": "Uninitiated",
+      "lifetime_dp": 7,
+      "founding_member": true,
+      "joined": "2026-04-28"
+    },
+    {
+      "name": "AshenPhantom69",
+      "rank": 0,
+      "rank_title": "Uninitiated",
+      "lifetime_dp": 7,
+      "founding_member": true,
+      "joined": "2026-04-28"
+    },
+    {
+      "name": "Lazerarmageddon",
+      "rank": 0,
+      "rank_title": "Uninitiated",
+      "lifetime_dp": 7,
+      "founding_member": true,
+      "joined": "2026-04-28"
+    },
+    {
       "name": "TheFirstDisciple",
       "rank": 0,
       "rank_title": "Uninitiated",
@@ -9,5 +33,5 @@
       "joined": "2026-04-28"
     }
   ],
-  "generated_at": "2026-04-28T04:59:09Z"
+  "generated_at": "2026-04-28T15:49:51Z"
 }

@@ -30,10 +30,10 @@ export const LANDING = {
 export const BENEDICTION = {
   headline: "Benediction",
   subheadline: "feat. Coty Garcia",
-  body: "A blessing spoken in two voices.\nThe founding voice and the new.",
+  body: "A blessing spoken in two voices.\nThe congregation appoints a new speaker.",
   bodyLine1: "A blessing spoken in two voices.",
-  bodyLine2: "The founding voice and the new.",
-  ctaPrimary: "Receive the blessing",
+  bodyLine2: "The congregation appoints a new speaker.",
+  ctaPrimary: "Heed now the summons",
   ctaVideo: "Witness",
   credits: "Mixed by Ray Heberer \u00B7 Produced by Greg Thomas \u00B7 Mastered by Joel Wanasek \u00B7 Video by Scott Hansen",
 } as const;
@@ -357,8 +357,8 @@ export const RITES = {
     title: "How the Rites Work",
     steps: [
       { heading: "A call is made", body: "A narrow theme. A bounded window. The medium is yours to choose." },
-      { heading: "The menagerie answers", body: "Submit offerings during the rite window. Standard DP applies. Active multipliers compound." },
-      { heading: "The rite closes", body: "No rankings during the rite. No votes. No competition pressure." },
+      { heading: "The menagerie answers", body: "Submit offerings during the rite window." },
+      { heading: "The rite closes", body: "No public rankings during the rite. No competition pressure. Leave appreciation for offerings that resonate." },
       { heading: "The altar receives", body: "After the rite closes, the most resonant offerings are featured on the altar." },
     ],
   },
