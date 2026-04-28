@@ -81,7 +81,7 @@ export const NOT_FOUND = {
 } as const;
 
 export const OG = {
-  title: "Benediction \u2014 Heteromorphic Zoo (feat. Coty Garcia)",
+  title: "Benediction - Heteromorphic Zoo (feat. Coty Garcia)",
   description: "A blessing spoken in two voices. The first rite of the new era.",
   image: "/og-image.jpg",
 } as const;
@@ -199,19 +199,19 @@ export const CHRONICLE = {
     {
       date: "2023",
       title: "The Zoo Awakens",
-      body: "Heteromorphic Zoo coalesces in British Columbia. Ray Heberer — guitar, composition, production. Coty Garcia — the founding voice. Megan Ash — violin, written into the architecture, never decoration. Bryce Butler — drums. The tagline crystallizes: worship music for monsters.",
+      body: "Heteromorphic Zoo coalesces in British Columbia. Ray Heberer - guitar, composition, production. Coty Garcia - the founding voice. Megan Ash - violin, written into the architecture, never decoration. Bryce Butler - drums. The tagline crystallizes: worship music for monsters.",
       era: "formation" as const,
     },
     {
       date: "February 2, 2024",
-      title: "First Rites — Napalm",
+      title: "First Rites: Napalm",
       body: "The first single and music video. No Clean Singing writes of \"utterly deranged vocals that sound like a fight between bull elephants, howler monkeys, and a pack of demons that just escaped Hell.\" The 13-year editorial thread between Ray and NCS reviewer Islander continues.",
       era: "singles" as const,
       videoUrl: "https://youtu.be/8uQZ5Rv8yIs",
     },
     {
       date: "May 10, 2024",
-      title: "Second Offering — Avatara",
+      title: "Second Offering: Avatara",
       body: "Second single and music video. Artwork by Lordigan Pedro Sena. \"Gentle and beguiling at first\u2026 the violin, guitar, and piano elegantly channel wistfulness and sorrow.\"",
       era: "singles" as const,
       videoUrl: "https://youtu.be/nWZVq-u7Lec",
@@ -219,7 +219,7 @@ export const CHRONICLE = {
     {
       date: "October 10, 2024",
       title: "The New World Arrives",
-      body: "Five vignettes from a coalition of monsters conquering a new realm. Guest appearances: Ville Hokkanen of Synestia on \"Your Final Seconds.\" Raymond Heberer III \u2014 Ray\u2019s father \u2014 on trombone, and Francesco Ferrini of Fleshgod Apocalypse on orchestral arrangement, both on \"Aura of Despair.\" Produced by Chris Wiseman. Mixed and mastered by Christian Donaldson. Artwork by Lordigan Pedro Sena.",
+      body: "Five vignettes from a coalition of monsters conquering a new realm. Guest appearances: Ville Hokkanen of Synestia (Poetic Edda era) on \"Your Final Seconds.\" Raymond Heberer III - Ray\u2019s father - on trombone, and Francesco Ferrini of Fleshgod Apocalypse on orchestral arrangement, both on \"Aura of Despair.\" Produced by Chris Wiseman. Mixed and mastered by Christian Donaldson. Artwork by Lordigan Pedro Sena.",
       era: "ep" as const,
       tracks: [
         "Ritual of Fidelity",
@@ -230,21 +230,21 @@ export const CHRONICLE = {
       ],
     },
     {
-      date: "September 2025",
-      title: "The Solo Flight — Hexed",
-      body: "Megan Ash releases \"Hexed,\" her first solo single. The violinist steps forward as vocalist and artist in her own right. Covered by FemMetal Rocks.",
-      era: "solo" as const,
-    },
-    {
       date: "2025",
       title: "The Crucible",
       body: "The year the zoo went underground and leveled up. Fifteen-plus instrumental mixes with Bryce. One hundred percent real toms and cymbals, snare at ninety percent of the blended tone. Violin tone refined through covers and Hexed. Greg\u2019s production mentorship. Coty sharing vocal chain secrets. The backlog grew. The vision sharpened.",
       era: "crucible" as const,
     },
     {
+      date: "September 2025",
+      title: "The Solo Flight: Hexed",
+      body: "Megan Ash releases \"Hexed,\" her first solo single. The violinist steps forward as vocalist and artist in her own right.",
+      era: "solo" as const,
+    },
+    {
       date: "April 2026",
       title: "Benediction",
-      body: "Ray takes the voice. Benediction \u2014 featuring Coty Garcia \u2014 is a dual-vocalist rite honoring the founding voice and ushering in the next era. Not every band announces a succession with a song where both voices coexist. Written early 2024. Mastered April 2026. The last long-cycle release. Everything after ships faster.",
+      body: "Ray takes the voice. Benediction (featuring Coty Garcia) is a dual-vocalist rite honoring the founding voice and ushering in the next era. Not every band announces a succession with a song where both voices coexist. Written early 2024. Mastered April 2026. The last long-cycle release. Now the Overlord's will can flow.",
       era: "benediction" as const,
     },
   ],
@@ -258,44 +258,44 @@ export const BESTIARY = {
       name: "Ray Heberer",
       designation: "The First Disciple",
       roles: "Composition, arrangement, guitars, vocals, production",
-      description: "Every note in the zoo is written by this hand. The arrangements are scripture \u2014 violin, guitar, and orchestral voices interwoven from inception, not layered afterward. A decade of metal projects before the zoo existed. The one who heard the sound first and transmits it. Now the voice as well as the architect.",
+      description: "Every note in the zoo is written by this hand. The arrangements are scripture. Violin, guitar, and orchestral voices interwoven from inception rather than layered naively. A decade of metal projects before the zoo existed. The one who heard the sound first and transmits it. Now the voice as well as the architect.",
       current: true,
     },
     {
       name: "Megan Ash",
       designation: "The Resonance",
       roles: "Violin",
-      description: "The violin is structural \u2014 fugue element, not embellishment. Written into the DNA of every composition. A classical 3-voice fugue between violin, lead guitar, and rhythm section opens \"Ritual of Fidelity.\" Her solo flight, \"Hexed,\" arrived September 2025.",
+      description: "The violin is central to the sound. Written into the DNA of every composition. A classical 3-voice fugue between violin, lead guitar, and rhythm section features in \"Ritual of Fidelity.\" Her first solo flight, \"Hexed,\" arrived September 2025.",
       current: true,
     },
     {
-      name: "Coty Garcia",
-      designation: "The Founding Voice",
-      roles: "Vocals (founding)",
-      description: "The voice that summoned the first congregation. Every word on Napalm, Avatara, the New World EP. Honored as a founding member through the medium of the music itself \u2014 Benediction is two voices in a single blessing. Not every band says goodbye with a song.",
-      current: false,
-    },
-    {
       name: "Bryce Butler",
-      designation: "The Engine",
+      designation: "The Chaos Engine",
       roles: "Drums, drum arrangement",
-      description: "The percussive foundation beneath the orchestral chaos. Drum arrangement credited alongside performance \u2014 the rhythmic architecture is as composed as the melodies above it.",
+      description: "The heart of the band, in more than one way. Distinctive drum arrangements that only a distinctively deranged mind could dream up.",
       current: true,
     },
     {
       name: "Jon Power",
       designation: "The Foundation",
       roles: "Bass",
-      description: "The low end that anchors the orchestral chaos. Tracked bass for Benediction. The weight beneath the architecture.",
+      description: "The low end that anchors the chaos above. First studio appearance in Benediction. The weight beneath the architecture.",
       current: true,
     },
+    {
+      name: "Coty Garcia",
+      designation: "The Founding Voice",
+      roles: "Vocals (founding)",
+      description: "The voice that summoned the first congregation. Every word on Napalm, Avatara, the New World EP. Honored as a founding member through the medium of the music itself. Benediction is two voices in a single blessing. Not every band says goodbye with a song.",
+      current: false,
+    }
   ],
   guests: [
     {
       name: "Raymond Heberer III",
       role: "Trombone",
-      track: "Aura of Despair",
-      note: "Ray\u2019s father. Four trombones on the closing track \u2014 a family operation with elite musicianship.",
+      track: "Aura of Despair, Benediction",
+      note: "Ray\u2019s father. Four trombones on the closing track of New World, appearing again in Benediction.",
     },
     {
       name: "Francesco Ferrini",
@@ -307,7 +307,7 @@ export const BESTIARY = {
       name: "Ville Hokkanen",
       role: "Guest vocals",
       track: "Your Final Seconds",
-      note: "Synestia. Adds a second dimension of vocal hostility to the EP\u2019s second track.",
+      note: "Adds a second dimension of vocal hostility to the EP\u2019s second track.",
     },
   ],
   collaborators: {
@@ -319,7 +319,7 @@ export const BESTIARY = {
       { name: "Joel Wanasek", role: "Mastering (Benediction)", note: "" },
       { name: "Lordigan Pedro Sena", role: "Artwork", note: "New World EP, Avatara" },
       { name: "Scott Hansen", role: "Music video (Benediction)", note: "" },
-      { name: "Harry Tadayon", role: "Additional production — synth samples (Benediction)", note: "" },
+      { name: "Harry Tadayon", role: "Additional production - synth samples (Benediction)", note: "" },
     ],
   },
 } as const;
@@ -360,7 +360,7 @@ export const RITES = {
   founding: {
     name: "The First Blessing",
     theme: "What does Benediction sound like in your medium?",
-    description: "The founding rite. Fourteen days. Every medium welcome \u2014 paint it, play it, write it, move to it. The theme constrains concept, not format. A painter and a guitarist interpreting the same bridge section discover each other through the gallery.",
+    description: "The founding rite. Fourteen days. Every medium welcome: paint it, play it, write it, move to it. The theme constrains concept, not format. A painter and a guitarist interpreting the same bridge section discover each other through the gallery.",
     dpNote: "Standard offering DP. Founding Menagerie 1.5\u00D7 multiplier applies.",
     announcement: "The First Blessing has been called. For fourteen days, the altar receives your translation. What does Benediction sound like in your medium? The menagerie awaits.",
   },
@@ -368,9 +368,9 @@ export const RITES = {
 
 export const PRESS = {
   title: "Press",
-  subtitle: "Heteromorphic Zoo — melodic death metal / deathcore / progressive-symphonic from British Columbia, Canada.",
+  subtitle: "Heteromorphic Zoo: melodic death metal / deathcore / progressive-symphonic from British Columbia, Canada.",
   oneLiner: "Worship music for monsters.",
-  bio: "Heteromorphic Zoo is a Canadian extreme metal project led by guitarist and composer Ray Heberer. Drawing strength from all corners of the genre \u2014 melodic death metal, deathcore, progressive-symphonic \u2014 the band integrates structural violin, orchestral arrangements, and relentless composition into a sound built for pariahs, outcasts, and dark souls. Self-released under Great Tomb Productions.",
+  bio: "Heteromorphic Zoo is a Canadian extreme metal project led by guitarist and composer Ray Heberer. Drawing strength from all corners of the genre - melodic death metal, deathcore, progressive-symphonic - the band integrates structural violin, orchestral arrangements, and relentless composition into a sound built for pariahs, outcasts, and dark souls. Self-released under Great Tomb Productions.",
   stats: {
     title: "By the Numbers",
     spotifyListeners: "~2,800 monthly listeners",
@@ -398,10 +398,10 @@ export const PRESS = {
   ],
   comparisons: "In Flames \u00B7 Within the Ruins \u00B7 Ne Obliviscaris",
   lineup: [
-    "Ray Heberer \u2014 Guitar, vocals, composition, production",
-    "Megan Ash \u2014 Violin",
-    "Jon Power \u2014 Bass",
-    "Bryce Butler \u2014 Drums",
+    "Ray Heberer - Guitar, vocals, composition, production",
+    "Megan Ash - Violin",
+    "Jon Power - Bass",
+    "Bryce Butler - Drums",
   ],
   links: {
     bandcamp: "https://heteromorphiczoo.bandcamp.com",
