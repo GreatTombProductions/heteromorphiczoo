@@ -8,10 +8,8 @@ All endpoints require admin authentication (Google OAuth or API key).
 Mounted at /api/hz/admin/* (except public chronicle at /api/hz/chronicle).
 """
 
-import os
 import uuid
 from datetime import datetime, timezone
-from pathlib import Path
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
 from pydantic import BaseModel

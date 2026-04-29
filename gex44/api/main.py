@@ -623,7 +623,7 @@ async def submit_offering(
         if file.content_type not in PUBLIC_UPLOAD_ALLOWED_TYPES:
             raise HTTPException(
                 status_code=400,
-                detail=f"File type not allowed. Accepted: images, audio, video, PDF.",
+                detail="File type not allowed. Accepted: images, audio, video, PDF.",
             )
 
         # Read file and enforce size limit
