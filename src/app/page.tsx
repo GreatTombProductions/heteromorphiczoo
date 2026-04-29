@@ -3,6 +3,7 @@
 import { BENEDICTION, LANDING } from "@/lib/copy";
 import Navigation from "@/components/Navigation";
 import SignupForm from "@/components/SignupForm";
+import FooterPolicy from "@/components/FooterPolicy";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -51,6 +52,9 @@ export default function Home() {
 
         {/* Atmospheric line */}
         <p className={styles.atmospheric}>{LANDING.atmosphericLine}</p>
+
+        {/* Policy accordion */}
+        <FooterPolicy />
       </main>
 
     </div>

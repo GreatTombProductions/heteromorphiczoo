@@ -36,6 +36,7 @@
 
   /* The artwork bleeds through the darkness — present but not framed */
   opacity: 0.55;
+  pointer-events: none;
 }
 
 /* --- The altar: centered content area --- */
