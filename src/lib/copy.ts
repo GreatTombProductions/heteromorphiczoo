@@ -481,8 +481,8 @@ export const RELICS = {
   title: "Relics",
   subtitle: "Every piece is made by someone whose craft we believe in.",
   description: [
-    "Each piece on this page was made by a specific artisan who is named, attributed, and linked. Their craft, interpreted through the world of Heteromorphic Zoo. The maker is not a vendor. The maker is the reason.",
-    "We pay our partners upfront for their design work. They handle production, pricing, and fulfillment on their own terms. Our site links to their shop. No revenue share. No extraction. The economics are simple because the mission is propagation, not margin.",
+    "Each piece on this page was made by a specific artisan who is named, attributed, and linked. Their craft, interpreted through the world of Heteromorphic Zoo.",
+    "We pay our partners upfront for their design work. They handle production, pricing, and fulfillment on their own terms. Our site links to their shop. No revenue share. No extraction. The economics are simple because the mission is propagation.",
   ],
   emptyState: {
     line1: "The forge is lit. The commissions are spoken.",
