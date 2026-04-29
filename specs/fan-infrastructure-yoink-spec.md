@@ -176,7 +176,7 @@ The **journey builder and segmentation engine**, not the full platform (probably
 ## Yoink #4: Megan CRM → Press Contact Pipeline
 
 ### Source
-`music/megan-crm/` -- YAML-based lead pipeline with Flask UI.
+`0th-floor-exterior/central-mausoleum/megan-crm/` -- YAML-based lead pipeline with Flask UI.
 
 ### What's Being Stolen
 The **entire architecture**, minimally adapted:

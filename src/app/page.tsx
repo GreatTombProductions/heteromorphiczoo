@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { BENEDICTION, LANDING } from "@/lib/copy";
 import Navigation from "@/components/Navigation";
 import SignupForm from "@/components/SignupForm";
@@ -52,11 +51,6 @@ export default function Home() {
 
         {/* Atmospheric line */}
         <p className={styles.atmospheric}>{LANDING.atmosphericLine}</p>
-
-        {/* Policy hook */}
-        <Link href="/policy" className={styles.policyHook}>
-          Every note is human.
-        </Link>
       </main>
 
     </div>

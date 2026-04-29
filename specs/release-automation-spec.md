@@ -60,7 +60,7 @@ This gives any Claude instance the right behavioral region on first prompt. No w
 
 ### 2. Press Contact CRM (Adapt from Megan CRM)
 
-The `music/megan-crm/` infrastructure is a YAML-based lead pipeline with Flask UI. Adaptation for press outreach:
+The `0th-floor-exterior/central-mausoleum/megan-crm/` infrastructure is a YAML-based lead pipeline with Flask UI. Adaptation for press outreach:
 
 ```yaml
 # music/heteromorphic-zoo/press-contacts.yaml
