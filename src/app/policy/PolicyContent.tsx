@@ -1,7 +1,10 @@
 "use client";
 
+import { useMemo } from "react";
 import Link from "next/link";
-import { POLICY } from "@/lib/copy";
+import { CARD, POLICY } from "@/lib/copy";
+import type { CardData } from "@/lib/card-types";
+import CardRenderer from "@/app/card/CardRenderer";
 import styles from "./page.module.css";
 
 /**
@@ -10,6 +13,15 @@ import styles from "./page.module.css";
  */
 export default function PolicyContent() {
   const [s1, s2, s3] = POLICY.sections;
+
+  const hzCardData: CardData = useMemo(() => ({
+    name: CARD.hzCard.name,
+    type: CARD.hzCard.type,
+    tagline: CARD.hzCard.tagline,
+    rows: [...CARD.defaultRows]
+      .map((r) => ({ domain: r.domain, score: r.hzScore, qualifier: r.hzQualifier }))
+      .sort((a, b) => a.score - b.score),
+  }), []);
 
   return (
     <article className={styles.policy}>
@@ -69,6 +81,17 @@ export default function PolicyContent() {
             Heteromorphic Zoo&rsquo;s position:{" "}
             <strong>{s3.declaration}</strong>
           </p>
+
+          {/* Inline card — proof of the declaration */}
+          <div className={styles.cardEmbed}>
+            <p className={styles.cardIntro}>{s3.cardEmbed.intro}</p>
+            <div className={styles.cardWrap}>
+              <CardRenderer data={hzCardData} />
+            </div>
+            <Link href="/card" className={styles.cardCta}>
+              {s3.cardEmbed.cta}
+            </Link>
+          </div>
 
           {s3.paragraphsAfterDeclaration.map((p, i) => (
             <p key={`after-${i}`}>{p}</p>

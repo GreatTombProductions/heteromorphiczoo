@@ -1,7 +1,7 @@
 "use client";
 
 import { CARD } from "@/lib/copy";
-import type { CardData } from "./page";
+import type { CardData } from "@/lib/card-types";
 import styles from "./CardRenderer.module.css";
 
 /**

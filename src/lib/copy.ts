@@ -422,6 +422,10 @@ export const POLICY = {
         "We are not waiting for the industry to figure this out.",
       ],
       declaration: "Every artist who uses generative AI in their creative output should say so, clearly, permanently, and without being asked.",
+      cardEmbed: {
+        intro: "Here\u2019s ours.",
+        cta: "Make yours \u2192",
+      },
       paragraphsAfterDeclaration: [
         "Not buried in metadata. Not in response to accusations. Proactively. Proudly, if they believe in what they\u2019re doing. The audience will decide what they value. The audience cannot decide if they don\u2019t know.",
       ],
@@ -744,7 +748,7 @@ export const CARD = {
     { domain: "Performance & Recording", hzScore: 1, hzQualifier: "No generative AI. No AI-mimicked performances. Real hands, real breath, real articulation." },
     { domain: "Mastering", hzScore: 2, hzQualifier: "No generative AI. The line is blurry and we don\u2019t directly control producers\u2019 tools." },
     { domain: "Web Development", hzScore: 5, hzQualifier: "Built with AI. Every page you\u2019re looking at." },
-    { domain: "PR & Copywriting", hzScore: 5, hzQualifier: "AI drafts. Humans decide what ships." },
+    { domain: "PR & Copywriting", hzScore: 5, hzQualifier: "Written with AI. The words you're reading right now." },
     { domain: "Social Media", hzScore: 3, hzQualifier: "AI assists in drafting. Final voice is usually human." },
   ],
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { CARD } from "@/lib/copy";
-import type { CardData, CardRow } from "./page";
+import type { CardData, CardRow } from "@/lib/card-types";
 import styles from "./CardBuilder.module.css";
 
 interface CardBuilderProps {

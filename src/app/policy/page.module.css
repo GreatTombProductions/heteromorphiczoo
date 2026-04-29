@@ -109,6 +109,54 @@
   color: var(--text-primary);
 }
 
+/* --- Section 3: Inline card embed --- */
+
+.cardEmbed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-card-light);
+  border-bottom: 1px solid var(--border-card-light);
+}
+
+.cardIntro {
+  font-family: var(--font-display) !important;
+  font-size: var(--size-xl) !important;
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.cardWrap {
+  max-width: 460px;
+  width: 100%;
+}
+
+.cardCta {
+  display: inline-block;
+  padding: 0.625rem 2rem;
+  border: 1px solid var(--accent-primary);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cardCta:hover {
+    background: var(--accent-primary);
+    color: var(--hz-bone);
+  }
+}
+
 /* --- Section 3: Sanctuary link --- */
 
 .sanctuaryBlock {

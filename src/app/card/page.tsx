@@ -7,22 +7,10 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
 import { CARD } from "@/lib/copy";
+import { CardData } from "@/lib/card-types";
 import CardRenderer from "./CardRenderer";
 import CardBuilder from "./CardBuilder";
 import styles from "./page.module.css";
-
-export interface CardRow {
-  domain: string;
-  score: number;
-  qualifier: string;
-}
-
-export interface CardData {
-  name: string;
-  type: "band" | "listener";
-  tagline: string;
-  rows: CardRow[];
-}
 
 function compressCardData(data: CardData): string {
   try {
