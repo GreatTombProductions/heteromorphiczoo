@@ -1,9 +1,8 @@
 "use client";
 
-import { BENEDICTION, LANDING, SITE } from "@/lib/copy";
+import { BENEDICTION, LANDING } from "@/lib/copy";
 import Navigation from "@/components/Navigation";
 import SignupForm from "@/components/SignupForm";
-import FooterPolicy from "@/components/FooterPolicy";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -54,11 +53,6 @@ export default function Home() {
         <p className={styles.atmospheric}>{LANDING.atmosphericLine}</p>
       </main>
 
-      {/* Footer */}
-      <footer className={styles.footer}>
-        <FooterPolicy />
-        <p>{SITE.copyright}</p>
-      </footer>
     </div>
   );
 }

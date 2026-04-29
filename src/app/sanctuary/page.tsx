@@ -17,9 +17,6 @@ export default function SanctuaryPage() {
       <main className={styles.main}>
         <SanctuaryForm />
       </main>
-      <footer className={styles.footer}>
-        <p>{SITE.copyright}</p>
-      </footer>
     </div>
   );
 }

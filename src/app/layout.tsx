@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import { OG, SITE } from "@/lib/copy";
+import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -59,7 +60,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <SiteFooter />
+      </body>
     </html>
   );
 }

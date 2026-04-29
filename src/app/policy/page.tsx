@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { POLICY, SITE } from "@/lib/copy";
+import { SITE } from "@/lib/copy";
 import Navigation from "@/components/Navigation";
 import PolicyContent from "@/components/PolicyContent";
 import styles from "./page.module.css";
@@ -17,9 +17,6 @@ export default function PolicyPage() {
       <main className={styles.main}>
         <PolicyContent styles={styles} headingLevel="h2" />
       </main>
-      <footer className={styles.footer}>
-        <p>{SITE.copyright}</p>
-      </footer>
     </div>
   );
 }

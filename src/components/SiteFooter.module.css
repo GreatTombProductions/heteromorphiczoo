@@ -1,0 +1,35 @@
+/* ============================================================
+   SiteFooter — Global footer (root layout)
+   ============================================================ */
+
+.footer {
+  margin-top: auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-card-subtle);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.policyLink {
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .policyLink:hover {
+    color: var(--text-primary);
+  }
+}
+
+.copyright {
+  margin: 0;
+}

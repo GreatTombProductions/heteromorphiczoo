@@ -83,9 +83,6 @@ export default function RelicsPage() {
           </p>
         </div>
       </main>
-      <footer className={styles.footer}>
-        <p>{SITE.copyright}</p>
-      </footer>
     </div>
   );
 }

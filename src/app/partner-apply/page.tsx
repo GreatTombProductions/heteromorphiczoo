@@ -18,9 +18,6 @@ export default function PartnerApplyPage() {
       <main className={styles.main}>
         <PartnerForm />
       </main>
-      <footer className={styles.footer}>
-        <p>{SITE.copyright}</p>
-      </footer>
     </div>
   );
 }

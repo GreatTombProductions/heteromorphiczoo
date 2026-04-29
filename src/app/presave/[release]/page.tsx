@@ -34,9 +34,6 @@ export default async function PresavePage({
       <main className={styles.main}>
         <PresaveForm release={release} />
       </main>
-      <footer className={styles.footer}>
-        <p>{SITE.copyright}</p>
-      </footer>
     </div>
   );
 }
