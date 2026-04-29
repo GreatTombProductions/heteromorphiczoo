@@ -1,29 +1,17 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { CARD, POLICY } from "@/lib/copy";
-import type { CardData } from "@/lib/card-types";
-import CardRenderer from "@/app/card/CardRenderer";
+import { POLICY } from "@/lib/copy";
+import PolicyContent from "./PolicyContent";
 import styles from "./FooterPolicy.module.css";
 
 /**
  * FooterPolicy — Expandable accordion in site footer.
- * Shows policy inline, or links to /policy for permalink.
- * Renders from same POLICY constant as /policy page.
+ * Renders PolicyContent with footer-scale styling.
  */
 export default function FooterPolicy() {
   const [expanded, setExpanded] = useState(false);
-  const [s1, s2, s3] = POLICY.sections;
-
-  const hzCardData: CardData = useMemo(() => ({
-    name: CARD.hzCard.name,
-    type: CARD.hzCard.type,
-    tagline: CARD.hzCard.tagline,
-    rows: [...CARD.defaultRows]
-      .map((r) => ({ domain: r.domain, score: r.hzScore, qualifier: r.hzQualifier }))
-      .sort((a, b) => a.score - b.score),
-  }), []);
 
   return (
     <div className={styles.wrapper}>
@@ -34,7 +22,9 @@ export default function FooterPolicy() {
         aria-controls="footer-policy-content"
       >
         <span>{POLICY.footerTrigger}</span>
-        <span className={`${styles.chevron} ${expanded ? styles.chevronOpen : ""}`}>
+        <span
+          className={`${styles.chevron} ${expanded ? styles.chevronOpen : ""}`}
+        >
           &#x25BE;
         </span>
       </button>
@@ -46,71 +36,7 @@ export default function FooterPolicy() {
         aria-labelledby="footer-policy-trigger"
       >
         <div className={styles.inner}>
-          {/* Section 1 */}
-          <section id={s1.id} className={styles.section}>
-            <h3 className={styles.sectionHeader}>{s1.title}</h3>
-            <p className={styles.heroLine}>{s1.paragraphs[0]}</p>
-            {s1.paragraphs.slice(1).map((p, i) =>
-              p.includes("[The Chronicle]") ? (
-                <p key={i}>
-                  We can prove all of this.{" "}
-                  <Link href="/chronicle" className={styles.inlineLink}>
-                    The Chronicle
-                  </Link>{" "}
-                  documents every collaboration, every production decision, every
-                  person who touched every release. That documentation is not a
-                  courtesy. It is the receipt.
-                </p>
-              ) : (
-                <p key={i}>{p}</p>
-              )
-            )}
-          </section>
-
-          {/* Section 2 */}
-          <section id={s2.id} className={styles.section}>
-            <h3 className={styles.sectionHeader}>{s2.title}</h3>
-            {s2.paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-            <blockquote className={styles.pullQuote}>
-              <p>{s2.pullQuote}</p>
-            </blockquote>
-            {s2.paragraphsAfterPullQuote.map((p, i) => (
-              <p key={`after-${i}`}>{p}</p>
-            ))}
-          </section>
-
-          {/* Section 3 */}
-          <section id={s3.id} className={styles.section}>
-            <h3 className={styles.sectionHeader}>{s3.title}</h3>
-            {s3.paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-            <p>
-              Heteromorphic Zoo&rsquo;s position:{" "}
-              <strong>{s3.declaration}</strong>
-            </p>
-            <div className={styles.cardEmbed}>
-              <p className={styles.cardIntro}>{s3.cardEmbed.intro}</p>
-              <div className={styles.cardWrap}>
-                <CardRenderer data={hzCardData} />
-              </div>
-              <Link href="/card" className={styles.cardCta}>
-                {s3.cardEmbed.cta}
-              </Link>
-            </div>
-            {s3.paragraphsAfterDeclaration.map((p, i) => (
-              <p key={`after-${i}`}>{p}</p>
-            ))}
-            <p>
-              {s3.sanctuaryPrompt}{" "}
-              <Link href="/sanctuary" className={styles.sanctuaryLink}>
-                {s3.sanctuaryLinkText}
-              </Link>
-            </p>
-            <p>{s3.sanctuaryCoda}</p>
-          </section>
+          <PolicyContent styles={styles} headingLevel="h3" />
 
           {/* Permalink to full page */}
           <div className={styles.permalink}>

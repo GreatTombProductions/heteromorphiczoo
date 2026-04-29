@@ -154,6 +154,11 @@
   color: var(--text-primary);
 }
 
+.exportButtonCopied {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
 .privacyNote {
   font-family: var(--font-functional);
   font-size: 0.6875rem;

@@ -414,24 +414,18 @@ export const POLICY = {
     {
       id: "the-problem-is-silence",
       title: "The Problem Is Silence.",
-      paragraphs: [
-        "We do not believe AI is evil. We do not believe it should be banned from creative work. People are allowed to make art however they want.",
-        "What we believe is this: you deserve to know.",
-        "When you listen to a song that moves you, you are entering a relationship with the person who made it. You are investing something \u2014 attention, emotion, money, identity. That investment is made on the assumption that a human being poured themselves into what you\u2019re hearing. When that assumption is wrong and nobody told you, the relationship is a fraud. Not because AI music is bad. Because silence about it is dishonest.",
-        "The music industry is not having this conversation loudly enough. Labels are quietly licensing AI-generated content. Artists are quietly using generative tools and not disclosing it. Platforms are adding optional disclosure tags that almost nobody uses. The infrastructure for transparency exists. The will to use it does not.",
-        "We are not waiting for the industry to figure this out.",
+      // Ordered content blocks. Move any block to rearrange the section.
+      flow: [
+        { type: "p", text: "We do not believe AI is evil. We do not believe it should be banned from creative work. People are allowed to make art however they want." },
+        { type: "p", text: "What we believe is this: you deserve to know." },
+        { type: "p", text: "When you listen to a song that moves you, you are entering a relationship with the person who made it. You are investing something \u2014 attention, emotion, money, identity. That investment is made on the assumption that a human being poured themselves into what you\u2019re hearing. When that assumption is wrong and nobody told you, the relationship is a fraud. Not because AI music is bad. Because silence about it is dishonest." },
+        { type: "p", text: "The music industry is not having this conversation loudly enough. Labels are quietly licensing AI-generated content. Artists are quietly using generative tools and not disclosing it. Platforms are adding optional disclosure tags that almost nobody uses. The infrastructure for transparency exists. The will to use it does not." },
+        { type: "p", text: "We are not waiting for the industry to figure this out." },
+        { type: "declaration", prefix: "Heteromorphic Zoo\u2019s position: ", text: "Every artist who uses generative AI in their creative output should say so, clearly, permanently, and without being asked." },
+        { type: "p", text: "Not buried in metadata. Not in response to accusations. Proactively. Proudly, if they believe in what they\u2019re doing. The audience will decide what they value. The audience cannot decide if they don\u2019t know." },
+        { type: "card-embed", intro: "Here\u2019s ours.", cta: "Make yours \u2192" },
+        { type: "sanctuary", prompt: "If your life or livelihood has been affected by AI \u2014 your voice cloned without consent, your work replaced by generated content, your income displaced by tools trained on your art \u2014", linkText: "we want to hear from you \u2192", coda: "We are not lawyers. We cannot represent you. But we can listen, we can amplify patterns we see, and we can connect you with organizations that can help. The Zoo\u2019s reach is small. The principle is not." },
       ],
-      declaration: "Every artist who uses generative AI in their creative output should say so, clearly, permanently, and without being asked.",
-      cardEmbed: {
-        intro: "Here\u2019s ours.",
-        cta: "Make yours \u2192",
-      },
-      paragraphsAfterDeclaration: [
-        "Not buried in metadata. Not in response to accusations. Proactively. Proudly, if they believe in what they\u2019re doing. The audience will decide what they value. The audience cannot decide if they don\u2019t know.",
-      ],
-      sanctuaryPrompt: "If your life or livelihood has been affected by AI \u2014 your voice cloned without consent, your work replaced by generated content, your income displaced by tools trained on your art \u2014",
-      sanctuaryLinkText: "we want to hear from you \u2192",
-      sanctuaryCoda: "We are not lawyers. We cannot represent you. But we can listen, we can amplify patterns we see, and we can connect you with organizations that can help. The Zoo\u2019s reach is small. The principle is not.",
     },
   ],
 } as const;

@@ -2,7 +2,7 @@
 // LAST_PROJECTED: 2026-04-29
 "use client";
 
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useCallback, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
@@ -84,11 +84,13 @@ function CardPageInner() {
     return `${window.location.origin}/card?d=${compressed}`;
   }, [cardData]);
 
-  const handleCopyLink = async () => {
+  const [copied, setCopied] = useState(false);
+  const copyTimeout = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  const handleCopyLink = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
     } catch {
-      // Fallback: create temp input
       const input = document.createElement("input");
       input.value = shareUrl;
       document.body.appendChild(input);
@@ -96,7 +98,10 @@ function CardPageInner() {
       document.execCommand("copy");
       document.body.removeChild(input);
     }
-  };
+    setCopied(true);
+    clearTimeout(copyTimeout.current);
+    copyTimeout.current = setTimeout(() => setCopied(false), 2000);
+  }, [shareUrl]);
 
   const handleDownloadPng = async () => {
     try {
@@ -165,8 +170,11 @@ function CardPageInner() {
               <button className={styles.exportButton} onClick={handleDownloadPng}>
                 {CARD.export.downloadPng}
               </button>
-              <button className={styles.exportButton} onClick={handleCopyLink}>
-                {CARD.export.copyLink}
+              <button
+                className={`${styles.exportButton} ${copied ? styles.exportButtonCopied : ""}`}
+                onClick={handleCopyLink}
+              >
+                {copied ? "Copied" : CARD.export.copyLink}
               </button>
             </div>
           </div>

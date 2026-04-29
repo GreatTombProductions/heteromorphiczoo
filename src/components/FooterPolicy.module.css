@@ -64,6 +64,14 @@
   gap: 2.5rem;
 }
 
+/* --- Policy article wrapper (matches page.module.css contract) --- */
+
+.policy {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
 /* --- Sections --- */
 
 .section {
@@ -83,13 +91,36 @@
   text-align: center;
 }
 
-.section p {
+.sectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionBody p {
   font-family: var(--font-body);
   font-size: var(--size-base);
   line-height: var(--leading-body);
   color: var(--text-primary);
   max-width: none;
   text-align: center;
+}
+
+/* --- Declaration --- */
+
+.declaration {
+  margin: 0.25rem 0;
+  text-align: center;
+}
+
+.declaration strong {
+  color: var(--text-primary);
+}
+
+/* --- Sanctuary --- */
+
+.sanctuaryBlock {
+  margin: 0.25rem 0;
 }
 
 /* --- Hero line (smaller in footer context) --- */

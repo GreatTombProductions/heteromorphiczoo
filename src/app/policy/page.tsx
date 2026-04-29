@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { POLICY, SITE } from "@/lib/copy";
 import Navigation from "@/components/Navigation";
-import PolicyContent from "./PolicyContent";
+import PolicyContent from "@/components/PolicyContent";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function PolicyPage() {
     <div className={styles.page}>
       <Navigation />
       <main className={styles.main}>
-        <PolicyContent />
+        <PolicyContent styles={styles} headingLevel="h2" />
       </main>
       <footer className={styles.footer}>
         <p>{SITE.copyright}</p>
