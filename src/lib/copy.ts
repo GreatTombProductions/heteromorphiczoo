@@ -660,12 +660,12 @@ export const PRESAVE_EMAILS = {
 
 export const BRIDGE = {
   ritesToRelics: {
-    text: "Your craft deserves more than a rite. If you forge things that endure, the relics program awaits.",
+    text: "If you are a professional seeking paid opportunities, you may be looking for the Relics page.",
     linkText: "See the Relics \u2192",
   },
 
   relicsToRites: {
-    text: "If you seek the act of creation over its artifacts, the rites are where the congregation gathers.",
+    text: "If you seek the act of community creation without professional obligation, the Rites are where the congregation gathers.",
     linkText: "Join the Rites \u2192",
   },
 } as const;
@@ -734,7 +734,7 @@ export const CARD = {
   },
 
   defaultRows: [
-    { domain: "Lyrics", hzScore: 0, hzQualifier: "Every word is written by a human being." },
+    { domain: "Lyrics", hzScore: 0, hzQualifier: "Every word is conceived and written by a human being." },
     { domain: "Composition & Arrangement", hzScore: 0, hzQualifier: "Every note, every harmony, every structural choice. Human decisions." },
     { domain: "Production & Mixing", hzScore: 1, hzQualifier: "No generative AI. Standard digital tools and modeling are craft, not generation." },
     { domain: "Cover Art", hzScore: 0, hzQualifier: "Painted by Lordigan Pedro Sena. A human hand, a human eye." },
