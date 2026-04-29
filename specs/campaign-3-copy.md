@@ -58,8 +58,9 @@ export const PRESAVE = {
   /* --- Email Capture --- */
   emailPrompt: "Leave your name with the menagerie. We summon you on the day.",
   emailPlaceholder: "your@email.com",
-  // Note: email field is PARALLEL to platform selection, not gated behind it.
-  // A visitor can pre-save without email (platform-only) or with email (notification + DP).
+  // Note: email is required. The presave's value IS notification —
+  // a platform preference without a reachable address has no operational function.
+  // The prompt frames email as essential to the summoning, not optional.
 
   /* --- Submit --- */
   submitButton: "Be Summoned",
@@ -292,7 +293,9 @@ export const PARTNER_APPLY = {
    ============================================================ */
 
 export const RELICS_UPDATED = {
-  // Replaces RELICS.description to match the new economic model.
+  // IMPLEMENTATION: In copy.ts, replace the `description` array within the existing
+  // RELICS export. Do NOT create a new export. Components importing RELICS.description
+  // will pick up the updated text without changes.
   // The existing RELICS.subtitle ("Every piece is made by someone whose craft we believe in.") holds.
   description: [
     "Each piece on this page was made by a specific artisan who is named, attributed, and linked. Their craft, interpreted through the world of Heteromorphic Zoo. The maker is not a vendor. The maker is the reason.",
