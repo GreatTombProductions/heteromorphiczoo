@@ -735,11 +735,11 @@ export const CARD = {
 
   defaultRows: [
     { domain: "Lyrics", hzScore: 0, hzQualifier: "Every word is conceived and written by a human being." },
-    { domain: "Composition & Arrangement", hzScore: 0, hzQualifier: "Every note, every harmony, every structural choice. Human decisions." },
-    { domain: "Production & Mixing", hzScore: 1, hzQualifier: "No generative AI. Standard digital tools and modeling are craft, not generation." },
-    { domain: "Cover Art", hzScore: 0, hzQualifier: "Painted by Lordigan Pedro Sena. A human hand, a human eye." },
+    { domain: "Composition & Arrangement", hzScore: 0, hzQualifier: "Every note, every harmony, every rhythm and structural choice." },
+    { domain: "Production & Mixing", hzScore: 1, hzQualifier: "No generative AI. Narrow AI deployed for emulation and optimization by various plugins." },
+    { domain: "Cover Art", hzScore: 0, hzQualifier: "Painted by Lordigan Pedro Sena." },
     { domain: "Music Videos", hzScore: 2, hzQualifier: "No AI preferred. Industry VFX trends make a hard zero increasingly unusual." },
-    { domain: "Performance & Recording", hzScore: 1, hzQualifier: "No generative AI. No AI-mimicked performances. Real hands, real breath, real articulation." },
+    { domain: "Performance & Recording", hzScore: 1, hzQualifier: "No generative AI. No AI-mimicked performances. Sample-based VSTs preferred for synths and orchestrations if human performances are unfeasible." },
     { domain: "Mastering", hzScore: 2, hzQualifier: "No generative AI. The line is blurry and we don\u2019t directly control producers\u2019 tools." },
     { domain: "Web Development", hzScore: 5, hzQualifier: "Built with AI. Every page you\u2019re looking at." },
     { domain: "PR & Copywriting", hzScore: 5, hzQualifier: "Written with AI. The words you're reading right now." },
