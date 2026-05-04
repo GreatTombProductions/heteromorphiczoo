@@ -77,17 +77,24 @@ export default function PresaveForm({ release }: PresaveFormProps) {
     }
 
     try {
+      // Only send menagerie fields if the user opened the accordion —
+      // existing fans who skip it shouldn't have their name/alias overwritten
+      // by the auto-generated placeholder.
+      const body: Record<string, unknown> = {
+        email: email.trim(),
+        platform,
+        release_slug: release,
+      };
+      if (accordionOpen) {
+        body.name = name.trim() || null;
+        body.opt_in_newsletter = newsletter;
+        body.metadata = Object.keys(metadata).length > 0 ? metadata : null;
+      }
+
       const res = await fetch(`${API_BASE}/api/hz/presave`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email.trim(),
-          platform,
-          release_slug: release,
-          name: name.trim() || null,
-          opt_in_newsletter: newsletter,
-          metadata: Object.keys(metadata).length > 0 ? metadata : null,
-        }),
+        body: JSON.stringify(body),
       });
 
       const data = await res.json();
