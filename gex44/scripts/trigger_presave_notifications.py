@@ -24,6 +24,7 @@ Prerequisites:
 """
 
 import argparse
+import json
 import sqlite3
 import sys
 import uuid
@@ -32,6 +33,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from api.config import API_PUBLIC_URL, DB_PATH, RESEND_API_KEY, RESEND_FROM_EMAIL
+
+# Load canonical email copy (shared with the TypeScript frontend)
+_EMAIL_COPY_PATH = Path(__file__).resolve().parent.parent.parent / "src" / "lib" / "email-copy.json"
+_EMAIL_COPY = json.loads(_EMAIL_COPY_PATH.read_text())
+_RELEASE_DAY = _EMAIL_COPY["releaseDay"]
 
 # --- Platform Deep Links ---
 # Fill these in when the release goes live on each platform.
@@ -57,53 +63,58 @@ PLATFORM_NAMES = {
 
 
 def build_email_body(platform: str, links: dict[str, str], fan_id: str) -> str:
-    """Build the release-day email text."""
+    """Build the release-day email text from canonical copy."""
     primary_link = links.get(platform, links.get("other", ""))
     platform_name = PLATFORM_NAMES.get(platform, "your platform")
+    listen_cta = _RELEASE_DAY["listenCta"]
+    all_platforms_label = _RELEASE_DAY["allPlatformsLabel"]
 
-    lines = [
-        "The rite has begun.",
-        "",
-        "Benediction is live. Hear the blessing:",
-        "",
-    ]
+    # Start with the canonical body lines (up to the empty slot where the
+    # listen link gets inserted — that's the double-blank in the copy)
+    body_lines = list(_RELEASE_DAY["body"])
 
-    # For newsletter-only fans (no platform preference), skip the primary link line
-    # and just show all platforms below
-    if platform != "newsletter" and primary_link:
-        lines.append(f"Listen on {platform_name} \u2192 {primary_link}")
-        lines.append("")
+    # Find the double-blank ("", "") where the primary listen link goes
+    insert_idx = None
+    for i in range(len(body_lines) - 1):
+        if body_lines[i] == "" and body_lines[i + 1] == "":
+            insert_idx = i + 1
+            break
 
-    lines.extend([
-        "Every note is human. Every lyric. Every melody. Every arrangement.",
-        "Every voice you hear spent years becoming itself.",
-        "",
-    ])
+    # For presave fans with a platform preference and a populated link,
+    # insert the primary listen CTA at the double-blank slot
+    if platform != "newsletter" and primary_link and insert_idx is not None:
+        cta_line = listen_cta.replace("{platform}", platform_name) + " " + primary_link
+        body_lines[insert_idx] = cta_line
 
-    # Add platform links (secondary for presave fans, all for newsletter fans)
+    # Build platform link section
     if platform == "newsletter":
         show_links = [(k, v) for k, v in links.items() if v and k != "other"]
     else:
         show_links = [(k, v) for k, v in links.items() if k != platform and v]
 
-    if show_links:
-        label = "Listen:" if platform == "newsletter" else "Also available on:"
-        lines.append(label)
+    # Insert platform links before the sign-off (find "— The Zoo" line)
+    signoff_idx = None
+    for i, line in enumerate(body_lines):
+        if line.startswith("\u2014"):
+            signoff_idx = i
+            break
+
+    if show_links and signoff_idx is not None:
+        platform_section = []
+        label = "Listen:" if platform == "newsletter" else all_platforms_label
+        platform_section.append(label)
         for plat, url in show_links:
             name = PLATFORM_NAMES.get(plat, plat)
-            lines.append(f"  {name}: {url}")
-        lines.append("")
+            platform_section.append(f"  {name}: {url}")
+        platform_section.append("")
+        # Insert before the blank line preceding the sign-off
+        body_lines[signoff_idx:signoff_idx] = platform_section
 
+    # Append unsubscribe
     unsub_url = f"{API_PUBLIC_URL}/api/hz/unsubscribe/{fan_id}"
-    lines.extend([
-        "If this moved you \u2014 tell someone.",
-        "",
-        "\u2014 The Zoo",
-        "",
-        f"Unsubscribe: {unsub_url}",
-    ])
+    body_lines.extend(["", f"Unsubscribe: {unsub_url}"])
 
-    return "\n".join(lines)
+    return "\n".join(body_lines)
 
 
 def main():
@@ -194,7 +205,7 @@ def main():
             resend.Emails.send({
                 "from": RESEND_FROM_EMAIL,
                 "to": email,
-                "subject": "The rite has begun \u2014 Benediction is live",
+                "subject": _RELEASE_DAY["subject"],
                 "text": body,
                 "headers": {
                     "List-Unsubscribe": f"<{unsub_url}>",
@@ -223,7 +234,7 @@ def main():
             resend.Emails.send({
                 "from": RESEND_FROM_EMAIL,
                 "to": email,
-                "subject": "The rite has begun \u2014 Benediction is live",
+                "subject": _RELEASE_DAY["subject"],
                 "text": body,
                 "headers": {
                     "List-Unsubscribe": f"<{unsub_url}>",

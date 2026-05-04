@@ -628,41 +628,8 @@ export const PRESAVE = {
   },
 } as const;
 
-export const PRESAVE_EMAILS = {
-  confirmation: {
-    subject: "You have been summoned: Benediction",
-    preheader: "The blessing approaches. You will know when it arrives.",
-    body: [
-      "You have been summoned.",
-      "",
-      "Benediction (featuring Coty Garcia) arrives soon.",
-      "A blessing spoken in two voices. The congregation appoints a new speaker.",
-      "",
-      "When the rite begins, we will reach you.",
-      "",
-      "\u2014 The Zoo",
-    ],
-  },
-
-  releaseDay: {
-    subject: "Heed now the summons, Benediction is live!",
-    preheader: "Hear the blessing of our elder speaker",
-    body: [
-      "The rite has begun.",
-      "",
-      "Benediction is live. Hear the blessing:",
-      "",
-      "",
-      "Every voice you hear spent years becoming itself.",
-      "",
-      "If this moved you, tell someone.",
-      "",
-      "\u2014 The Zoo",
-    ],
-    listenCta: "Listen on {platform} \u2192",
-    allPlatformsLabel: "Also available on:",
-  },
-} as const;
+// Email copy lives in email-copy.json so the Python backend can read the same source.
+export { default as PRESAVE_EMAILS } from "./email-copy.json";
 
 /* ============================================================
    Bridge Links — Rites \u2194 Relics Cross-Navigation

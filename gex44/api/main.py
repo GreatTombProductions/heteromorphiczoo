@@ -20,6 +20,7 @@ import asyncio
 import time
 import uuid
 from datetime import date, datetime, timezone
+from pathlib import Path
 
 from fastapi import Body, Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
@@ -904,6 +905,13 @@ def _unsubscribe_url(fan_id: str) -> str:
     return f"{API_PUBLIC_URL}/api/hz/unsubscribe/{fan_id}"
 
 
+def _load_email_copy() -> dict:
+    """Load canonical email copy shared with the TypeScript frontend."""
+    import json
+    copy_path = Path(__file__).resolve().parent.parent.parent / "src" / "lib" / "email-copy.json"
+    return json.loads(copy_path.read_text())
+
+
 def _send_presave_confirmation(email: str, release_slug: str, fan_id: str) -> bool:
     """Send confirmation email (Email 1) via Resend. Returns True on success."""
     if not RESEND_API_KEY:
@@ -912,22 +920,13 @@ def _send_presave_confirmation(email: str, release_slug: str, fan_id: str) -> bo
         import resend
         resend.api_key = RESEND_API_KEY
         unsub_url = _unsubscribe_url(fan_id)
+        copy = _load_email_copy()["confirmation"]
+        body_lines = list(copy["body"]) + ["", f"Unsubscribe: {unsub_url}"]
         resend.Emails.send({
             "from": RESEND_FROM_EMAIL,
             "to": email,
-            "subject": "You have been summoned \u2014 Benediction",
-            "text": "\n".join([
-                "You have been summoned.",
-                "",
-                "Benediction \u2014 featuring Coty Garcia \u2014 arrives soon.",
-                "A blessing spoken in two voices. The congregation appoints a new speaker.",
-                "",
-                "When the rite begins, we will reach you.",
-                "",
-                "\u2014 The Zoo",
-                "",
-                f"Unsubscribe: {unsub_url}",
-            ]),
+            "subject": copy["subject"],
+            "text": "\n".join(body_lines),
             "headers": {
                 "List-Unsubscribe": f"<{unsub_url}>",
                 "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
