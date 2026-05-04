@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { createOffering, getOfferings, reviewOffering } from "@/lib/admin/api";
+import { createOffering, deleteOffering, getOfferings, reviewOffering, updateOffering } from "@/lib/admin/api";
 import { useAdminToken } from "@/lib/admin/useAdminToken";
 import type { Offering } from "@/lib/admin/types";
 
@@ -17,6 +17,9 @@ export default function OfferingsPage() {
   const [statusFilter, setStatusFilter] = useState("pending");
   const [showCreate, setShowCreate] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editDescription, setEditDescription] = useState("");
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   const loadOfferings = useCallback(() => {
     if (!token) return;
@@ -29,16 +32,19 @@ export default function OfferingsPage() {
 
   useEffect(() => { loadOfferings(); }, [loadOfferings]);
 
+  function showToast(msg: string, duration = 3000) {
+    setToast(msg);
+    setTimeout(() => setToast(null), msg.startsWith("Error") ? 5000 : duration);
+  }
+
   async function handleReview(id: string, action: string) {
     if (!token) return;
     try {
       await reviewOffering(token, id, action);
-      setToast(`Offering ${action}d`);
-      setTimeout(() => setToast(null), 3000);
+      showToast(`Offering ${action}d`);
       loadOfferings();
     } catch (e: unknown) {
-      setToast(`Error: ${e instanceof Error ? e.message : "Unknown error"}`);
-      setTimeout(() => setToast(null), 5000);
+      showToast(`Error: ${e instanceof Error ? e.message : "Unknown error"}`);
     }
   }
 
@@ -49,14 +55,41 @@ export default function OfferingsPage() {
     const formData = new FormData(form);
     try {
       await createOffering(token, formData);
-      setToast("Offering created");
-      setTimeout(() => setToast(null), 3000);
+      showToast("Offering created");
       form.reset();
       setShowCreate(false);
       loadOfferings();
     } catch (err: unknown) {
-      setToast(`Error: ${err instanceof Error ? err.message : "Unknown error"}`);
-      setTimeout(() => setToast(null), 5000);
+      showToast(`Error: ${err instanceof Error ? err.message : "Unknown error"}`);
+    }
+  }
+
+  function startEdit(offering: Offering) {
+    setEditingId(offering.id);
+    setEditDescription(offering.description || "");
+  }
+
+  async function handleSaveEdit(id: string) {
+    if (!token) return;
+    try {
+      await updateOffering(token, id, { description: editDescription });
+      showToast("Description updated");
+      setEditingId(null);
+      loadOfferings();
+    } catch (e: unknown) {
+      showToast(`Error: ${e instanceof Error ? e.message : "Unknown error"}`);
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!token) return;
+    try {
+      await deleteOffering(token, id);
+      showToast("Offering deleted");
+      setConfirmDeleteId(null);
+      loadOfferings();
+    } catch (e: unknown) {
+      showToast(`Error: ${e instanceof Error ? e.message : "Unknown error"}`);
     }
   }
 
@@ -120,6 +153,7 @@ export default function OfferingsPage() {
             <tr>
               <th>Category</th>
               <th>Title</th>
+              <th>Description</th>
               <th>Fan</th>
               <th>Type</th>
               <th>Status</th>
@@ -132,6 +166,31 @@ export default function OfferingsPage() {
               <tr key={o.id}>
                 <td>{o.category}</td>
                 <td>{o.title || "\u2014"}</td>
+                <td style={{ maxWidth: "300px" }}>
+                  {editingId === o.id ? (
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                      <textarea
+                        className="admin-textarea"
+                        value={editDescription}
+                        onChange={(e) => setEditDescription(e.target.value)}
+                        rows={3}
+                        style={{ fontSize: "0.85rem", minWidth: "200px" }}
+                      />
+                      <div style={{ display: "flex", gap: "0.25rem" }}>
+                        <button className="admin-btn admin-btn-approve" onClick={() => handleSaveEdit(o.id)} style={{ fontSize: "0.75rem", padding: "0.15rem 0.4rem" }}>Save</button>
+                        <button className="admin-btn" onClick={() => setEditingId(null)} style={{ fontSize: "0.75rem", padding: "0.15rem 0.4rem" }}>Cancel</button>
+                      </div>
+                    </div>
+                  ) : (
+                    <span
+                      onClick={() => startEdit(o)}
+                      style={{ cursor: "pointer", borderBottom: "1px dashed rgba(255,255,255,0.3)" }}
+                      title="Click to edit description"
+                    >
+                      {o.description || <em style={{ opacity: 0.5 }}>no description</em>}
+                    </span>
+                  )}
+                </td>
                 <td>{o.fan_name || o.fan_email || "Admin"}</td>
                 <td>{o.content_type}</td>
                 <td>
@@ -162,12 +221,21 @@ export default function OfferingsPage() {
                     {o.status === "rejected" && (
                       <button className="admin-btn" onClick={() => handleReview(o.id, "pending")}>Pending</button>
                     )}
+                    {confirmDeleteId === o.id ? (
+                      <span style={{ display: "inline-flex", gap: "0.25rem", alignItems: "center" }}>
+                        <span style={{ fontSize: "0.75rem", opacity: 0.7 }}>Sure?</span>
+                        <button className="admin-btn admin-btn-reject" onClick={() => handleDelete(o.id)} style={{ fontSize: "0.75rem", padding: "0.15rem 0.4rem" }}>Yes</button>
+                        <button className="admin-btn" onClick={() => setConfirmDeleteId(null)} style={{ fontSize: "0.75rem", padding: "0.15rem 0.4rem" }}>No</button>
+                      </span>
+                    ) : (
+                      <button className="admin-btn admin-btn-reject" onClick={() => setConfirmDeleteId(o.id)} title="Delete offering">Delete</button>
+                    )}
                   </div>
                 </td>
               </tr>
             ))}
             {offerings.length === 0 && (
-              <tr><td colSpan={7} className="admin-empty">No offerings</td></tr>
+              <tr><td colSpan={8} className="admin-empty">No offerings</td></tr>
             )}
           </tbody>
         </table>

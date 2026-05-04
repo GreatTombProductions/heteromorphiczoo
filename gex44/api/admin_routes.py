@@ -492,6 +492,43 @@ async def update_offering(
     return {"status": "updated"}
 
 
+@router.delete("/admin/offerings/{offering_id}")
+async def delete_offering(
+    offering_id: str,
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+
+    offering = db.execute(
+        "SELECT id, event_id, content_url FROM offerings WHERE id = ?",
+        (offering_id,),
+    ).fetchone()
+    if not offering:
+        raise HTTPException(status_code=404, detail="Offering not found.")
+
+    # Revoke DP if it was awarded
+    if offering["event_id"]:
+        _revoke_dp_for_event(db, offering["event_id"], _now_iso())
+        db.execute(
+            "DELETE FROM engagement_events WHERE id = ?", (offering["event_id"],)
+        )
+
+    # Delete uploaded file if local
+    if offering["content_url"] and offering["content_url"].startswith("/uploads/"):
+        filepath = UPLOAD_DIR.parent / offering["content_url"].lstrip("/")
+        if filepath.exists():
+            filepath.unlink()
+
+    db.execute("DELETE FROM offerings WHERE id = ?", (offering_id,))
+    db.commit()
+
+    import asyncio
+    from .main import _trigger_aggregation
+    asyncio.create_task(_trigger_aggregation())
+
+    return {"status": "deleted"}
+
+
 @router.post("/admin/offerings/{offering_id}/review")
 async def review_offering(
     offering_id: str,

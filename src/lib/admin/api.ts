@@ -84,6 +84,9 @@ export const createOffering = (token: string, formData: FormData) =>
 export const updateOffering = (token: string, id: string, data: Record<string, unknown>) =>
   adminFetch(`/api/hz/admin/offerings/${id}`, { token, method: "PUT", body: JSON.stringify(data) });
 
+export const deleteOffering = (token: string, id: string) =>
+  adminFetch(`/api/hz/admin/offerings/${id}`, { token, method: "DELETE" });
+
 export const reviewOffering = (token: string, id: string, action: string) =>
   adminFetch(`/api/hz/admin/offerings/${id}/review`, {
     token, method: "POST", body: JSON.stringify({ action }),
