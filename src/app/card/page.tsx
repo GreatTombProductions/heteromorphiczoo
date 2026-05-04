@@ -134,10 +134,6 @@ function CardPageInner() {
             <p className={styles.heroBody}>{CARD.firstVisit.heroBody}</p>
           </header>
 
-          <div className={styles.heroCardWrap}>
-            <CardRenderer data={cardDataWithSortedRows} />
-          </div>
-
           <div className={styles.heroCta}>
             <button
               className={styles.ctaPrimary}
@@ -151,6 +147,10 @@ function CardPageInner() {
             <Link href="/policy" className={styles.ctaSecondary}>
               {CARD.firstVisit.ctaLearnMore}
             </Link>
+          </div>
+
+          <div className={styles.heroCardWrap}>
+            <CardRenderer data={cardDataWithSortedRows} />
           </div>
         </div>
       </>
