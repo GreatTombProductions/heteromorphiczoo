@@ -579,6 +579,16 @@ export const PRESAVE = {
 
   submitButton: "Be Summoned",
 
+  menagerieAccordion: {
+    toggle: "Join the menagerie",
+    namePlaceholder: "Name / alias for the roll",
+    newsletterLabel: "Subscribe to the newsletter",
+    newsletterFrequency: "expected frequency: once per season",
+    addFieldButton: "+ Add a detail",
+    fieldKeyPlaceholder: "e.g. city, favorite song",
+    fieldValuePlaceholder: "value",
+  },
+
   success: {
     headline: "You have been summoned.",
     body: "When the rite begins, you will know.",

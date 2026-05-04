@@ -71,7 +71,7 @@ def deploy_backend():
     env = os.environ.copy()
     # Preserve HZ_ env vars from the old process if possible
     print(f"  Starting uvicorn from {_PROJECT_ROOT}...")
-    proc = subprocess.Popen(
+    proc = subprocess.Popen(  # noqa: F841 — keeps subprocess ref alive
         [
             sys.executable, "-m", "uvicorn",
             "gex44.api.main:app",

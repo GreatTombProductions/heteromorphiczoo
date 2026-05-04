@@ -135,6 +135,7 @@ VALID_PLATFORMS = {"spotify", "apple", "youtube", "bandcamp", "other"}
 
 RESEND_API_KEY = os.getenv("HZ_RESEND_API_KEY", "")
 RESEND_FROM_EMAIL = os.getenv("HZ_RESEND_FROM", "noreply@heteromorphiczoo.band")
+FRONTEND_URL = os.getenv("HZ_FRONTEND_URL", "https://heteromorphiczoo.com")
 
 # Release state for presave lifecycle (presave → released URL transition)
 RELEASES = {

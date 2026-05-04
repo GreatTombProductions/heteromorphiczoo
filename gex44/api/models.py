@@ -144,6 +144,8 @@ class PresaveRequest(BaseModel):
     release_slug: str = "benediction"
     name: str | None = None
     source: str = "presave"
+    opt_in_newsletter: bool = False
+    metadata: dict[str, str] | None = None
 
 
 class PresaveResponse(BaseModel):

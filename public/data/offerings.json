@@ -1,19 +1,19 @@
 {
   "offerings": [
     {
-      "id": "1dc2a9b2-79d1-4dc8-8ae9-f674a2261883",
+      "id": "8ba02911-9113-4aee-8896-243b9c499ea7",
       "category": "visual",
-      "title": "cosmic overlord",
-      "description": "",
-      "content_url": "https://hz-api.greattombproductions.com/uploads/visual/17d5ca40-d1dd-4fe3-b709-3d02093c0a12_final.jpg",
+      "title": "The Chaos Of The Universe",
+      "description": "The universe\u2019s call to battle has arrived. Celebrate the world\u2019s collective pain in the darkness!\r\n\r\nAD: Ray Heberer",
+      "content_url": "https://hz-api.greattombproductions.com/uploads/visual/deba61a7-ea93-483e-9fa7-789d0d3fe0e1_render.jpg",
       "content_type": "image",
       "thumbnail_url": null,
       "creator_name": "The Menagerie",
-      "creator_rank": 0,
-      "creator_rank_title": "Uninitiated",
+      "creator_rank": 1,
+      "creator_rank_title": "Acolyte",
       "inspired_by": null,
-      "featured": false,
-      "approved_at": "2026-04-28T03:46:47Z"
+      "featured": true,
+      "approved_at": "2026-05-01T17:21:08Z"
     }
   ],
   "by_category": {
@@ -23,5 +23,5 @@
     "ritual": 0,
     "profane": 0
   },
-  "generated_at": "2026-04-29T19:08:15Z"
+  "generated_at": "2026-05-04T02:13:03Z"
 }

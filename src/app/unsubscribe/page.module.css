@@ -1,0 +1,81 @@
+/* ============================================================
+   /unsubscribe — Email opt-out confirmation
+   ============================================================ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1.5rem 4rem;
+}
+
+.container {
+  max-width: 480px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.04em;
+}
+
+.body {
+  font-family: var(--font-body);
+  font-size: var(--size-base);
+  color: var(--text-primary);
+  line-height: var(--leading-body);
+  max-width: 38ch;
+}
+
+.resubscribe {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border-card);
+  border-radius: 6px;
+  background: var(--bg-card-light);
+  width: 100%;
+}
+
+.resubscribeLabel {
+  font-family: var(--font-functional);
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.instructions {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  color: var(--text-primary);
+  line-height: var(--leading-body);
+}
+
+.link {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.link:hover {
+  color: var(--accent-hover);
+}

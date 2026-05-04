@@ -28,12 +28,14 @@ from fastapi.staticfiles import StaticFiles
 
 from .config import (
     ADMIN_API_KEY,
+    API_PUBLIC_URL,
     BENEDICTION_END,
     BENEDICTION_START,
     CORS_ORIGIN_REGEX,
     CORS_ORIGINS,
     EVENT_TYPES,
     FOUNDING_MULTIPLIER,
+    FRONTEND_URL,
     PUBLIC_UPLOAD_ALLOWED_TYPES,
     PUBLIC_UPLOAD_MAX_BYTES,
     RANK_TABLE,
@@ -897,13 +899,19 @@ async def submit_sanctuary(req: SanctuaryRequest, request: Request):
 # POST /api/hz/presave
 # ---------------------------------------------------------------------------
 
-def _send_presave_confirmation(email: str, release_slug: str) -> bool:
+def _unsubscribe_url(fan_id: str) -> str:
+    """Build the one-click unsubscribe URL for a fan."""
+    return f"{API_PUBLIC_URL}/api/hz/unsubscribe/{fan_id}"
+
+
+def _send_presave_confirmation(email: str, release_slug: str, fan_id: str) -> bool:
     """Send confirmation email (Email 1) via Resend. Returns True on success."""
     if not RESEND_API_KEY:
         return False
     try:
         import resend
         resend.api_key = RESEND_API_KEY
+        unsub_url = _unsubscribe_url(fan_id)
         resend.Emails.send({
             "from": RESEND_FROM_EMAIL,
             "to": email,
@@ -917,7 +925,13 @@ def _send_presave_confirmation(email: str, release_slug: str) -> bool:
                 "When the rite begins, we will reach you.",
                 "",
                 "\u2014 The Zoo",
+                "",
+                f"Unsubscribe: {unsub_url}",
             ]),
+            "headers": {
+                "List-Unsubscribe": f"<{unsub_url}>",
+                "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+            },
         })
         return True
     except Exception as e:
@@ -951,6 +965,58 @@ async def presave(req: PresaveRequest, request: Request):
         fan_id = existing_fan["id"]
         is_founding = bool(existing_fan["founding_member"])
         current_lifetime_dp = existing_fan["lifetime_dp"]
+
+        # Upsert menagerie details if provided (same logic as /join)
+        import re as _re
+        changes: list[str] = []
+
+        if req.name and req.name.strip():
+            stored_name = db.execute(
+                "SELECT name FROM fans WHERE id = ?", (fan_id,)
+            ).fetchone()["name"]
+            if stored_name != req.name.strip():
+                db.execute(
+                    "UPDATE fans SET name = ?, updated_at = ? WHERE id = ?",
+                    (req.name.strip(), now, fan_id),
+                )
+                changes.append("name")
+
+        if req.opt_in_newsletter:
+            stored_newsletter = db.execute(
+                "SELECT opt_in_newsletter FROM fans WHERE id = ?", (fan_id,)
+            ).fetchone()["opt_in_newsletter"]
+            if not stored_newsletter:
+                db.execute(
+                    "UPDATE fans SET opt_in_newsletter = 1, updated_at = ? WHERE id = ?",
+                    (now, fan_id),
+                )
+                changes.append("newsletter")
+
+        if req.metadata:
+            existing_meta = {
+                row["field_key"]: row["field_value"]
+                for row in db.execute(
+                    "SELECT field_key, field_value FROM fan_metadata WHERE fan_id = ?",
+                    (fan_id,),
+                ).fetchall()
+            }
+            for key, value in list(req.metadata.items())[:20]:
+                clean_key = _re.sub(r'[^a-zA-Z0-9_ -]', '', key)[:50].strip()
+                clean_value = str(value)[:500].strip()
+                if clean_key and clean_value and existing_meta.get(clean_key) != clean_value:
+                    meta_id = str(uuid.uuid4())
+                    db.execute(
+                        """INSERT OR REPLACE INTO fan_metadata (id, fan_id, field_key, field_value, created_at, updated_at)
+                           VALUES (
+                               COALESCE((SELECT id FROM fan_metadata WHERE fan_id = ? AND field_key = ?), ?),
+                               ?, ?, ?, COALESCE((SELECT created_at FROM fan_metadata WHERE fan_id = ? AND field_key = ?), ?), ?
+                           )""",
+                        (fan_id, clean_key, meta_id, fan_id, clean_key, clean_value, fan_id, clean_key, now, now),
+                    )
+                    changes.append(f"metadata:{clean_key}")
+
+        if changes:
+            db.commit()
     else:
         # Create fan record (same pattern as /join)
         fan_id = str(uuid.uuid4())
@@ -960,9 +1026,24 @@ async def presave(req: PresaveRequest, request: Request):
         db.execute(
             """INSERT INTO fans (id, email, name, source, acquired_at, founding_member,
                opt_in_newsletter, created_at, updated_at)
-               VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?)""",
-            (fan_id, email_lower, req.name, source, now, int(is_founding), now, now),
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (fan_id, email_lower, req.name, source, now, int(is_founding),
+             int(req.opt_in_newsletter), now, now),
         )
+
+        # Store metadata if provided
+        if req.metadata:
+            import re as _re
+            for key, value in list(req.metadata.items())[:20]:
+                clean_key = _re.sub(r'[^a-zA-Z0-9_ -]', '', key)[:50].strip()
+                clean_value = str(value)[:500].strip()
+                if clean_key and clean_value:
+                    meta_id = str(uuid.uuid4())
+                    db.execute(
+                        """INSERT INTO fan_metadata (id, fan_id, field_key, field_value, created_at, updated_at)
+                           VALUES (?, ?, ?, ?, ?, ?)""",
+                        (meta_id, fan_id, clean_key, clean_value, now, now),
+                    )
 
         # Fire join_mailing_list engagement event
         join_base_dp = EVENT_TYPES["join_mailing_list"][1]  # 5
@@ -1035,7 +1116,7 @@ async def presave(req: PresaveRequest, request: Request):
     db.commit()
 
     # Send confirmation email (inline, best-effort)
-    confirmation_sent = _send_presave_confirmation(email_lower, req.release_slug)
+    confirmation_sent = _send_presave_confirmation(email_lower, req.release_slug, fan_id)
     if confirmation_sent:
         db.execute(
             "UPDATE presaves SET confirmation_sent = 1, confirmation_sent_at = ? WHERE id = ?",
@@ -1052,6 +1133,32 @@ async def presave(req: PresaveRequest, request: Request):
         already_presaved=False,
         founding_member=is_founding,
         dp_awarded=presave_dp,
+    )
+
+
+# ---------------------------------------------------------------------------
+# GET /api/hz/unsubscribe/[fan_id] — one-click email opt-out
+# ---------------------------------------------------------------------------
+
+@app.get("/api/hz/unsubscribe/{fan_id}")
+async def unsubscribe(fan_id: str):
+    """One-click unsubscribe. Flips opt_in_newsletter to 0, redirects to confirmation page."""
+    from fastapi.responses import RedirectResponse
+
+    db = get_app_db()
+    fan = db.execute("SELECT id FROM fans WHERE id = ?", (fan_id,)).fetchone()
+
+    if fan:
+        db.execute(
+            "UPDATE fans SET opt_in_newsletter = 0, updated_at = ? WHERE id = ?",
+            (_now_iso(), fan_id),
+        )
+        db.commit()
+
+    # Redirect to frontend confirmation page regardless (don't leak fan existence)
+    return RedirectResponse(
+        url=f"{FRONTEND_URL}/unsubscribe?done=1",
+        status_code=302,
     )
 
 
