@@ -44,7 +44,7 @@ export default function CardBuilder({ data, onChange }: CardBuilderProps) {
       rows: CARD.defaultRows.map((r) => ({
         domain: r.domain,
         score: r.hzScore,
-        qualifier: r.hzQualifier,
+        qualifier: "",
       })),
     });
   };
@@ -142,7 +142,11 @@ export default function CardBuilder({ data, onChange }: CardBuilderProps) {
               className={styles.qualifierInput}
               value={row.qualifier}
               onChange={(e) => updateRow(i, "qualifier", e.target.value)}
-              placeholder={CARD.controls.qualifierPlaceholder}
+              placeholder={
+                CARD.defaultRows[i]?.hzQualifier
+                  ? `${CARD.controls.qualifierPlaceholder} (e.g. ${CARD.defaultRows[i].hzQualifier})`
+                  : CARD.controls.qualifierPlaceholder
+              }
             />
           </div>
         ))}

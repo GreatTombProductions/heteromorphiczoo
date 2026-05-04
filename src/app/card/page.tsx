@@ -30,15 +30,15 @@ function decompressCardData(encoded: string): CardData | null {
   }
 }
 
-function getHzCardData(): CardData {
+function getHzCardData(forDisplay = true): CardData {
   return {
-    name: CARD.hzCard.name,
+    name: forDisplay ? CARD.hzCard.name : "",
     type: CARD.hzCard.type,
-    tagline: CARD.hzCard.tagline,
+    tagline: forDisplay ? CARD.hzCard.tagline : "",
     rows: CARD.defaultRows.map((r) => ({
       domain: r.domain,
       score: r.hzScore,
-      qualifier: r.hzQualifier,
+      qualifier: forDisplay ? r.hzQualifier : "",
     })),
   };
 }
@@ -141,7 +141,10 @@ function CardPageInner() {
           <div className={styles.heroCta}>
             <button
               className={styles.ctaPrimary}
-              onClick={() => setMode("builder")}
+              onClick={() => {
+                setCardData(getHzCardData(false));
+                setMode("builder");
+              }}
             >
               {CARD.firstVisit.ctaCreate}
             </button>
