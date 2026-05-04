@@ -119,7 +119,7 @@ export default function PresaveForm({ release }: PresaveFormProps) {
     return (
       <div className={styles.container}>
         <div className={styles.artwork}>
-          <div className={styles.artworkPlaceholder} />
+            <img src="/benediction-artwork.jpg" alt="Benediction — Heteromorphic Zoo feat. Coty Garcia" />
         </div>
         <div className={styles.successContainer}>
           <h2 className={styles.successHeadline}>
@@ -142,7 +142,7 @@ export default function PresaveForm({ release }: PresaveFormProps) {
     return (
       <div className={styles.container}>
         <div className={styles.artwork}>
-          <div className={styles.artworkPlaceholder} />
+            <img src="/benediction-artwork.jpg" alt="Benediction — Heteromorphic Zoo feat. Coty Garcia" />
         </div>
         <div className={styles.successContainer}>
           <h2 className={styles.successHeadline}>
@@ -160,7 +160,7 @@ export default function PresaveForm({ release }: PresaveFormProps) {
     <div className={styles.container}>
       {/* Album Art */}
       <div className={styles.artwork}>
-        <div className={styles.artworkPlaceholder} />
+          <img src="/benediction-artwork.jpg" alt="Benediction — Heteromorphic Zoo feat. Coty Garcia" />
       </div>
 
       {/* Title */}

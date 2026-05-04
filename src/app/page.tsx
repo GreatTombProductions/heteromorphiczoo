@@ -34,9 +34,9 @@ export default function Home() {
           {/* Action block */}
           <div className={styles.actions}>
             <a
-              href="#capture"
+              href="https://heteromorphiczoo.band/presave/benediction"
               className={styles.ctaPrimary}
-              aria-label="Join the menagerie"
+              aria-label="Pre-save Benediction"
             >
               {BENEDICTION.ctaPrimary}
             </a>

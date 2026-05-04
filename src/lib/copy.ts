@@ -624,17 +624,18 @@ export const PRESAVE = {
   og: {
     title: "Benediction \u2014 Heteromorphic Zoo (feat. Coty Garcia)",
     description: "A blessing spoken in two voices. Be summoned.",
+    image: "/benediction-artwork.jpg",
   },
 } as const;
 
 export const PRESAVE_EMAILS = {
   confirmation: {
-    subject: "You have been summoned \u2014 Benediction",
+    subject: "You have been summoned: Benediction",
     preheader: "The blessing approaches. You will know when it arrives.",
     body: [
       "You have been summoned.",
       "",
-      "Benediction \u2014 featuring Coty Garcia \u2014 arrives soon.",
+      "Benediction (featuring Coty Garcia) arrives soon.",
       "A blessing spoken in two voices. The congregation appoints a new speaker.",
       "",
       "When the rite begins, we will reach you.",
@@ -644,18 +645,17 @@ export const PRESAVE_EMAILS = {
   },
 
   releaseDay: {
-    subject: "The rite has begun \u2014 Benediction is live",
-    preheader: "Hear the blessing. Every note is human.",
+    subject: "Heed now the summons, Benediction is live!",
+    preheader: "Hear the blessing of our elder speaker",
     body: [
       "The rite has begun.",
       "",
       "Benediction is live. Hear the blessing:",
       "",
       "",
-      "Every note is human. Every lyric. Every melody. Every arrangement.",
       "Every voice you hear spent years becoming itself.",
       "",
-      "If this moved you \u2014 tell someone.",
+      "If this moved you, tell someone.",
       "",
       "\u2014 The Zoo",
     ],

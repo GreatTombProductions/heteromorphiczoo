@@ -14,11 +14,13 @@ export const metadata: Metadata = {
     description: PRESAVE.og.description,
     type: "website",
     siteName: SITE.name,
+    images: [{ url: PRESAVE.og.image, width: 800, height: 800 }],
   },
   twitter: {
     card: "summary_large_image",
     title: PRESAVE.og.title,
     description: PRESAVE.og.description,
+    images: [PRESAVE.og.image],
   },
 };
 
