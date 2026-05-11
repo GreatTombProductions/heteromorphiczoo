@@ -31,6 +31,18 @@ _GEX44_DIR = _PROJECT_ROOT / "gex44"
 # Backend: restart uvicorn
 # ---------------------------------------------------------------------------
 
+_SERVICE_NAME = "hz-api.service"
+
+
+def _is_systemd_service_active() -> bool:
+    """Check if the hz-api systemd user service is active."""
+    result = subprocess.run(
+        ["systemctl", "--user", "is-active", _SERVICE_NAME],
+        capture_output=True, text=True,
+    )
+    return result.stdout.strip() == "active"
+
+
 def _find_uvicorn_pid() -> int | None:
     """Find the PID of the running uvicorn process for this project."""
     try:
@@ -46,7 +58,33 @@ def _find_uvicorn_pid() -> int | None:
 
 
 def deploy_backend():
-    """Restart the uvicorn API server to pick up code changes."""
+    """Restart the uvicorn API server to pick up code changes.
+
+    Prefers systemd service restart (robust, auto-recovery). Falls back to
+    manual PID management if the service isn't set up.
+    """
+    # Preferred path: systemd service
+    result = subprocess.run(
+        ["systemctl", "--user", "is-enabled", _SERVICE_NAME],
+        capture_output=True, text=True,
+    )
+    if result.returncode == 0:
+        print(f"  Restarting via systemd ({_SERVICE_NAME})...")
+        subprocess.run(
+            ["systemctl", "--user", "restart", _SERVICE_NAME],
+            check=True,
+        )
+        time.sleep(2)
+        if _is_systemd_service_active():
+            pid = _find_uvicorn_pid()
+            print(f"  [OK] {_SERVICE_NAME} active (PID {pid})")
+        else:
+            print(f"  [ERROR] {_SERVICE_NAME} failed to start. Check: journalctl --user -eu {_SERVICE_NAME}")
+            sys.exit(1)
+        return
+
+    # Fallback: manual PID management (for environments without systemd service)
+    print("  [WARN] systemd service not found, using manual restart...")
     pid = _find_uvicorn_pid()
 
     if pid:
@@ -69,7 +107,6 @@ def deploy_backend():
 
     # Start fresh
     env = os.environ.copy()
-    # Preserve HZ_ env vars from the old process if possible
     print(f"  Starting uvicorn from {_PROJECT_ROOT}...")
     proc = subprocess.Popen(  # noqa: F841 — keeps subprocess ref alive
         [
