@@ -9,7 +9,15 @@
       "joined": "2026-05-01"
     },
     {
-      "name": "TheFirstDiscile",
+      "name": "QueenBean",
+      "rank": 0,
+      "rank_title": "Uninitiated",
+      "lifetime_dp": 22,
+      "founding_member": true,
+      "joined": "2026-05-04"
+    },
+    {
+      "name": "TheFirstDisciple",
       "rank": 0,
       "rank_title": "Uninitiated",
       "lifetime_dp": 22,
@@ -41,5 +49,5 @@
       "joined": "2026-04-28"
     }
   ],
-  "generated_at": "2026-05-04T02:30:45Z"
+  "generated_at": "2026-05-04T17:32:55Z"
 }
