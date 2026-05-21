@@ -25,6 +25,14 @@
       "joined": "2026-04-28"
     },
     {
+      "name": "CrypticGargoyle73",
+      "rank": 0,
+      "rank_title": "Uninitiated",
+      "lifetime_dp": 7,
+      "founding_member": true,
+      "joined": "2026-05-20"
+    },
+    {
       "name": "Troller",
       "rank": 0,
       "rank_title": "Uninitiated",
@@ -49,5 +57,5 @@
       "joined": "2026-04-28"
     }
   ],
-  "generated_at": "2026-05-04T17:32:55Z"
+  "generated_at": "2026-05-21T11:10:43Z"
 }
