@@ -34,9 +34,11 @@ export default function Home() {
           {/* Action block */}
           <div className={styles.actions}>
             <a
-              href="https://heteromorphiczoo.band/presave/benediction"
+              href="https://www.youtube.com/watch?v=7B6B5Mi3s-s"
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.ctaPrimary}
-              aria-label="Pre-save Benediction"
+              aria-label="Watch Benediction on YouTube"
             >
               {BENEDICTION.ctaPrimary}
             </a>
