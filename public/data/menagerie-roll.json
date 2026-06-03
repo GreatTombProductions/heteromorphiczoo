@@ -25,6 +25,14 @@
       "joined": "2026-04-28"
     },
     {
+      "name": "Russell",
+      "rank": 0,
+      "rank_title": "Uninitiated",
+      "lifetime_dp": 7,
+      "founding_member": true,
+      "joined": "2026-06-03"
+    },
+    {
       "name": "RasvaaK",
       "rank": 0,
       "rank_title": "Uninitiated",
@@ -65,5 +73,5 @@
       "joined": "2026-04-28"
     }
   ],
-  "generated_at": "2026-06-01T10:06:02Z"
+  "generated_at": "2026-06-03T10:15:16Z"
 }
