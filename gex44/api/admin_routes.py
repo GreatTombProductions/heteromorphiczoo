@@ -523,6 +523,7 @@ async def delete_offering(
     db.commit()
 
     import asyncio
+
     from .main import _trigger_aggregation
     asyncio.create_task(_trigger_aggregation())
 
@@ -582,6 +583,7 @@ async def review_offering(
     db.commit()
 
     import asyncio
+
     from .main import _trigger_aggregation
     asyncio.create_task(_trigger_aggregation())
 
@@ -664,6 +666,7 @@ async def review_reaction(
     db.commit()
 
     import asyncio
+
     from .main import _trigger_aggregation
     asyncio.create_task(_trigger_aggregation())
 
@@ -757,6 +760,7 @@ async def review_claim(
     db.commit()
 
     import asyncio
+
     from .main import _trigger_aggregation
     asyncio.create_task(_trigger_aggregation())
 
