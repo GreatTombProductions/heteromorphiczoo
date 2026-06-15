@@ -293,6 +293,32 @@
   opacity: 0.7;
 }
 
+/* --- Social links --- */
+.socials {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--text-secondary);
+  transition: color 0.2s ease, filter 0.2s ease;
+  border-radius: 50%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .socialLink:hover {
+    color: var(--accent-primary);
+    filter: drop-shadow(0 0 8px rgba(196, 40, 110, 0.4));
+  }
+}
+
 
 /* ============================================================
    Responsive — the cathedral adapts, it doesn't collapse
