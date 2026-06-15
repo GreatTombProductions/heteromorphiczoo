@@ -25,6 +25,14 @@
       "joined": "2026-04-28"
     },
     {
+      "name": "KazeXT",
+      "rank": 0,
+      "rank_title": "Uninitiated",
+      "lifetime_dp": 7,
+      "founding_member": true,
+      "joined": "2026-06-14"
+    },
+    {
       "name": "Russell",
       "rank": 0,
       "rank_title": "Uninitiated",
@@ -73,5 +81,5 @@
       "joined": "2026-04-28"
     }
   ],
-  "generated_at": "2026-06-03T10:15:16Z"
+  "generated_at": "2026-06-14T19:58:27Z"
 }
