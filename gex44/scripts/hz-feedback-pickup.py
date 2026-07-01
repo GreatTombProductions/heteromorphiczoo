@@ -162,8 +162,7 @@ def build_inbox_content(item: dict) -> str:
         lines.append(f"- **Email:** {item.get('email', '')}")
         lines.append(f"- **Submitted:** {item.get('submitted_at', 'Unknown')}")
         lines.append("")
-        lines.append(f"Review at: https://heteromorphiczoo.com/admin (Partner Applications)")
-        lines.append("Action: Evaluate the collaborator proposal. Approve if there's genuine alignment, reject if not.")
+        lines.append(f"Review at: https://heteromorphiczoo.com/admin (Partner Applications) — NOTE: admin panel does NOT have partner application review yet. Only visibility is via this pickup bridge. See report 397eea59.")
 
     elif review_type == "sanctuary":
         lines.append(f"- **Name:** {item.get('name', 'Anonymous')}")
