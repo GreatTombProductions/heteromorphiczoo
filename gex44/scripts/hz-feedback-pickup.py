@@ -6,9 +6,10 @@ Queries the fan_db.sqlite for items needing admin review (pending reactions,
 offerings, partner applications, unreviewed sanctuary submissions, reaction
 claims), writes report-framed inbox files to agents/slimeko/workspace/inbox/.
 
-These are REVIEW items for Ray's attention — Slimeko cannot act on them directly
-(no admin panel access, no review authority). The inbox files surface what needs
-Ray's eyes; Slimeko creates Reports from them.
+These are REVIEW items for Ray's attention — Slimeko can review partner applications
+(admin panel now exists at /admin/partner-applications) but cannot review visual content
+(offerings) or other content-sensitive items. The inbox files surface what needs Ray's eyes;
+Slimeko creates Reports or acts directly where authorized.
 
 Idempotent: uses review-item UUID as filename, skips if file exists.
 Does NOT modify the source database (HZ admin panel is the review surface).
@@ -162,7 +163,7 @@ def build_inbox_content(item: dict) -> str:
         lines.append(f"- **Email:** {item.get('email', '')}")
         lines.append(f"- **Submitted:** {item.get('submitted_at', 'Unknown')}")
         lines.append("")
-        lines.append(f"Review at: https://heteromorphiczoo.com/admin (Partner Applications) — NOTE: admin panel does NOT have partner application review yet. Only visibility is via this pickup bridge. See report 397eea59.")
+        lines.append(f"Review at: https://heteromorphiczoo.com/admin/partner-applications")
 
     elif review_type == "sanctuary":
         lines.append(f"- **Name:** {item.get('name', 'Anonymous')}")
