@@ -88,6 +88,12 @@ export default function AdminDashboard() {
           </div>
         </div>
         <div className="admin-stat-card">
+          <div className="admin-stat-label">Pending Partner Apps</div>
+          <div className={`admin-stat-value ${(data.pending_partner_apps ?? 0) > 0 ? "alert" : ""}`}>
+            {data.pending_partner_apps ?? 0}
+          </div>
+        </div>
+        <div className="admin-stat-card">
           <div className="admin-stat-label">Total DP Awarded</div>
           <div className="admin-stat-value">{data.total_dp_awarded.toLocaleString()}</div>
         </div>

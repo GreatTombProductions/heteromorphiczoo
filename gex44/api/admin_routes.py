@@ -37,6 +37,7 @@ class DashboardResponse(BaseModel):
     pending_reactions: int
     pending_claims: int
     pending_sanctuary: int
+    pending_partner_apps: int
     total_dp_awarded: int
     by_rank: list[dict]
     by_source: list[dict]
@@ -93,6 +94,11 @@ class SanctuaryReviewAction(BaseModel):
     notes: str | None = None
 
 
+class PartnerAppReviewAction(BaseModel):
+    action: str  # "approve" | "reject"
+    notes: str | None = None
+
+
 # ---------------------------------------------------------------------------
 # Dashboard
 # ---------------------------------------------------------------------------
@@ -127,6 +133,14 @@ async def admin_dashboard(admin: dict = Depends(verify_admin)):
         ).fetchone()[0]
     except Exception:
         pending_sanctuary = 0
+
+    # Partner applications: count pending
+    try:
+        pending_partner_apps = db.execute(
+            "SELECT COUNT(*) FROM partner_applications WHERE status = 'pending'"
+        ).fetchone()[0]
+    except Exception:
+        pending_partner_apps = 0
 
     total_dp = db.execute(
         "SELECT COALESCE(SUM(lifetime_dp), 0) FROM fans"
@@ -167,6 +181,7 @@ async def admin_dashboard(admin: dict = Depends(verify_admin)):
         pending_reactions=pending_reactions,
         pending_claims=pending_claims,
         pending_sanctuary=pending_sanctuary,
+        pending_partner_apps=pending_partner_apps,
         total_dp_awarded=total_dp,
         by_rank=by_rank,
         by_source=by_source,
@@ -1122,6 +1137,96 @@ async def delete_sanctuary(
         raise HTTPException(status_code=404, detail="Submission not found.")
 
     db.execute("DELETE FROM sanctuary_submissions WHERE id = ?", (submission_id,))
+    db.commit()
+
+    return {"status": "deleted"}
+
+
+# ---------------------------------------------------------------------------
+# Partner applications (admin review)
+# ---------------------------------------------------------------------------
+
+
+@router.get("/admin/partner-applications")
+async def list_partner_applications(
+    status: str = Query("pending"),
+    page: int = Query(1, ge=1),
+    per_page: int = Query(20, ge=1, le=100),
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+    offset = (page - 1) * per_page
+
+    where = "WHERE pa.status = ?" if status != "all" else ""
+    params: list = [status] if status != "all" else []
+
+    try:
+        total = db.execute(
+            f"SELECT COUNT(*) FROM partner_applications pa {where}", params
+        ).fetchone()[0]
+
+        applications = [
+            dict(row)
+            for row in db.execute(
+                f"""SELECT pa.id, pa.name, pa.craft, pa.portfolio, pa.pitch,
+                           pa.email, pa.status, pa.submitted_at, pa.reviewed_at,
+                           pa.notes
+                    FROM partner_applications pa
+                    {where}
+                    ORDER BY pa.submitted_at DESC
+                    LIMIT ? OFFSET ?""",
+                params + [per_page, offset],
+            ).fetchall()
+        ]
+    except Exception:
+        return {"applications": [], "total": 0, "page": 1, "pages": 1}
+
+    pages = max(1, (total + per_page - 1) // per_page)
+    return {"applications": applications, "total": total, "page": page, "pages": pages}
+
+
+@router.post("/admin/partner-applications/{app_id}/review")
+async def review_partner_application(
+    app_id: str,
+    body: PartnerAppReviewAction,
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+    now = _now_iso()
+
+    existing = db.execute(
+        "SELECT id FROM partner_applications WHERE id = ?", (app_id,)
+    ).fetchone()
+    if not existing:
+        raise HTTPException(status_code=404, detail="Application not found.")
+
+    if body.action not in ("approve", "reject"):
+        raise HTTPException(status_code=400, detail="Invalid action. Use 'approve' or 'reject'.")
+
+    new_status = "approved" if body.action == "approve" else "rejected"
+    db.execute(
+        "UPDATE partner_applications SET status = ?, reviewed_at = ?, notes = ? WHERE id = ?",
+        (new_status, now, body.notes, app_id),
+    )
+    db.commit()
+
+    return {"status": new_status}
+
+
+@router.delete("/admin/partner-applications/{app_id}")
+async def delete_partner_application(
+    app_id: str,
+    admin: dict = Depends(verify_admin),
+):
+    db = get_app_db()
+
+    existing = db.execute(
+        "SELECT id FROM partner_applications WHERE id = ?", (app_id,)
+    ).fetchone()
+    if not existing:
+        raise HTTPException(status_code=404, detail="Application not found.")
+
+    db.execute("DELETE FROM partner_applications WHERE id = ?", (app_id,))
     db.commit()
 
     return {"status": "deleted"}

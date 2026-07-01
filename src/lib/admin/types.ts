@@ -115,6 +115,7 @@ export interface DashboardData {
   pending_reactions: number;
   pending_claims: number;
   pending_sanctuary: number;
+  pending_partner_apps: number;
   total_dp_awarded: number;
   by_rank: { rank: number; title: string; count: number }[];
   by_source: { source: string; count: number }[];
@@ -137,6 +138,19 @@ export interface SanctuarySubmission {
   story: string;
   submitted_at: string;
   reviewed: number;
+  reviewed_at: string | null;
+  notes: string | null;
+}
+
+export interface PartnerApplication {
+  id: string;
+  name: string;
+  craft: string;
+  portfolio: string;
+  pitch: string;
+  email: string;
+  status: string;
+  submitted_at: string;
   reviewed_at: string | null;
   notes: string | null;
 }

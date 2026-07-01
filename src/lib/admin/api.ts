@@ -163,6 +163,22 @@ export const reviewSanctuary = (token: string, id: string, notes?: string) =>
 export const deleteSanctuary = (token: string, id: string) =>
   adminFetch(`/api/hz/admin/sanctuary/${id}`, { token, method: "DELETE" });
 
+// Partner Applications
+export const getPartnerApplications = (token: string, params?: { status?: string; page?: number }) => {
+  const query = new URLSearchParams();
+  if (params?.status) query.set("status", params.status);
+  if (params?.page) query.set("page", String(params.page));
+  return adminFetch(`/api/hz/admin/partner-applications?${query}`, { token });
+};
+
+export const reviewPartnerApplication = (token: string, id: string, action: string, notes?: string) =>
+  adminFetch(`/api/hz/admin/partner-applications/${id}/review`, {
+    token, method: "POST", body: JSON.stringify({ action, notes: notes || null }),
+  });
+
+export const deletePartnerApplication = (token: string, id: string) =>
+  adminFetch(`/api/hz/admin/partner-applications/${id}`, { token, method: "DELETE" });
+
 // Upload
 export const uploadFile = (token: string, formData: FormData) =>
   adminFetch("/api/hz/admin/upload", { token, method: "POST", body: formData });
