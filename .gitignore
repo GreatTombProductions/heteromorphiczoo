@@ -45,3 +45,6 @@ nohup.out
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# user uploads
+gex44/data/uploads/
