@@ -1,6 +1,21 @@
 {
   "offerings": [
     {
+      "id": "aab93325-6f7f-4026-bf3f-3487638d3b13",
+      "category": "visual",
+      "title": " Rise",
+      "description": "In the domain, the call by the great one is heard",
+      "content_url": "https://hz-api.greattombproductions.com/uploads/visual/3181036e-18b6-4c7a-b6ad-99817090fc7a_final.jpg",
+      "content_type": "image",
+      "thumbnail_url": null,
+      "creator_name": "pilupilin",
+      "creator_rank": 1,
+      "creator_rank_title": "Acolyte",
+      "inspired_by": null,
+      "featured": false,
+      "approved_at": "2026-07-07T04:33:10Z"
+    },
+    {
       "id": "8ba02911-9113-4aee-8896-243b9c499ea7",
       "category": "visual",
       "title": "The Chaos Of The Universe",
@@ -17,11 +32,11 @@
     }
   ],
   "by_category": {
-    "visual": 1,
+    "visual": 2,
     "sonic": 0,
     "textual": 0,
     "ritual": 0,
     "profane": 0
   },
-  "generated_at": "2026-07-01T20:49:39Z"
+  "generated_at": "2026-07-07T04:33:10Z"
 }
