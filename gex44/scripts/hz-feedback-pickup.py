@@ -230,8 +230,10 @@ def main():
         filename = f"from-hz-{review_type}-{item_id}.md"
         filepath = SLIMEKO_INBOX / filename
 
-        if filepath.exists():
-            print(f"  SKIP {filename} (already in inbox)")
+        processed_path = SLIMEKO_INBOX / ".processed" / filename
+        if filepath.exists() or processed_path.exists():
+            reason = "inbox" if filepath.exists() else "processed"
+            print(f"  SKIP {filename} (already in {reason})")
             skipped += 1
             continue
 
