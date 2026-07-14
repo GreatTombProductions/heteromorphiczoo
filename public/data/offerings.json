@@ -1,6 +1,21 @@
 {
   "offerings": [
     {
+      "id": "5e727ec7-e847-4bb9-95c2-344f6c1f2fb1",
+      "category": "visual",
+      "title": "Welcome to the nightmare",
+      "description": "The world is manifestation of a dream ",
+      "content_url": "https://hz-api.greattombproductions.com/uploads/visual/e9e43e31-e2fd-4663-ac85-671e2519f662_final.jpg",
+      "content_type": "image",
+      "thumbnail_url": null,
+      "creator_name": "pilupilin",
+      "creator_rank": 2,
+      "creator_rank_title": "Deacon",
+      "inspired_by": null,
+      "featured": false,
+      "approved_at": "2026-07-07T04:33:11Z"
+    },
+    {
       "id": "aab93325-6f7f-4026-bf3f-3487638d3b13",
       "category": "visual",
       "title": " Rise",
@@ -9,8 +24,8 @@
       "content_type": "image",
       "thumbnail_url": null,
       "creator_name": "pilupilin",
-      "creator_rank": 1,
-      "creator_rank_title": "Acolyte",
+      "creator_rank": 2,
+      "creator_rank_title": "Deacon",
       "inspired_by": null,
       "featured": false,
       "approved_at": "2026-07-07T04:33:10Z"
@@ -24,19 +39,19 @@
       "content_type": "image",
       "thumbnail_url": null,
       "creator_name": "pilupilin",
-      "creator_rank": 1,
-      "creator_rank_title": "Acolyte",
+      "creator_rank": 2,
+      "creator_rank_title": "Deacon",
       "inspired_by": null,
       "featured": true,
       "approved_at": "2026-05-01T17:21:08Z"
     }
   ],
   "by_category": {
-    "visual": 2,
+    "visual": 3,
     "sonic": 0,
     "textual": 0,
     "ritual": 0,
     "profane": 0
   },
-  "generated_at": "2026-07-07T04:33:10Z"
+  "generated_at": "2026-07-13T19:08:18Z"
 }
