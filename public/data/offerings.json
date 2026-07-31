@@ -1,6 +1,21 @@
 {
   "offerings": [
     {
+      "id": "62a21aa1-875a-4701-a4aa-27c3a2a234f9",
+      "category": "visual",
+      "title": "Apostle",
+      "description": "The Birth of Hope and Death.",
+      "content_url": "https://hz-api.greattombproductions.com/uploads/visual/df50e795-b31f-419b-8752-47b4ac54fdcd_final.jpg",
+      "content_type": "image",
+      "thumbnail_url": null,
+      "creator_name": "pilupilin",
+      "creator_rank": 2,
+      "creator_rank_title": "Deacon",
+      "inspired_by": null,
+      "featured": false,
+      "approved_at": "2026-07-31T01:18:43Z"
+    },
+    {
       "id": "5e727ec7-e847-4bb9-95c2-344f6c1f2fb1",
       "category": "visual",
       "title": "Welcome to the nightmare",
@@ -47,11 +62,11 @@
     }
   ],
   "by_category": {
-    "visual": 3,
+    "visual": 4,
     "sonic": 0,
     "textual": 0,
     "ritual": 0,
     "profane": 0
   },
-  "generated_at": "2026-07-23T20:34:25Z"
+  "generated_at": "2026-07-31T01:18:43Z"
 }
