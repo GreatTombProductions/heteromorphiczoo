@@ -48,3 +48,6 @@ next-env.d.ts
 
 # user uploads
 gex44/data/uploads/
+
+# database backups (rotated by backup_fan_db.py, keep-14)
+gex44/data/backups/
