@@ -190,9 +190,14 @@ def build_inbox_content(item: dict) -> str:
     lines.append("")
     lines.append("---")
     lines.append("")
-    lines.append("**For Slimeko:** This needs Ray's attention. You cannot review HZ content directly.")
-    lines.append("Create a Report for Ray (`greattomb report --type proposal`) if this is new,")
-    lines.append("or batch multiple pending items into a single report.")
+    if review_type == "partner-applications":
+        lines.append("**For Slimeko:** Partner applications are reviewable directly — Slimeko can reject")
+        lines.append("clear spam (scrambled fields + synthetic Gmail signature) via the admin API, or")
+        lines.append("surface ambiguous applications to Ray for judgment.")
+    else:
+        lines.append("**For Slimeko:** This needs Ray's attention. You cannot review this content type directly.")
+        lines.append("Create a Report for Ray (`greattomb report --type proposal`) if this is new,")
+        lines.append("or batch multiple pending items into a single report.")
     lines.append("")
     lines.append(f"Item ID: {item.get('id', 'unknown')}")
 
