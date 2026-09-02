@@ -1,6 +1,21 @@
 {
   "offerings": [
     {
+      "id": "ca1c25b4-0624-45ac-869c-916b0c531790",
+      "category": "visual",
+      "title": "THE LAST SYMPHONY OF THE UNIVERSE",
+      "description": "This is the final symphony of a chaotic universe",
+      "content_url": "https://hz-api.greattombproductions.com/uploads/visual/797dd550-ce61-4650-b782-ca3f9cb670db_render 2.jpg",
+      "content_type": "image",
+      "thumbnail_url": null,
+      "creator_name": "pilupilin",
+      "creator_rank": 2,
+      "creator_rank_title": "Deacon",
+      "inspired_by": null,
+      "featured": false,
+      "approved_at": "2026-09-01T19:56:46Z"
+    },
+    {
       "id": "62a21aa1-875a-4701-a4aa-27c3a2a234f9",
       "category": "visual",
       "title": "Apostle",
@@ -62,11 +77,11 @@
     }
   ],
   "by_category": {
-    "visual": 4,
+    "visual": 5,
     "sonic": 0,
     "textual": 0,
     "ritual": 0,
     "profane": 0
   },
-  "generated_at": "2026-08-26T23:08:40Z"
+  "generated_at": "2026-09-01T19:56:46Z"
 }
