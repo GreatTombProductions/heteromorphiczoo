@@ -226,7 +226,7 @@ This spec is one piece of a larger strategy developed across two party sessions:
 |----------|---------|----------|
 | **PR Context Bundle** | Voice register + anti-pattern list for OUTPUT generation | `music/heteromorphic-zoo/benediction-pr-context-bundle.md` |
 | **Music Marketing Posture** | Contamination defense for INPUT (web search, strategy research) | `music/heteromorphic-zoo/MUSIC_MARKETING_POSTURE.md` |
-| **Menagerie Engagement Spec** | Fan prestige / loyalty / UGC system design | `music/heteromorphic-zoo/congregation-engagement-spec.md` (renamed to menagerie-engagement-spec.md) |
+| **Menagerie Engagement Spec** | Fan prestige / loyalty / UGC system design | `music/heteromorphic-zoo/menagerie-engagement-spec.md` |
 | **This document** | Release automation workflow + yoinkability decomposition | (this file) |
 
 **Key insight from Party 2:** The label-worthy strategy Ray wants isn't yoinkable from the music industry. The yoink sources are: (a) gaming battle pass mechanics for the engagement loop, (b) nuEra/Alpine IQ loyalty architecture as internal yoink for the data layer, (c) Dittofeed (open source, self-hosted customer engagement platform) for automated communication. The combination is something no indie band has ever had.
