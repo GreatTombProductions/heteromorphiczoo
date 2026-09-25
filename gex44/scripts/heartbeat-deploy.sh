@@ -12,8 +12,10 @@
 #   2. Commit the refreshed data files (data-only pathspec, isolated)
 #   3. Push the submodule — every commit on the branch deploys via Vercel
 #
-# Safe to re-run: no-op when nothing changed. Any earlier step failing aborts
-# before the push (set -e); a failed push leaves the queue for the next tick.
+# Safe to re-run: each run re-stamps the data files (new generated_at), so a
+# tick normally yields one refresh commit; nothing outside public/data/ is
+# ever staged. Any earlier step failing aborts before the push (set -e); a
+# failed push leaves the queue for the next tick.
 
 set -euo pipefail
 
