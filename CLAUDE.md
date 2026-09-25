@@ -37,17 +37,18 @@ Band website for Heteromorphic Zoo. Next.js + Vercel frontend, SQLite + Python/F
 
 ## Deployment
 
-**`git push` inside this submodule deploys to production via Vercel.** Committing the submodule pointer in greattomb does NOT deploy — local is the staging environment. Test locally, then `deploy.sh push` (or `git push` directly) when ready to go live.
+**`git push` inside this submodule deploys to production via Vercel.** Committing the submodule pointer in greattomb does NOT deploy — local is the staging environment.
+
+**Auto-flow surface (ruled 2026-09-21).** The push leg runs as a central-heartbeat job: `gex44/scripts/heartbeat-deploy.sh` (entry in `agents/infrastructure-schedule.yaml`) rebuilds the static JSON, commits it, and pushes the branch — every commit on the branch deploys on that tick. **Never hand-push** (see `docs/GIT_STRATEGY.md` → Submodule Mirror Freshness). Land work as commits; the flow deploys the queue. First fire / recovery: run the script directly (safe to re-run — no-op when nothing changed).
 
 ```bash
-# Full deploy: restart API, re-aggregate JSON, commit & push everything
-./gex44/scripts/deploy.sh
+# The deploy path (heartbeat flow)
+./gex44/scripts/heartbeat-deploy.sh
 
-# Individual steps
-./gex44/scripts/deploy.sh backend      # Just restart uvicorn
-./gex44/scripts/deploy.sh aggregate    # Just rebuild JSON
-./gex44/scripts/deploy.sh push         # Just commit & push to Vercel
-./gex44/scripts/deploy.sh --dry-run    # Show what would be pushed
+# Local / backend steps (never hand-push the production queue)
+./gex44/scripts/deploy.sh backend      # Restart uvicorn (backend changes)
+./gex44/scripts/deploy.sh aggregate    # Rebuild JSON locally
+./gex44/scripts/deploy.sh --dry-run    # Show what would be committed
 ```
 
 The backend runs as: `uvicorn gex44.api.main:app --host 0.0.0.0 --port 8081`
@@ -62,7 +63,7 @@ Aggregation rebuilds the static JSON files that the frontend reads (`public/data
 - On demand via `POST /api/hz/admin/aggregate` (API key or OAuth)
 - Debounced to at most once per 60 seconds
 
-After aggregation, the JSON files are on disk but not yet live on Vercel until pushed (`deploy.py frontend`).
+After aggregation, the JSON files are on disk but not yet live on Vercel until the heartbeat flow pushes them (`gex44/scripts/heartbeat-deploy.sh`).
 
 ---
 
@@ -91,6 +92,7 @@ gex44/                  Backend (runs on this machine)
   scripts/
     aggregate.py        Rebuild static JSON from SQLite
     deploy.py           Backend restart + frontend JSON push
+    heartbeat-deploy.sh Central-heartbeat flow: refresh + commit + push (deploys)
     init_db.py          Schema creation (idempotent)
     migrate_*.py        Schema migrations
     trigger_presave_notifications.py

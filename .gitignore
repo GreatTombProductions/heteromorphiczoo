@@ -39,6 +39,9 @@ yarn-error.log*
 # runtime output
 nohup.out
 
+# heartbeat logs
+/logs/
+
 # vercel
 .vercel
 
