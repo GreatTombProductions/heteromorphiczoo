@@ -41,6 +41,8 @@ Band website for Heteromorphic Zoo. Next.js + Vercel frontend, SQLite + Python/F
 
 **Auto-flow surface (ruled 2026-09-21).** The push leg runs as a central-heartbeat job: `gex44/scripts/heartbeat-deploy.sh` (entry in `agents/infrastructure-schedule.yaml`) rebuilds the static JSON, commits it, and pushes the branch — every commit on the branch deploys on that tick. **Never hand-push** (see `docs/GIT_STRATEGY.md` → Submodule Mirror Freshness). Land work as commits; the flow deploys the queue. First fire / recovery: run the script directly (safe to re-run — no-op when nothing changed).
 
+**Local auth-flow smoke (after dependency refreshes):** `AUTH_TRUST_HOST=true AUTH_SECRET=any GOOGLE_CLIENT_ID=any GOOGLE_CLIENT_SECRET=any npx next start -p 3999`, then assert `/api/auth/providers` → 200 JSON and `/api/auth/session` → 200 `null`. Localhost needs the trust+secret vars; Vercel supplies real values in production.
+
 ```bash
 # The deploy path (heartbeat flow)
 ./gex44/scripts/heartbeat-deploy.sh
