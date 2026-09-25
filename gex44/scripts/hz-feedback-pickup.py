@@ -293,15 +293,17 @@ def _is_spam_portfolio(value) -> bool:
 
 
 def _is_spam_email(value) -> bool:
-    """Lowercase gmail address with >=5 dot-separated local-part segments of
-    1-7 chars each and a local part of >=10 chars total."""
+    """Lowercase gmail address with >=4 dot-separated local-part segments of
+    1-7 chars each and a local part of >=10 chars total. (Was >=5 until
+    2026-09-25, when the bot's parameter drift produced a 4-segment variant:
+    ipo.quyo.xe3.5@gmail.com.)"""
     if not isinstance(value, str) or not EMAIL_RE.fullmatch(value):
         return False
     if value != value.lower():
         return False
     local = value.split("@", 1)[0]
     segments = local.split(".")
-    if len(segments) < 5:
+    if len(segments) < 4:
         return False
     if any(not 1 <= len(seg) <= 7 for seg in segments):
         return False
@@ -438,7 +440,7 @@ def handle_spam_candidate(
 
 # ---------------------------------------------------------------------------
 # Hermetic self-test fixtures - embedded VERBATIM from the validated spec
-# (13 historical spam instances + 5 human-shaped counterexamples). Literals
+# (14 historical spam instances + 5 human-shaped counterexamples). Literals
 # only: the self-test must not touch network, files, or DB.
 # ---------------------------------------------------------------------------
 
@@ -456,6 +458,7 @@ SPAM_FIXTURES = [
     {"name": 'VVppdZdoyUCwuuIjHfm', "craft": 'KAUewSUitwNambcFovKhUp', "portfolio": 'https://xgrcsxmtg.com', "pitch": 'ONOdibtceNYiasgUty', "email": 'e.nixe.j.o.r.e.7.9@gmail.com'},
     {"name": 'bUtSzNzQJiXPCzotgw', "craft": 'FVPkLayMiCnnYGJX', "portfolio": 'https://vcydhtnh.com', "pitch": 'zcPPZotCarriOSOCT', "email": 'xuw.edu.m.4.3.1@gmail.com'},
     {"name": 'XyeNgeXvUiQvRzkGWW', "craft": 'ePcXVaDvnDboXqeTw', "portfolio": 'https://lqrxjx.com', "pitch": 'DKmCSZPwtDCfLrxNBQ', "email": 'al.ok.e.dudob.a58.8@gmail.com'},
+    {"name": 'nUgpvGHwQnGzLDHYn', "craft": 'CfHGpiCCVyXifRHxD', "portfolio": 'https://cdtuobk.com', "pitch": 'OoMGaZbRWFTEIFBZHLYjGk', "email": 'ipo.quyo.xe3.5@gmail.com'},
 ]
 
 HUMAN_FIXTURES = [
