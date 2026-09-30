@@ -102,6 +102,7 @@ gex44/                  Backend (runs on this machine)
   data/
     fan_db.sqlite       Production database (gitignored)
     uploads/            User-uploaded files (gitignored)
+  requirements.txt      Backend Python dependencies
 
 specs/                  Design specs (data pipeline, engagement system, aesthetics,
                         presave schema, card propagation architecture, copy specs)
