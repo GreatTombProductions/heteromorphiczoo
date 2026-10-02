@@ -1,6 +1,21 @@
 {
   "offerings": [
     {
+      "id": "0fe2b875-0924-4fdc-9f05-73caf1add52d",
+      "category": "visual",
+      "title": "Astral Dimension",
+      "description": "When dimensions begin to crack, worlds become connected to one another.",
+      "content_url": "https://hz-api.greattombproductions.com/uploads/visual/0ffd6ce6-8af2-4c6f-a483-f9b3a2dee0e3_Untitled-1.jpg",
+      "content_type": "image",
+      "thumbnail_url": null,
+      "creator_name": "pilupilin",
+      "creator_rank": 2,
+      "creator_rank_title": "Deacon",
+      "inspired_by": null,
+      "featured": false,
+      "approved_at": "2026-10-02T19:14:00Z"
+    },
+    {
       "id": "ca1c25b4-0624-45ac-869c-916b0c531790",
       "category": "visual",
       "title": "THE LAST SYMPHONY OF THE UNIVERSE",
@@ -77,11 +92,11 @@
     }
   ],
   "by_category": {
-    "visual": 5,
+    "visual": 6,
     "sonic": 0,
     "textual": 0,
     "ritual": 0,
     "profane": 0
   },
-  "generated_at": "2026-10-01T23:30:14Z"
+  "generated_at": "2026-10-02T23:30:07Z"
 }
