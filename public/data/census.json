@@ -1,10 +1,10 @@
 {
-  "total_members": 37,
+  "total_members": 38,
   "by_rank": [
     {
       "rank": 0,
       "title": "Uninitiated",
-      "count": 36
+      "count": 37
     },
     {
       "rank": 1,
@@ -35,5 +35,5 @@
   "total_offerings": 6,
   "total_reactions": 9,
   "founding_members": 17,
-  "generated_at": "2026-10-10T23:30:07Z"
+  "generated_at": "2026-10-11T12:07:05Z"
 }
